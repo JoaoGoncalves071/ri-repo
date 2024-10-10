@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1728573161.17313 "c:/Users/Utilizador/OneDrive - Instituto Superior de Engenharia de Lisboa/Semestre 5/RI/ri-repo/TP1/Relatorio/main.tex" "main.pdf" "main" 1728573163.29081 0
+["pdflatex"] 1728573349.01646 "c:/Users/Utilizador/OneDrive - Instituto Superior de Engenharia de Lisboa/Semestre 5/RI/ri-repo/TP1/Relatorio/main.tex" "main.pdf" "main" 1728573351.11663 0
   "C:/Users/Utilizador/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1728571612 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/Utilizador/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbi1095.pk" 1728571620 38336 6cbf56051d16b1d9b9b7978f7ca17deb ""
   "C:/Users/Utilizador/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1728571623 28976 5ec5bf52ba963c7dfdf264f139c98a17 ""
@@ -108,7 +108,7 @@
   "C:/Users/Utilizador/AppData/Local/Programs/MiKTeX/tex/latex/titlesec/titlesec.sty" 1699094857 48766 0b93839be28e9744a24c45075c75b2e2 ""
   "C:/Users/Utilizador/AppData/Local/Programs/MiKTeX/tex/latex/tools/afterpage.sty" 1718356376 4085 a8942f4e9896fdaec6c24cdd7b28fa66 ""
   "C:/Users/Utilizador/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/Utilizador/OneDrive - Instituto Superior de Engenharia de Lisboa/Semestre 5/RI/ri-repo/TP1/Relatorio/main.tex" 1728573158 20308 a5dd91af027aba34ac66b5d72e2d4f8e ""
+  "c:/Users/Utilizador/OneDrive - Instituto Superior de Engenharia de Lisboa/Semestre 5/RI/ri-repo/TP1/Relatorio/main.tex" 1728573345 20936 a5dd91af027aba34ac66b5d72e2d4f8e ""
   "imagens/Tarefa1/1.b.png" 1728571806 19363 b18a3bf0c3e61e406fbbeb19e7ed278d ""
   "imagens/Tarefa1/1.c.png" 1728571806 39392 3ba4b344eabc95d10ee29e105c945e85 ""
   "imagens/Tarefa1/1.i.2.png" 1728571806 29003 f044aa8abc1aa7a5c735e9ded7eb7692 ""
@@ -118,12 +118,12 @@
   "imagens/Tarefa1/1.p.2.png" 1728571806 35119 c617a3d7e5fe824fe07a8327adb9e45b ""
   "imagens/Tarefa1/1.p.png" 1728571806 41312 c5387aa654e1d3975ac3037fe32d87cd ""
   "imagens/isel.png" 1728571806 70171 c4433021237ee7d163f92b693e24c19a ""
-  "main.aux" 1728573163 3257 473a6ee1eabe5d7099729a51cc4253ce "pdflatex"
-  "main.lof" 1728573163 803 4f8ed17cdf5d7d19b27756c666430258 "pdflatex"
-  "main.lot" 1728573163 308 eaaf16f5ac08ff9ec7779932b1c5df78 "pdflatex"
-  "main.out" 1728573163 707 4dcea9907c7e9c98b7479592cc8157e3 "pdflatex"
-  "main.tex" 1728573158 20308 a5dd91af027aba34ac66b5d72e2d4f8e ""
-  "main.toc" 1728573163 547 610eaa323a467ed684fd01b21494e99e "pdflatex"
+  "main.aux" 1728573350 3257 473a6ee1eabe5d7099729a51cc4253ce "pdflatex"
+  "main.lof" 1728573350 803 4f8ed17cdf5d7d19b27756c666430258 "pdflatex"
+  "main.lot" 1728573350 308 eaaf16f5ac08ff9ec7779932b1c5df78 "pdflatex"
+  "main.out" 1728573350 707 4dcea9907c7e9c98b7479592cc8157e3 "pdflatex"
+  "main.tex" 1728573345 20936 a5dd91af027aba34ac66b5d72e2d4f8e ""
+  "main.toc" 1728573350 547 610eaa323a467ed684fd01b21494e99e "pdflatex"
   (generated)
   "main.aux"
   "main.lof"
