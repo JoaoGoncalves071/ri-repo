@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.30)  10 OCT 2024 16:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.30)  10 OCT 2024 16:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -458,7 +458,7 @@ Cap\'{\i }tulo 2.
 <imagens/Tarefa1/1.b.png, id=89, 398.6895pt x 231.86626pt>
 File: imagens/Tarefa1/1.b.png Graphic file (type png)
 <use imagens/Tarefa1/1.b.png>
-Package pdftex.def Info: imagens/Tarefa1/1.b.png  used on input line 290.
+Package pdftex.def Info: imagens/Tarefa1/1.b.png  used on input line 305.
 (pdftex.def)             Requested size: 288.17992pt x 167.59456pt.
 
 
@@ -468,7 +468,7 @@ Package pdftex.def Info: imagens/Tarefa1/1.b.png  used on input line 290.
 <imagens/Tarefa1/1.c.png, id=97, 768.471pt x 66.84975pt>
 File: imagens/Tarefa1/1.c.png Graphic file (type png)
 <use imagens/Tarefa1/1.c.png>
-Package pdftex.def Info: imagens/Tarefa1/1.c.png  used on input line 312.
+Package pdftex.def Info: imagens/Tarefa1/1.c.png  used on input line 327.
 (pdftex.def)             Requested size: 384.23746pt x 33.42477pt.
 
 
@@ -476,12 +476,12 @@ Package pdftex.def Info: imagens/Tarefa1/1.c.png  used on input line 312.
 <imagens/Tarefa1/1.i.png, id=106, 522.15076pt x 307.74976pt>
 File: imagens/Tarefa1/1.i.png Graphic file (type png)
 <use imagens/Tarefa1/1.i.png>
-Package pdftex.def Info: imagens/Tarefa1/1.i.png  used on input line 383.
+Package pdftex.def Info: imagens/Tarefa1/1.i.png  used on input line 398.
 (pdftex.def)             Requested size: 223.48306pt x 131.71935pt.
 <imagens/Tarefa1/1.i.2.png, id=107, 522.753pt x 274.626pt>
 File: imagens/Tarefa1/1.i.2.png Graphic file (type png)
 <use imagens/Tarefa1/1.i.2.png>
-Package pdftex.def Info: imagens/Tarefa1/1.i.2.png  used on input line 387.
+Package pdftex.def Info: imagens/Tarefa1/1.i.2.png  used on input line 402.
 (pdftex.def)             Requested size: 252.01158pt x 132.39307pt.
 
 
@@ -489,12 +489,12 @@ Package pdftex.def Info: imagens/Tarefa1/1.i.2.png  used on input line 387.
 <imagens/Tarefa1/1.j.png, id=115, 527.571pt x 239.6955pt>
 File: imagens/Tarefa1/1.j.png Graphic file (type png)
 <use imagens/Tarefa1/1.j.png>
-Package pdftex.def Info: imagens/Tarefa1/1.j.png  used on input line 406.
+Package pdftex.def Info: imagens/Tarefa1/1.j.png  used on input line 421.
 (pdftex.def)             Requested size: 288.17992pt x 130.92953pt.
 <imagens/Tarefa1/1.k.png, id=117, 519.1395pt x 359.54324pt>
 File: imagens/Tarefa1/1.k.png Graphic file (type png)
 <use imagens/Tarefa1/1.k.png>
-Package pdftex.def Info: imagens/Tarefa1/1.k.png  used on input line 424.
+Package pdftex.def Info: imagens/Tarefa1/1.k.png  used on input line 439.
 (pdftex.def)             Requested size: 288.17992pt x 199.58725pt.
 
 
@@ -504,15 +504,15 @@ Package pdftex.def Info: imagens/Tarefa1/1.k.png  used on input line 424.
 <imagens/Tarefa1/1.p.png, id=129, 522.15076pt x 353.52075pt>
 File: imagens/Tarefa1/1.p.png Graphic file (type png)
 <use imagens/Tarefa1/1.p.png>
-Package pdftex.def Info: imagens/Tarefa1/1.p.png  used on input line 520.
+Package pdftex.def Info: imagens/Tarefa1/1.p.png  used on input line 535.
 (pdftex.def)             Requested size: 252.01158pt x 170.62663pt.
 <imagens/Tarefa1/1.p.2.png, id=130, 521.5485pt x 357.13425pt>
 File: imagens/Tarefa1/1.p.2.png Graphic file (type png)
 <use imagens/Tarefa1/1.p.2.png>
-Package pdftex.def Info: imagens/Tarefa1/1.p.2.png  used on input line 524.
+Package pdftex.def Info: imagens/Tarefa1/1.p.2.png  used on input line 539.
 (pdftex.def)             Requested size: 252.01158pt x 172.56686pt.
 
-Overfull \hbox (28.81651pt too wide) in paragraph at lines 518--526
+Overfull \hbox (28.81651pt too wide) in paragraph at lines 533--541
  [][][] 
  []
 
@@ -542,7 +542,7 @@ Cap\'{\i }tulo 4.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.629 \end{document}
+l.644 \end{document}
                      [1
 
 
@@ -563,9 +563,9 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  79i,11n,93p,532b,500s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbi1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx2488.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk>
-Output written on main.pdf (17 pages, 353069 bytes).
+Output written on main.pdf (17 pages, 354236 bytes).
 PDF statistics:
- 493 PDF objects out of 1000 (max. 8388607)
+ 494 PDF objects out of 1000 (max. 8388607)
  34 named destinations out of 1000 (max. 500000)
  102 words of extra memory for PDF output out of 10000 (max. 10000000)
 
