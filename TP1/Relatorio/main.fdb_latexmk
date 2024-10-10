@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1728575474.93283 "c:/LEIM/RI/ri-repo/TP1/Relatorio/main.tex" "main.pdf" "main" 1728575476.97345 0
+["pdflatex"] 1728584216.00179 "c:/LEIM/RI/ri-repo/TP1/Relatorio/main.tex" "main.pdf" "main" 1728584217.91232 0
   "C:/Users/alfif/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1728575205 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/alfif/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbi1095.pk" 1728574459 38336 b65d6ec566af1329b2383d33bc20c38a ""
   "C:/Users/alfif/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1728574462 28976 67032a576ede5747e50c245dda9ff69f ""
@@ -108,7 +108,7 @@
   "C:/Users/alfif/AppData/Local/Programs/MiKTeX/tex/latex/titlesec/titlesec.sty" 1699094857 48766 0b93839be28e9744a24c45075c75b2e2 ""
   "C:/Users/alfif/AppData/Local/Programs/MiKTeX/tex/latex/tools/afterpage.sty" 1718356376 4085 a8942f4e9896fdaec6c24cdd7b28fa66 ""
   "C:/Users/alfif/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/LEIM/RI/ri-repo/TP1/Relatorio/main.tex" 1728575472 20934 07ddb6ba55456d7b318278e57d50e334 ""
+  "c:/LEIM/RI/ri-repo/TP1/Relatorio/main.tex" 1728584215 22393 180e0b521e0d885035a9d37f98cf4a72 ""
   "imagens/Tarefa1/1.b.png" 1728574196 19363 b18a3bf0c3e61e406fbbeb19e7ed278d ""
   "imagens/Tarefa1/1.c.png" 1728574196 39392 3ba4b344eabc95d10ee29e105c945e85 ""
   "imagens/Tarefa1/1.i.2.png" 1728574196 29003 f044aa8abc1aa7a5c735e9ded7eb7692 ""
@@ -118,12 +118,12 @@
   "imagens/Tarefa1/1.p.2.png" 1728574196 35119 c617a3d7e5fe824fe07a8327adb9e45b ""
   "imagens/Tarefa1/1.p.png" 1728574196 41312 c5387aa654e1d3975ac3037fe32d87cd ""
   "imagens/isel.png" 1728574196 70171 c4433021237ee7d163f92b693e24c19a ""
-  "main.aux" 1728575476 3257 473a6ee1eabe5d7099729a51cc4253ce "pdflatex"
-  "main.lof" 1728575476 803 4f8ed17cdf5d7d19b27756c666430258 "pdflatex"
-  "main.lot" 1728575476 308 eaaf16f5ac08ff9ec7779932b1c5df78 "pdflatex"
-  "main.out" 1728575476 707 4dcea9907c7e9c98b7479592cc8157e3 "pdflatex"
-  "main.tex" 1728575472 20934 07ddb6ba55456d7b318278e57d50e334 ""
-  "main.toc" 1728575476 547 610eaa323a467ed684fd01b21494e99e "pdflatex"
+  "main.aux" 1728584217 3422 b962e13c05f10815cc2f4457d5646d65 "pdflatex"
+  "main.lof" 1728584217 803 4f8ed17cdf5d7d19b27756c666430258 "pdflatex"
+  "main.lot" 1728584217 384 f2eecb5c54ab8d5b90e2b7920cd5688f "pdflatex"
+  "main.out" 1728584217 707 4dcea9907c7e9c98b7479592cc8157e3 "pdflatex"
+  "main.tex" 1728584215 22393 180e0b521e0d885035a9d37f98cf4a72 ""
+  "main.toc" 1728584217 547 5faa5dbfe0c1f9655cda23e3a5cef6fa "pdflatex"
   (generated)
   "main.aux"
   "main.lof"
