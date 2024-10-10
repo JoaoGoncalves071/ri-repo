@@ -1,0 +1,629 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Template for lab reports used at STIMA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sets the document class for the document Openany
+% is added to remove the book style of starting every new chapter on an odd page
+% (not needed for reports)
+\documentclass[11pt,english, openright, oneside]{book}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Loading packages that alter the style
+\usepackage[]{graphicx}
+\usepackage[]{color}
+\usepackage{alltt}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \newpage}
+
+\usepackage[english, portuguese]{babel}
+
+\usepackage[colorlinks = true, linkcolor = blue, urlcolor  = blue, citecolor =
+            blue, anchorcolor = blue]{hyperref}
+
+\newcommand{\MYhref}[3][blue]{\href{#2}{\color{#1}{#3}}}%
+
+\renewcommand{\lstlistingname}{Anexos de Código}
+\renewcommand{\lstlistlistingname}{Lista de \lstlistingname}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{0pt}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+% Define some colors - Do professor
+\definecolor{ListingColorKeyWord}{rgb}{0, 0.5, 0}
+\definecolor{ListingColorComment}{rgb}{0.0, 0.0, 0.6}
+\definecolor{ListingColorIdentifier}{rgb}{0.5, 0.12, 0.10}
+\definecolor{ListingColorEmphasize}{rgb}{0, 1, 1}
+
+\definecolor{ListingColorBreakLine}{rgb}{0.5, 0.12, 0.10}
+
+\lstset{frame=tb, language=Java, aboveskip=3mm, belowskip=3mm,
+  showstringspaces=false, columns=flexible, basicstyle={\small\ttfamily},
+  numbers=none, numberstyle=\tiny\color{gray}, keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen}, stringstyle=\color{mauve}, breaklines=true,
+  breakatwhitespace=true, tabsize=3 }
+
+\lstset{ language=Python, keywordstyle={\color{ListingColorKeyWord}\bfseries},
+	commentstyle=\color{ListingColorComment},
+	identifierstyle=\color{ListingColorIdentifier}, basicstyle=\ttfamily,
+	frame=single, showstringspaces=false, numbers=left, tabsize=2,
+	breaklines=true,
+	postbreak=\mbox{\textcolor{ListingColorBreakLine}{$\hookrightarrow$}}, }
+
+
+\lstdefinelanguage{HTML5}{ language=html, sensitive=true, alsoletter={<>=-},
+        otherkeywords={
+        % HTML tags
+        <html>, <head>, <title>, </title>, <meta, />, </head>, <body>, <canvas,
+        \/canvas>, <script>, </script>, </body>, </html>, <!, html>, <style>,
+        </style>, >< },  
+        ndkeywords={
+        % General
+        =,
+        % HTML attributes
+        charset=, id=, width=, height=,
+        % CSS properties
+        border:, transform:, -moz-transform:, transition-duration:,
+        transition-property:, transition-timing-function: },  
+        morecomment=[s]{<!--}{-->}, tag=[s] }
+
+\lstdefinelanguage{JavaScript}{ morekeywords={typeof, new, true, false, catch,
+  function, return, null, catch, switch, var, if, in, while, do, else, case,
+  break}, morecomment=[s]{/*}{*/}, morecomment=[l]//, morestring=[b]",
+  morestring=[b]' }
+
+% Set page margins
+\usepackage[top=100pt,bottom=100pt,left=68pt,right=66pt]{geometry}
+
+% Package used for placeholder text
+\usepackage{lipsum}
+
+% Prevents LaTeX from filling out a page to the bottom
+\raggedbottom
+
+% Adding both languages \usepackage[english, italian, portuguese]{babel}
+
+
+
+\lstset{ language=python, %% Troque para PHP, C, Java, etc... bash é o padrão
+    basicstyle=\ttfamily\small, numberstyle=\footnotesize, numbers=left,
+    frame=single, tabsize=2, rulecolor=\color{black!30}, title=\lstname,
+    escapeinside={\%*}{*)}, breaklines=true, breakatwhitespace=true,
+    framextopmargin=2pt, framexbottommargin=2pt, inputencoding=utf8,
+    extendedchars=true, literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1
+    {ç}{{\c{c}}}1, }
+
+
+% All page numbers positioned at the bottom of the page
+\usepackage{fancyhdr}
+\fancyhf{} % clear all header and footers
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt} % remove the header rule
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Changes the style of chapter headings
+\usepackage{titlesec}
+\titleformat{\chapter}
+   {\normalfont\LARGE\bfseries}{\thechapter.}{1em}{}
+% Change distance between chapter header and text
+\titlespacing{\chapter}{0pt}{5pt}{2\baselineskip}
+
+% Adds table captions above the table per default
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+% Adds space between caption and table
+\usepackage[tableposition=top]{caption}
+
+% Adds hyperlinks to references and ToC
+\usepackage{hyperref}
+\hypersetup{hidelinks,linkcolor = black} % Changes the link color to black and
+hides the hideous red border that usually is created
+
+% If multiple images are to be added, a folder (path) with all the images can be
+% added here 
+\graphicspath{ {Figures/} }
+
+% Separates the first part of the report/thesis in Roman numerals
+\frontmatter
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\centering \normalsize \huge  \color{black}}{\thechapter}{10pt}{}
+
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb, language=Java, aboveskip=3mm, belowskip=3mm,
+  showstringspaces=false, columns=flexible, basicstyle={\small\ttfamily},
+  numbers=none, numberstyle=\tiny\color{gray}, keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen}, stringstyle=\color{mauve}, breaklines=true,
+  breakatwhitespace=true, tabsize=3 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starts the document
+\begin{document}
+
+%%% Selects the language to be used for the first couple of pages
+\selectlanguage{portuguese}
+
+
+\renewcommand{\contentsname}{Índice}
+
+%%%%% Adds the title page
+\begin{titlepage}
+	\clearpage\thispagestyle{empty}
+	\centering
+	\vspace{1cm}
+
+	% Titles Information about the University
+	{\Large \textbf{Redes de Internet}\par} {\Large Departamento de Engenharia
+	Eletrónica e Telecomunicações e de Computadores \par} {\Large Instituto
+	Superior de Engenharia de Lisboa \par}
+		
+	\vspace{0.5cm}
+    
+    \centering \includegraphics[scale=0.7]{imagens/isel.png}
+
+	\vspace{1cm}
+	
+	{\Huge \textbf{Trabalho nº 1 (VLAN/STP/RIP)}} \\
+	\vspace{1cm}
+
+        {\Large Licenciatura em Engenharia Informática e Multimédia}
+        
+	\vspace{1cm}
+	
+	
+	
+	
+	\begin{center}
+	{\normalsize Docente: \par Prof. Nuno Garcia \\
+	
+        \vspace{0.5cm}
+              
+        Alunos (Grupo 05):
+        \par
+        Alexandre Ferreira nº47485 
+        \par 
+        João Gonçalves nº47507
+        \par
+        Filipe Mendes nº48628
+        
+        \vspace{0.5cm} 
+        Turma 52D
+                
+        \vspace{1cm}
+        {\normalsize \today \par}
+	             
+	             
+	             
+	             \par}
+	\end{center}
+		
+	% Set the date
+	
+	
+	\pagebreak
+
+\end{titlepage}
+
+\tableofcontents
+% Adds a table of contents
+\pagebreak
+\newpage
+
+
+% Adds list of figures
+\begingroup
+\let\clearpage\relax
+\pagebreak
+\listoffigures
+\endgroup
+
+\newpage
+
+% Adds list of tables
+\begingroup
+\let\clearpage\relax
+\pagebreak
+\listoftables
+\endgroup
+
+\newpage
+
+\mainmatter
+\chapter{Introdução}
+
+
+\chapter{Desenvolvimento}
+
+\section{Tarefa 1}
+\vspace{0.2cm}
+
+Implementar a rede correspondente à Empresa A e responder às questões
+apresentadas (não se esqueça de justificar as suas respostas):  
+
+\vspace{0.8cm}
+
+\textbf{a) Use o comando: "no ip domain-lookup". Qual o objetivo deste comando?}
+\vspace{0.2cm}
+
+O comando \textbf{"no ip domain-lookup"} é utilizado para desativar a pesquisa
+de DNS num router. Vai evitar atrasos quando se cometem erros de digitação ou
+comandos inválidos, pois vai desativar o router de tentar resolver nomes no
+domínio desconhecidos.
+\vspace{0.8cm}
+
+
+\textbf{b) Quais as VLAN por omissão que existem [sh vlan] antes de ser configurada qualquer VLAN em qualquer equipamento?}
+\vspace{0.2cm}
+
+Existem 5 \textit{VLANs}: Default, fddi-default, token-ring-default,
+fddinet-default, trnet-default.
+
+Como se pode ver na figura \ref{fig:1b}
+\vspace{0.4cm}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa1/1.b.png}
+    \caption{Tarefa 1 b) - VLANs no router A}
+    \label{fig:1b}
+\end{figure}
+
+\vspace{0.8cm}
+
+
+\pagebreak
+\textbf{c) Qual o formato da tags introduzidas nas tramas Ethernet nas ligações trunk?}
+\vspace{0.2cm}
+
+Uma \textit{trunk} transporta várias \textit{VLANs} e, normalmente, são usadas
+para ligações entre \textit{switches}. As tramas usadas nestas ligações contêm
+campos adicionais para identificar a que VLAN pertencem.
+
+O formato das tags segue o padrão \textit{\textbf{802.1Q}}, como se pode ver na
+figura \ref{fig:1c}.
+\vspace{0.4cm}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imagens/Tarefa1/1.c.png}
+    \caption{Tarefa 1 c) - Formato das tags 802.1Q}
+    \label{fig:1c}
+\end{figure} 
+
+\vspace{0.8cm}
+
+
+\textbf{d) Qual a razão pela qual, numa LAN que utilize VLANs, numa ligação tipo Access as tramas não incluem tags?}
+\vspace{0.2cm}
+
+Enquanto que uma porta trunk é usada em switches para transportar múltiplas
+VLANs, a porta access é usada para conectar dispositivos finais à rede, como
+PCs. Estes dispositivos não processam as tags da VLAN, por isso, não precisam se
+preocupar com a segmentação em VLANs, pois a separação das ligações é uma
+responsabilidade dos switches.
+\vspace{0.8cm}
+
+
+\textbf{e) Qual é a tag que as tramas pertencentes à VLAN 1 transportam?}
+\vspace{0.2cm}
+
+Por padrão, a VLAN nativa é VLAN 1 e, por isso, as tramas pertencentes a esta
+VLAN são enviadas sem tag (untagged). Isto significa que quando uma interface
+está configurada na VLAN 1, as tramas circulam nessa interface sem identificação
+específica de VLAN. 
+
+Se um dispositivo não suportar trunking, a circulação de tramas é possível
+através da sua VLAN nativa.
+\vspace{0.8cm}
+
+
+\textbf{f) Uma máquina quando recebe uma trama Ethernet como diferencia se esta a seguir ao campo endereço de origem inclui o campo do tipo Type/Lenght ou se inclui os campos associados a uma VLAN?}
+\vspace{0.2cm}
+
+A máquina identifica a presença de uma tag VLAN verificando se o campo logo após
+o endereço de origem é 0x8100. Se for, é uma trama com VLAN e, se não for, é uma
+trama não está etiquetada com VLAN.
+\vspace{0.8cm}
+
+
+\pagebreak
+\textbf{g) Quais as possíveis consequências de passarmos os timers “Max Age”=20 sec e “Forward Delay”= 15 sec para metade desses valores?}
+\vspace{0.2cm}
+
+Ao passarmos os timers "Max Age" e "Forward Delay" para metade dos seus valores
+padrão podemos, por um lado, ser afetados positivamente na medida em que essa
+mudança possibilita convergência mais rápida, podendo a rede ajustar-se mais
+rapidamente a mudanças na topologia, como a adição ou remoção de dispositivos.
+No entanto, as consequências negativas acabam por ser maiores pois adiciona-se
+um maior risco de instabilidade e uma diminuição na resiliência a falha
+temporárias. Passa a ser possível uma mais rápida mudança de estados e mudanças
+como alterações na topologia, o que pode levar a que apareçam erros que não
+existiriam, ou que seriam rapidamente solucionados, caso a rede convergisse com
+menos rapidez.
+\vspace{0.8cm}
+
+
+\textbf{i) Qual é a Root Bridge (RB)? Justifique.}
+\label{quest:1i}
+\vspace{0.2cm}
+
+O router SW\_DW é a root bridge porque a saída do switch diz "This bridge is the
+root" e o endereço MAC no campo Address é o mesmo do SW\_DW.
+
+Como se pode ver na figura \ref{fig:1i}
+\vspace{0.4cm}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.47\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa1/1.i.png}
+    \end{subfigure}%
+    \begin{subfigure}{.53\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa1/1.i.2.png}
+    \end{subfigure}
+    \caption{Tarefa 1 i) - Root Bridge}
+    \label{fig:1i}
+\end{figure}
+
+\newpage
+
+\textbf{j) Por omissão qual é o tipo de Spanning-Tree (STP) ativo [sh span]?}
+\vspace{0.2cm}
+
+Por omissão, o protocolo Spanning Tree Protocol em switches é o \textbf{IEEE
+802.1D}.
+
+Como se pode ver na figura \ref{fig:1j}
+\vspace{0.4cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa1/1.j.png}
+    \caption{Tarefa 1 j) - comando sh span}
+    \label{fig:1j}
+\end{figure}
+
+\vspace{0.8cm}
+
+\textbf{k) Quantas árvores (spanning trees) existem na topologia implementada?}
+\vspace{0.2cm}
+
+Como usa o protocolo IEEE 802.1D, contêm apenas uma árvore que é criada para
+cada VLAN. Ou seja, como só existe uma VLAN, só há uma árvore.
+
+Como se pode ver na figura \ref{fig:1k}
+\vspace{0.4cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa1/1.k.png}
+    \caption{Tarefa 1 k) - Árvores}
+    \label{fig:1k}
+\end{figure}
+
+\vspace{0.8cm}
+
+
+\textbf{l) Para a empresa A, construa a tabela de cálculo do custo dos caminhos e de determinação de quais são as portas Root, Designated e Blocking e calcule os respetivos valores (verifique no PT quais os valores dos custos utilizados nos cálculos das spanning trees). Os resultados finais a que chegou são coerentes com os que o simulador PT apresenta?}
+\vspace{0.2cm}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+ \hline
+ \textbf{Porta} & \textbf{PC} & \textbf{RPC} & \textbf{RP} &  \textbf{DPC} &
+ \textbf{DP} & \textbf{Block}\\
+ \hline
+ SW\_DC  Gi1/0/1 & 4 & - & - & 0 & X & -\\
+ SW\_DC  Gi1/0/2 & 4 & - & - & 0 & X & -\\
+ \hline
+ \hline
+ SW1\_P1  Fa0/2 & 19 & 23 & - & 4 & X & -\\
+ SW1\_P1  Fa0/23 & 19 & 42 & - & 4 & X & -\\
+ SW1\_P1  Fa0/24 & 18 & 41 & - & 4 & X & -\\
+ SW1\_P1  Gi0/1 & 4 & 4 & X & - & - & -\\
+ \hline
+ \hline
+ SW2\_P1  Fa0/1 & 19 & 60 & - & 4 & X & -\\
+ SW2\_P1 Fa0/2 & 19 & 23 & - & 4 & - & X\\
+ SW2\_P1  Gi0/1 & 4 & 4 & X & - & - & -\\
+ SW2\_P1  Fa0/24 & 19 & 60 & - & 4 & X & -\\
+ SW2\_P1  Fa0/23 & 19 & 41 & - & 4 & X & -\\
+ \hline
+ \hline
+ SW1\_P2  Fa0/2 & 19 & 42 & - & 23 & - & X\\
+ SW1\_P2  Fa0/18 & 19 & 23 & - & 22 & - & X\\
+ SW1\_P2  Fa0/23 & 19 & 23 & - & 23 & - & X\\
+ SW1\_P2  Fa0/24 & 19 & 22 & X & - & - & -\\
+ \hline
+ \hline
+ SW2\_P2  Fa0/2 & 19 & 41 & - & 23 & X & -\\
+ SW2\_P2  Fa0/1 & 19 & 23 & X & - & - & -\\
+ SW2\_P2  Fa0/24 & 19 & 23 & - & 4 & - & X\\
+ \hline
+\end{tabular}
+\caption{Spanning Tree}
+\label{tab:span}
+\end{table}
+\vspace{0.8cm}
+
+
+\textbf{m) Qual o custo do caminho mais curto até ao Router A desde o PC9?}
+\vspace{0.2cm}
+
+ O Custo do caminho mais curto do PC9 até ao Router A é 46.
+ \vspace{0.1cm}
+ 
+ \par PC9 -> SW2 Piso 2 = 19 \par SW2 Piso 2-> SW2 Piso 1 = 19 \par SW2 Piso 1->
+ SW DC = 4 \par SW DC-> Router = 4
+\vspace{0.8cm}
+
+
+\textbf{n) Force a root bridge para ser o SW\_DC através da prioridade. Possui alguma porta bloqueada?}
+\vspace{0.2cm}
+
+Como foi respondido anteriormente na alínea i, SW\_DC é a root bridge.
+\vspace{0.8cm}
+
+
+\textbf{o) Na literatura sobre spanning tree encontra-se frequentemente a afirmação de que todas as portas de um root switch/bridge são portas Designated. Comente tendo em consideração o SW\_DC.}
+\vspace{0.2cm}
+
+Esta afirmação está correta de acordo com o funcionamento do STP. Sendo a root
+bridge o ponto central da rede, todas as suas portas serão designated ports,
+pois vão encaminhar tramas para outros switches sem bloqueios e loops.
+
+Sendo SW\_DC a root bridge, todas as suas portas vão ser designated ports. No
+entanto, na sua configuração tem duas portas a ligar ao mesmo dispositivo, por
+isso, uma delas vai ser bloqueada para evitar possíveis loops.
+\vspace{0.8cm}
+
+
+\textbf{p) Ative o modo Per-Vlan Rapid Spanning Tree. Verifique se é necessário ativá-lo em todos os switches? }
+\vspace{0.2cm}
+
+Foi usado o comando "spanning-tree mode rapid-pvst" para mudar de protocolo no
+switch. Apenas esse switch mudou, os outros continuam com o mesmo protocolo, por
+isso, é preciso ativar em todos os switches.
+
+Como se pode ver na figura \ref{fig:1p}
+\vspace{0.4cm}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.53\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa1/1.p.png}
+    \end{subfigure}%
+    \begin{subfigure}{.53\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa1/1.p.2.png}
+    \end{subfigure}
+    \caption{Tarefa 1 p) - Spanning Tree PVRST}
+    \label{fig:1p}
+\end{figure}
+\vspace{0.8cm}
+
+
+\textbf{q) Quantas árvores passaram a existir?}
+\vspace{0.2cm}
+
+Assim como no STP padrão, PVRST cria uma única árvore de spanning para cada
+VLAN. Portanto, o número de árvores é o mesmo que o número de VLANs.
+\vspace{0.8cm}
+
+\newpage
+\textbf{r) Existem duas ligações entre o sw1\_piso1 e o sw1\_piso2, uma delas bloqueada. Altere a configuração de maneira a desbloquear a ligação bloqueada e a desbloquear outra. [Opcional] Indique qual a forma de proceder de maneira que as duas ligações pudessem ser usadas em simultâneo.}
+\vspace{0.2cm}
+
+ As duas portas tem valores de custos diferentes, uma tem custo de 18 e a outra
+ 19. Para que seja possível a troca de estados, temos que aumentar o custo da
+ porta de menor custo ou diminuir o da porta de maior custo. Para isso, usamos o
+ comando "spanning-tree cost 100".
+ 
+\vspace{0.8cm}
+
+
+\textbf{s) Explique de forma detalhada a razão do sw2\_piso2 escolher o caminho por omissão em detrimento de outro possível. Realize as alterações que considerar necessárias para que o caminho preferido seja outro que não o escolhido (por omissão).}
+\vspace{0.2cm}
+
+Em cada switch será eleita uma porta Root Port, sendo esta aquela que consegue
+garantir um menor custo de caminho até à Root Bridge. Entre as portas do Switch
+2 do Piso 2, verifica-se que o caminho das duas interfaces (fa0/24 e fa0/1) até
+à root bridge tem o mesmo custo de 23. Com isto, a porta mais pequena é
+escolhida, sendo a outra bloqueada. 
+
+Tal como aconteceu na anterior alínea, uma forma de alterar este caminho passa
+por alterar o valor de custo de uma das portas. Se reduzirmos, essa é a
+escolhida e se aumentarmos fica a outra. 
+\vspace{0.8cm}
+
+
+\textbf{t) Considere a seguinte afirmação: “Com o SW\_DC como root bridge, a substituição do Hub0 por um switch, interligado entre o sw1\_piso1 e o SW\_DC, iria melhor a conetividade entre o PC5 e o Server2 pois o caminho ficava mais curto.”. Indique, justificando, se a mesma é falsa ou verdadeira atendendo a que todas as ligações ao switch novo funcionam a 100 Mbps.}
+\vspace{0.2cm}
+ 
+Anteriormente, o PC5 passava pelo sw1\_piso1, SW\_DC, Hub0 até chegar ao
+Server2. Com a subsituição do Hub0 por um switch e, fazendo a ligação com a root
+bridge e sw1\_piso1 iremos ter um loop. Com isto, como as ligação do novo switch
+tem um custo alto, as portas vão ser bloqueadas e, por isso, esta afirmação é
+falsa, porque vai efetuar o mesmo percurso que fazia.
+\vspace{0.8cm}
+
+\pagebreak
+
+
+
+\section{Tarefa 2}
+
+Segmente a topologia da \textbf{Empresa A} utilizando VLAN para ficar de acordo
+com as regras abaixo (poderá criar outras VLAN se necessário). Os informáticos
+da empresa decidiram que cada VLAN terá um endereço IPv4 privado dentro da gama
+\textbf{172.16.0.0/12}. A tabela seguinte é uma sugestão. Como resultado
+pretende-se a implementação no  simulador da topologia indicada e o resultado
+dos testes indicados na última alínea que comprovem que a topologia está
+implementada e configurada como indicado nos passos (alíneas) seguintes:  
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+ \hline
+ \textbf{Nº Vlan} & \textbf{Nome} & \textbf{IP do Gateway} & \textbf{Rede} &
+ \textbf{PCs}\\
+ \hline
+ 51 & Contabilidade & 172.24.51.255 & 172.24.51.0/24 & PC7, PC9\\
+ 52 & Secretariado & 172.24.53.255 & 172.24.53.0/24 & PC5, PC8\\
+ 53 & Informática & 172.24.55.127 & 172.24.55.0/25 & PC6\\
+ 54 & Gestão da rede & 172.24.56.255 & 172.24.56.128/25 & Server2\\
+ \hline
+\end{tabular}
+\caption{VLANs}
+\label{tab:vlan}
+\end{table}
+\vspace{0.8cm}
+
+\pagebreak
+
+
+\section{Tarefa 3}
+
+\pagebreak
+
+\chapter{Conclusões}
+
+
+
+\chapter{Bibliografia}
+
+
+
+\mainmatter
+
+
+
+\afterpage{\blankpage}
+
+\end{document}
