@@ -668,12 +668,22 @@ Antes de começar a configurar as portas, é importante diferenciar os dois modo
     \item \textbf{Trunk:} é usado para transportar várias VLANs e, normalmente, são usadas para ligações entre switches. As tramas usadas nestas ligações contêm campos adicionais para identificar a que VLAN pertencem.
 \end{itemize}
 
-ola
+Com isto em mente, configuraram-se as portas de acordo com as necessidades de cada VLAN, como se pode ver na figura \ref{fig:2b}.
+O Dynamic Trunking Protocol (DTP) é um protocolo que permite a negociação automática de troncos entre dois switches. No entanto, para evitar problemas de segurança, desativou-se o DTP usando o comando \textit{switchport nonegotiate}.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa2/2.b.png}
+    \caption{Tarefa 2 b) - Configurar portas}
+    \label{fig:2b}
+\end{figure}
 
 \vspace{0.8cm}
 
 \textbf{c) Configure o endereçamento IPv4 de todos os equipamentos tendo em consideração o sugerido na tabela. }
+\vspace{0.2cm}
+
+De acordo com a tabela das VLANs \ref{tab:vlan}, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na tabela \ref{tab:ips}.
 \vspace{0.2cm}
 
 \begin{table}[h!]
@@ -693,21 +703,54 @@ ola
 \caption{IPV4}
 \label{tab:ips}
 \end{table}
+\vspace{0.2cm}
+
+Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na figura \ref{fig:2c}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa2/2.c.png}
+    \caption{Tarefa 2 c) - Configurar IPV4}
+    \label{fig:2c}
+\end{figure}
     
 \vspace{0.8cm}
 
 \textbf{d) Verifique se existe conetividade entre os equipamentos em cada uma das VLAN.}
 \vspace{0.2cm}
 
+Para verificar a conectividade entre os equipamentos de cada VLAN, foi feito um teste de ping entre os dispositivos. O ping é uma ferramenta que permite testar a conectividade entre dois dispositivos numa rede, em que envia pacotes de dados para um dispositivo e espera por uma resposta. Este sinal é enviado através do protocolo ICMP (Internet Control Message Protocol) e é medido em milissegundos (ms).
+Para testar, o PC9 vai fazer ping ao PC7 e os resultados foram positivos, como se pode ver na figura \ref{fig:2d}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa2/2.d.png}
+    \caption{Tarefa 2 d) - Verificar conetividade}
+    \label{fig:2d}
+\end{figure}
+
 \vspace{0.8cm}
 
 \textbf{e) Verifique se existe conetividade entre os equipamentos de VLAN distintas.}
 \vspace{0.2cm}
 
+Para verificar a conectividade entre os equipamentos de VLAN distintas, foi feito um teste de ping entre os dispositivos. Para testar, o PC9 vai dar ping ao PC6 e, como não existe conectividade entre VLANs distintas, o ping não foi bem sucedido como se pode ver na figura \ref{fig:2e}.
+Para que haja conectividade entre VLANs distintas, é necessário um router ou um switch layer 3. Assim, quando um dispositivo de uma VLAN quer comunicar com um dispositivo de outra VLAN, terá de um usar um endereço IP de gateway que permita a comunicação entre as VLANs. Desta forma, o tráfego passa pelo router ou switch layer 3 que faz a interligação entre as VLANs.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa2/2.e.png}
+    \caption{Tarefa 2 e) - Verificar conetividade}
+    \label{fig:2e}
+\end{figure}
+
 \vspace{0.8cm}
 
 \textbf{f) Ambas as ligações entre o hub Hub0 e o switch  SW\_DC estão ativas e deixam passar tráfego IPv4? Justifique.}
 \vspace{0.2cm}
+
+Ambas as ligações entre o hub Hub0 e o switch SW\_DC estão ativas e deixam passar tráfego IPv4. Isto acontece porque um hub é um dispositivo da camada 1 que opera na camada física do modelo OSI, ou seja, é um dispositivo que apenas replica o sinal que recebe para todas as portas. Assim, todas as portas do hub estão sempre ativas e, por isso, o tráfego IPv4 passa sem problemas. Já o switch SW\_DC é um dispositivo da camada 2 que opera na camada de ligação de dados do modelo OSI, ou seja, é um dispositivo que encaminha tramas para o destino correto. Assim, o tráfego IPv4 passa sem problemas.
 
 \vspace{0.8cm}
 
