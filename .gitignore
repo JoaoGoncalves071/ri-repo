@@ -1,0 +1,8 @@
+# Ignore all files in the Relatorio folder
+Relatorio/*
+
+# Except for main.tex
+!Relatorio/main.tex
+
+# Do not ignore files in the imagens folder
+!Relatorio/imagens/
