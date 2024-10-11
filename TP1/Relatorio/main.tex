@@ -900,10 +900,54 @@ De acordo com a tabela das VLANs \ref{tab:vlansB}, configuraram-se os endereços
 \textbf{a) Será uma boa decisão, e era necessário, os informáticos da empresa B optarem por endereços IPv4 privados usando máscaras /26? Justifique.}
 \vspace{0.2cm}
 
-A escolha da Empresa B em utilizar endereços IPv4 privados com máscara /26 para suas VLANs é uma boa decisão. Os endereços ipv4 públicos são limitados, e a utilização de endereços privados permite a criação de redes locais sem a necessidade de endereços públicos.
-A máscara /26 permite a criação de 4 sub-redes, cada uma com 62 endereços disponíveis, o que é suficiente para a quantidade de dispositivos que a empresa tem em cada VLAN. Além disso, o uso de endereços IPv4 privados é uma prática comum em redes locais, pois permite a segmentação da rede e a utilização de endereços públicos apenas nos dispositivos que necessitam de comunicação com a Internet. Assim, a utilização de endereços IPv4 privados com máscara /26 é uma decisão acertada e necessária para a Empresa B.
+A escolha da Empresa B em utilizar endereços IPv4 privados com máscara /26 para suas VLANs é uma decisão acertada. Os endereços IPv4 públicos são limitados, e a adoção de endereços privados permite a criação de redes locais sem a necessidade de endereços públicos.
+
+A máscara /26 possibilita a criação de quatro sub-redes, cada uma com até 62 endereços disponíveis, o que é suficiente para a quantidade de dispositivos presentes em cada VLAN. Além disso, o uso de endereços IPv4 privados é uma prática comum em redes locais, pois facilita a segmentação da rede e permite que os endereços públicos sejam utilizados apenas nos dispositivos que necessitam de comunicação com a Internet.
+
+Portanto, a utilização de endereços IPv4 privados com máscara /26 é uma estratégia adequada e necessária para a Empresa B.
+
+\pagebreak
+
+\section{Tarefa 5}
+Implemente a topologia do \textbf{ISP} de interligação com os clientes (empresas A e B e muitas outras não presentes na topologia):   
+\vspace{0.8cm}
+
+\textbf{a) Decida se nos routers do ISP é preferível utilizar endereços IPv4 privados ou públicos. Justifique.}
+\vspace{0.2cm}
+
+Nos routers do ISP, é preferível utilizar endereços IPv4 públicos. Esses endereços são únicos e globais, permitindo a comunicação com dispositivos em qualquer parte do mundo. Além disso, os endereços IPv4 públicos são essenciais para a conectividade com a Internet, uma vez que os endereços IPv4 privados não são roteáveis fora de uma rede local.
+
+Para garantir a conectividade com os clientes e outros dispositivos na Internet, é imprescindível utilizar endereços IPv4 públicos nos roteadores do ISP. Essa prática assegura que todos os dados trafeguem de forma eficaz e que a comunicação entre diferentes redes seja mantida de maneira confiável.
+\vspace{0.8cm}
+
+\textbf{b) Relembre-se que quer o ISP quer as empresas possuem endereços IPv4 públicos e que as \underline{empresas só devem comunicar entre elas através dos \textit{routers} do ISP}. No caso de falha de um dos \textit{routers} do ISP, os \textit{routers} das empresas devem poder comunicar para fora através do outro \textit{router} do ISP (\textit{routers} 1 e 3).}
+
+\textbf{Existe a possibilidade do ISP utilizar duas redes /30 (P2P em layer3) de interligação entre os seus routers e o de cada empresa.}
+
+\textbf{As redes e respetivas VLAN podem ser: }
+\begin{itemize}
+    \item \textbf{VLAN 90 (EmpresaA) -> 10.5.90.0/30 }
+    \item \textbf{VLAN 95 (EmpresaB) -> 10.5.95.4/30 }
+\end{itemize}
+
+\textbf{Se concluir que deve usar endereços IPv4 públicos nos equipamentos do ISP determine como pretende utilizar o bloco do ISP.}
+
+\textbf{Atribua o endereçamento IP ao Router1, Router3, RouterA e RouterB, fazendo com que os routers do lado do ISP possuam sempre os primeiros endereços IP disponíveis na respetiva rede.}
+\vspace{0.2cm}
 
 \vspace{0.8cm}
+
+\textbf{c) Configure os caminhos das VLAN na malha de \textit{switches} do ISP (configurando as interfaces em \textit{trunk} ou \textit{access} quando necessário), sabendo que para efeitos de redundância de camada 2, o ISP construiu um circuito entre as duas empresas, logo este é para ser usado apenas em caso necessário se os routers do ISP falharem. No caso de falha de um equipamento de rede deve ser possível manter o serviço mesmo que haja troços que fiquem com tráfego maior.}
+\vspace{0.2cm}
+
+\vspace{0.8cm}
+
+\textbf{d) Verifique se existe conetividade ponto a ponto entre os \textit{routers} R1, RA, R3 e RB. Justifique.}
+\vspace{0.2cm}
+
+\vspace{0.8cm}
+
+
 \chapter{Conclusões}
 
 
