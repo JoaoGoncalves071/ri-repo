@@ -281,3 +281,12 @@ TSWLatexianTemp*
 
 # dist
 dist/
+TP1/Relatorio/main.aux
+TP1/Relatorio/main.fdb_latexmk
+TP1/Relatorio/main.fls
+TP1/Relatorio/main.lof
+TP1/Relatorio/main.log
+TP1/Relatorio/main.lot
+TP1/Relatorio/main.pdf
+TP1/Relatorio/main.synctex.gz
+TP1/Relatorio/main.toc
