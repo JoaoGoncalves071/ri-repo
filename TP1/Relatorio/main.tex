@@ -614,8 +614,8 @@ implementada e configurada como indicado nos passos (alíneas) seguintes:
 54 & Gestão da rede & 172.24.56.254 & 172.24.56.128/25 & Server2\\
 \hline
 \end{tabular}
-\caption{VLANs}
-\label{tab:vlan}
+\caption{VLANs da Empresa A}
+\label{tab:vlansA}
 \end{table}
 \vspace{0.8cm}
 
@@ -683,7 +683,7 @@ O Dynamic Trunking Protocol (DTP) é um protocolo que permite a negociação aut
 \textbf{c) Configure o endereçamento IPv4 de todos os equipamentos tendo em consideração o sugerido na tabela. }
 \vspace{0.2cm}
 
-De acordo com a tabela das VLANs \ref{tab:vlan}, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na tabela \ref{tab:ips}.
+De acordo com a tabela das VLANs \ref{tab:vlansA}, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na tabela \ref{tab:ipA}.
 \vspace{0.2cm}
 
 \begin{table}[h!]
@@ -700,8 +700,8 @@ De acordo com a tabela das VLANs \ref{tab:vlan}, configuraram-se os endereços I
 54 & Server2 & 172.24.56.129/25 & 172.24.56.254\\
 \hline
 \end{tabular}
-\caption{IPV4}
-\label{tab:ips}
+\caption{IPV4 Empresa A}
+\label{tab:ipA}
 \end{table}
 \vspace{0.2cm}
 
@@ -758,8 +758,137 @@ Ambas as ligações entre o hub Hub0 e o switch SW\_DC estão ativas e deixam pa
 
 
 \section{Tarefa 3}
+Ative o \textbf{RouterA} na topologia, ligando-o ao SW\_DC apenas configurando o RouterA e SW\_DC, segundo uma topologia \textit{router-on-a-stick}, e de acordo com as indicações que se seguem de maneira a estes ficarem com as configurações de acordo com as \textit{best practices}. Procure implementar, ao configurar as VLAN e o encaminhamento nos routers, as seguintes regras (sem recorrer a listas de acesso (ACL)) (Lembra-se que: Se no exterior de uma rede esta não for “conhecida”, os outros routers não enviarão tráfego para ela):
+
+\textbf{Nota}: No futuro, quando evoluir na matéria de Redes, utilizando listas de acesso (ACL) irá constatar que podem ser implementadas com facilidade outras alternativas à limitação da comunicação (filtros) entre equipamentos em redes distintas, mas isso não é requerido neste trabalho dado que essa matéria será aprofundada apenas mais à frente
+
+\underline{Lembre-se que cada rede/VLAN tem atribuídos endereços IPv4 públicos (apenas para uso nos routers)}
+\underline{e privados. Do exterior das empresas só podem ser acedidos com endereços IPv4 públicos.}
+
+\vspace{0.8cm}
+
+\textbf{a) Configurar e ativar as \textit{interfaces} utilizadas de acordo com a regras enunciadas e as VLAN criadas (tenha em atenção que no uso de \textit{subinterfaces}, neste caso a correspondente interface física não possui configuração de IP).}
+\vspace{0.2cm}
+
+Começa-se por dividr a interface do router A em 4 subinterfaces, uma por VLAN, atribuindo a cada um o IP da default gateway da VLAN Associada.
+Fazemos o comando \textit{no shutdown} para ativar a interface. Como se pode ver na figura \ref{fig:3a}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa3/3.a.png}
+    \caption{Tarefa 3 a) - Configurar interfaces}
+    \label{fig:3a}
+\end{figure}
+
+\vspace{0.8cm}
+
+\textbf{b) Atribuir o nome aos routers/switches com o comando hostname.}
+\vspace{0.2cm}
+
+Para atribuir um nome ao router, usamos o comando \textit{hostname} seguido do nome que queremos atribuir. Como se pode ver nas figuras \ref{fig:3b.1} e \ref{fig:3b.2}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa3/3.b.1.png}
+    \caption{Tarefa 3 b) - Configurar nome RouterA}
+    \label{fig:3b.1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa3/3.b.2.png}
+    \caption{Tarefa 3 b) - Configurar nome SW\_DC}
+    \label{fig:3b.2}
+\end{figure}
+
+\vspace{0.8cm}
+
+\textbf{c) Configure uma mensagem inicial para quem entra no equipamento.}
+\vspace{0.2cm}
+
+Para configurar uma mensagem inicial, usamos o comando \textit{banner motd} seguido da mensagem que queremos que apareça. Como se pode ver na figura \ref{fig:3c}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa3/3.c.png}
+    \caption{Tarefa 3 c) - Configurar mensagem inicial}
+    \label{fig:3c}
+\end{figure}
+
+\vspace{0.8cm}
+
+\textbf{d)	Salve as configurações no router não se esquecendo da primeira vez de verificar se ficou mesmo salvo, se funcionou.}
+\vspace{0.2cm}
+
+Para salvar as configurações, usamos o comando \textit{write memory} ou \textit{copy running-config startup-config}. Como se pode ver na figura \ref{fig:3d}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa3/3.d.png}
+    \caption{Tarefa 3 d) - Salvar configurações}
+    \label{fig:3d}
+\end{figure}
+
+\vspace{0.8cm}
+
+\textbf{e) Verifique se a conetividade entre os PC de diferentes VLAN. Pode utilizar o \textit{Ping}. Caso tenha problemas, faça o \textit{troubleshooting} para verificar se o problema está na \textit{vlan/rede} (possível causa nos \textit{switches/vlan} não criadas/passadas; portas em \textit{access/trunks} ou a própria configuração dos PC/endereçamento/máscara do PC/GW)) execute um \textit{ping} ao seu GW ou utilize um \textit{traceroute} para verificar em que “hop” está o problema. Se estiver a tentar “pingar” o PC7 do PC5 e se cada PC possuir conetividade com o seu GW, então o problema estará no \textit{router}.}
+\vspace{0.2cm}
+
+Para verificar a conectividade entre os PCs de diferentes VLAN, foi feito um teste de ping entre os dispositivos. Para testar, o PC7 vai dar ping ao Server2 e os resultados foram positivos, como se pode ver na figura \ref{fig:3.e.1}. Também podemos visualizar a tabela de arp do router A, onde podemos ver os endereços MAC associados a cada IP, como se pode ver na figura \ref{fig:3.e.2}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa3/3.e.1.png}
+    \caption{Tarefa 3 e) - Verificar conetividade}
+    \label{fig:3.e.1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa3/3.e.2.png}
+    \caption{Tarefa 3 e) - Tabela ARP}
+    \label{fig:3.e.2}
+\end{figure}
+\vspace{0.8cm}
 
 \pagebreak
+
+\section{Tarefa 4}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+         \textbf{NºVlan} & \textbf{Nome} & \textbf{IP do Gateway} & \textbf{Rede} & \textbf{PCs}\\
+    \hline
+        2 & Servidores & 192.168.52.63 & 192.168.52.0/26 & Server1\\
+        3 & Engenharia & 192.168.53.63 & 192.168.53.0/26 & PC1, PC2\\
+    \hline
+    \end{tabular}
+    \caption{VLANs da Empresa B}
+    \label{tab:vlansB}
+\end{table}
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+        \textbf{NºVlan} & \textbf{Dispositivos} & \textbf{IPV4} & \textbf{IP do Gateway}\\
+    \hline
+        2 & Server1 & 192.168.52.1/26 & 192.168.52.63\\
+        3 & PC1 & 192.168.53.1/26 & 192.168.53.63\\
+        3 & PC2 & 192.168.53.2/26 & 192.168.53.63\\
+    \hline
+    \end{tabular}
+    \caption{IPV4 Empresa B}
+    \label{tab:ipB}
+\end{table}
 
 \chapter{Conclusões}
 
