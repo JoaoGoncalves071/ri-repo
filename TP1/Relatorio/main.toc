@@ -4,6 +4,6 @@
 \contentsline {chapter}{\numberline {2}Desenvolvimento}{2}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Tarefa 1}{2}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Tarefa 2}{9}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Tarefa 3}{11}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Conclusões}{12}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Bibliografia}{13}{chapter.4}%
+\contentsline {section}{\numberline {2.3}Tarefa 3}{10}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Conclusões}{11}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Bibliografia}{12}{chapter.4}%

@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.10)  10 OCT 2024 19:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.30)  10 OCT 2024 16:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/LEIM/RI/ri-repo/TP1/Relatorio/main.tex
-(c:/LEIM/RI/ri-repo/TP1/Relatorio/main.tex
+**"c:/Users/Utilizador/OneDrive - Instituto Superior de Engenharia de Lisboa/Semestre 5/RI/ri-repo/TP1/Relatorio/main.tex"
+(c:/Users/Utilizador/OneDrive - Instituto Superior de Engenharia de Lisboa/Semestre 5/RI/ri-repo/TP1/Relatorio/main.tex
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-30>
-(C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
+(C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
 Document Class: book 2024/02/08 v1.4n Standard LaTeX document class
-(C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/base\bk11.clo
+(C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/base\bk11.clo
 File: bk11.clo 2024/02/08 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count194
@@ -24,43 +24,43 @@ File: bk11.clo 2024/02/08 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen141
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks17
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/05/23 v1.4g Standard LaTeX Graphics (DPC,SPQR)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen142
 \Gin@req@width=\dimen143
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
 Package: color 2024/01/14 v1.3d Standard LaTeX Color (DPC)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/base\alltt.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/base\alltt.sty
 Package: alltt 2024/02/08 v2.0g defines alltt environment
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks18
 \inpenc@posthook=\toks19
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen144
 \captionmargin=\dimen145
@@ -79,7 +79,7 @@ Package caption Info: New subtype `subfigure' on input line 238.
 \c@subfigure=\count271
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count272
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
 \lst@mode=\count273
 \lst@gtempboxa=\box52
 \lst@token=\toks20
@@ -92,37 +92,37 @@ Package caption Info: New subtype `subtable' on input line 238.
 \lst@newlines=\count277
 \lst@lineno=\count278
 \lst@maxwidth=\dimen155
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2024/05/25 1.10b (Carsten Heinz)
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/05/25 1.10b (Carsten Heinz)
 \c@lstnumber=\count279
 \lst@skipnumbers=\count280
 \lst@framebox=\box53
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2024/05/25 1.10b listings configuration
 ))
 Package: listings 2024/05/25 1.10b (Carsten Heinz)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/tools\afterpage.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/tools\afterpage.sty
 Package: afterpage 2023/07/04 v1.08 After-Page Package (DPC)
 \AP@output=\toks21
 \AP@partial=\box54
 \AP@footins=\box55
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
 Package: babel 2024/08/29 v24.9 The Babel package
 \babel@savecnt=\count281
 \U@D=\dimen156
 \l@unhyphenated=\language79
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
 \bbl@readstream=\read2
 \bbl@dirlevel=\count282
 
 *************************************
 * Local config file bblopts.cfg used
 *
-(C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
+(C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
 (babel)             (\language0). Reported on input line 102.
@@ -130,65 +130,65 @@ Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
 (babel)             (\language73). Reported on input line 105.
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 (babel)             (\language73). Reported on input line 108.
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/babel-portuges\portuguese.ldf
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/babel-portuges\portuguese.ldf
 Language: portuges 2021/07/09 v1.2t Portuguese support from the babel system
 Package babel Info: Making " an active character on input line 143.
-)) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/pt\babel-portuguese.tex
+)) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/pt\babel-portuguese.tex
 Package babel Info: Importing font and identification data for portuguese
 (babel)             from babel-pt.ini. Reported on input line 11.
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/en\babel-english.tex
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/en\babel-english.tex
 Package babel Info: Importing font and identification data for english
 (babel)             from babel-en.ini. Reported on input line 11.
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2024-07-10 v7.01j Hypertext links for LaTeX
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+)) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count283
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count284
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
 \@linkdim=\dimen157
 \Hy@linkcounter=\count285
 \Hy@pagecounter=\count286
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2024-07-10 v7.01j Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
 \Hy@SavedSpaceFactor=\count287
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2024-07-10 v7.01j Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -202,15 +202,15 @@ Package hyperref Info: Backreferencing OFF on input line 4177.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4424.
 \c@Hy@tempcnt=\count288
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4763.
 \XeTeXLinkMargin=\dimen158
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count289
@@ -223,7 +223,7 @@ Package hyperref Info: backreferencing OFF on input line 6057.
 Package hyperref Info: Link coloring ON on input line 6060.
 Package hyperref Info: Link coloring with OCG OFF on input line 6067.
 Package hyperref Info: PDF/A mode OFF on input line 6072.
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
@@ -232,29 +232,29 @@ package with kernel methods
 \c@Hfootnote=\count292
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2024-07-10 v7.01j Hyperref driver for pdfTeX
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
 \Fld@listcount=\count293
 \c@bookmark@seq@number=\count294
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip51
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/05/25 1.10b listings language file
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/05/25 1.10b listings language file
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 \Gm@cnth=\count295
@@ -269,9 +269,9 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen167
 \Gm@layoutvoffset=\dimen168
 \Gm@dimlist=\toks22
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.sty (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3keys2e.sty (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.sty (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3keys2e.sty (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
 Package: expl3 2024-08-30 L3 programming layer (loader) 
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count298
 \l__pdf_internal_box=\box56
@@ -282,7 +282,7 @@ Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
 \g__lipsum_par_int=\count299
 \l__lipsum_a_int=\count300
 \l__lipsum_b_int=\count301
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.ltd.tex)) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.ltd.tex)) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2024/07/23 v4.3.1 Extensive control of page headers and footers
 \f@nch@headwidth=\skip52
 \f@nch@O@elh=\skip53
@@ -293,7 +293,7 @@ Package: fancyhdr 2024/07/23 v4.3.1 Extensive control of page headers and footer
 \f@nch@O@erf=\skip58
 \f@nch@O@olf=\skip59
 \f@nch@O@orf=\skip60
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \ttl@box=\box57
 \beforetitleunit=\skip61
@@ -304,7 +304,7 @@ Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \titlewidth=\dimen171
 \titlewidthlast=\dimen172
 \titlewidthfirst=\dimen173
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count302
 \float@exts=\toks24
@@ -337,7 +337,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 165.
 LaTeX Font Info:    ... okay on input line 165.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 165.
 LaTeX Font Info:    ... okay on input line 165.
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count303
 \scratchdimen=\dimen174
@@ -350,10 +350,10 @@ LaTeX Font Info:    ... okay on input line 165.
 \MPnumerator=\count307
 \makeMPintoPDFobject=\count308
 \everyMPtoPDFconversion=\toks28
-) (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+) (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (C:\Users\alfif\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+ (C:\Users\Utilizador\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package caption Info: Begin \AtBeginDocument code.
@@ -414,7 +414,7 @@ Package pdftex.def Info: imagens/isel.png  used on input line 186.
 
 
 
-{C:/Users/alfif/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./imagens/isel.png>] (main.toc
+{C:/Users/Utilizador/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./imagens/isel.png>] (main.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line 5.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -455,64 +455,64 @@ Cap\'{\i }tulo 1.
 
 ]
 Cap\'{\i }tulo 2.
-<imagens/Tarefa1/1.b.png, id=91, 398.6895pt x 231.86626pt>
+<imagens/Tarefa1/1.b.png, id=89, 398.6895pt x 231.86626pt>
 File: imagens/Tarefa1/1.b.png Graphic file (type png)
 <use imagens/Tarefa1/1.b.png>
-Package pdftex.def Info: imagens/Tarefa1/1.b.png  used on input line 290.
+Package pdftex.def Info: imagens/Tarefa1/1.b.png  used on input line 305.
 (pdftex.def)             Requested size: 288.17992pt x 167.59456pt.
 
 
 [2
 
  <./imagens/Tarefa1/1.b.png>]
-<imagens/Tarefa1/1.c.png, id=99, 768.471pt x 66.84975pt>
+<imagens/Tarefa1/1.c.png, id=97, 768.471pt x 66.84975pt>
 File: imagens/Tarefa1/1.c.png Graphic file (type png)
 <use imagens/Tarefa1/1.c.png>
-Package pdftex.def Info: imagens/Tarefa1/1.c.png  used on input line 312.
+Package pdftex.def Info: imagens/Tarefa1/1.c.png  used on input line 327.
 (pdftex.def)             Requested size: 384.23746pt x 33.42477pt.
 
 
 [3 <./imagens/Tarefa1/1.c.png>]
-<imagens/Tarefa1/1.i.png, id=108, 522.15076pt x 307.74976pt>
+<imagens/Tarefa1/1.i.png, id=106, 522.15076pt x 307.74976pt>
 File: imagens/Tarefa1/1.i.png Graphic file (type png)
 <use imagens/Tarefa1/1.i.png>
-Package pdftex.def Info: imagens/Tarefa1/1.i.png  used on input line 383.
+Package pdftex.def Info: imagens/Tarefa1/1.i.png  used on input line 398.
 (pdftex.def)             Requested size: 223.48306pt x 131.71935pt.
-<imagens/Tarefa1/1.i.2.png, id=109, 522.753pt x 274.626pt>
+<imagens/Tarefa1/1.i.2.png, id=107, 522.753pt x 274.626pt>
 File: imagens/Tarefa1/1.i.2.png Graphic file (type png)
 <use imagens/Tarefa1/1.i.2.png>
-Package pdftex.def Info: imagens/Tarefa1/1.i.2.png  used on input line 387.
+Package pdftex.def Info: imagens/Tarefa1/1.i.2.png  used on input line 402.
 (pdftex.def)             Requested size: 252.01158pt x 132.39307pt.
 
 
 [4 <./imagens/Tarefa1/1.i.png> <./imagens/Tarefa1/1.i.2.png>]
-<imagens/Tarefa1/1.j.png, id=117, 527.571pt x 239.6955pt>
+<imagens/Tarefa1/1.j.png, id=115, 527.571pt x 239.6955pt>
 File: imagens/Tarefa1/1.j.png Graphic file (type png)
 <use imagens/Tarefa1/1.j.png>
-Package pdftex.def Info: imagens/Tarefa1/1.j.png  used on input line 406.
+Package pdftex.def Info: imagens/Tarefa1/1.j.png  used on input line 421.
 (pdftex.def)             Requested size: 288.17992pt x 130.92953pt.
-<imagens/Tarefa1/1.k.png, id=119, 519.1395pt x 359.54324pt>
+<imagens/Tarefa1/1.k.png, id=117, 519.1395pt x 359.54324pt>
 File: imagens/Tarefa1/1.k.png Graphic file (type png)
 <use imagens/Tarefa1/1.k.png>
-Package pdftex.def Info: imagens/Tarefa1/1.k.png  used on input line 424.
+Package pdftex.def Info: imagens/Tarefa1/1.k.png  used on input line 439.
 (pdftex.def)             Requested size: 288.17992pt x 199.58725pt.
 
 
 [5 <./imagens/Tarefa1/1.j.png> <./imagens/Tarefa1/1.k.png>]
 
 [6]
-<imagens/Tarefa1/1.p.png, id=131, 522.15076pt x 353.52075pt>
+<imagens/Tarefa1/1.p.png, id=129, 522.15076pt x 353.52075pt>
 File: imagens/Tarefa1/1.p.png Graphic file (type png)
 <use imagens/Tarefa1/1.p.png>
-Package pdftex.def Info: imagens/Tarefa1/1.p.png  used on input line 520.
+Package pdftex.def Info: imagens/Tarefa1/1.p.png  used on input line 535.
 (pdftex.def)             Requested size: 252.01158pt x 170.62663pt.
-<imagens/Tarefa1/1.p.2.png, id=132, 521.5485pt x 357.13425pt>
+<imagens/Tarefa1/1.p.2.png, id=130, 521.5485pt x 357.13425pt>
 File: imagens/Tarefa1/1.p.2.png Graphic file (type png)
 <use imagens/Tarefa1/1.p.2.png>
-Package pdftex.def Info: imagens/Tarefa1/1.p.2.png  used on input line 524.
+Package pdftex.def Info: imagens/Tarefa1/1.p.2.png  used on input line 539.
 (pdftex.def)             Requested size: 252.01158pt x 172.56686pt.
 
-Overfull \hbox (28.81651pt too wide) in paragraph at lines 518--526
+Overfull \hbox (28.81651pt too wide) in paragraph at lines 533--541
  [][][] 
  []
 
@@ -525,18 +525,16 @@ Overfull \hbox (28.81651pt too wide) in paragraph at lines 518--526
 [9]
 
 [10]
-
-[11]
 Cap\'{\i }tulo 3.
 
 
-[12
+[11
 
 ]
 Cap\'{\i }tulo 4.
 
 
-[13
+[12
 
 ]
 
@@ -544,7 +542,7 @@ Cap\'{\i }tulo 4.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.676 \end{document}
+l.644 \end{document}
                      [1
 
 
@@ -557,17 +555,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 4DCEA9907C7E9C98B7479592CC8157E3;707.
  ) 
 Here is how much of TeX's memory you used:
- 14359 strings out of 473899
- 236406 string characters out of 5726499
+ 14356 strings out of 473899
+ 238226 string characters out of 5724140
  808696 words of memory out of 5000000
- 37003 multiletter control sequences out of 15000+600000
+ 37002 multiletter control sequences out of 15000+600000
  568637 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,11n,93p,453b,500s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx1095.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbi1095.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1095.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx2488.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\alfif\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk>
-Output written on main.pdf (18 pages, 361798 bytes).
+ 79i,11n,93p,532b,500s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbi1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx2488.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Utilizador\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk>
+Output written on main.pdf (17 pages, 354236 bytes).
 PDF statistics:
- 517 PDF objects out of 1000 (max. 8388607)
- 36 named destinations out of 1000 (max. 500000)
+ 494 PDF objects out of 1000 (max. 8388607)
+ 34 named destinations out of 1000 (max. 500000)
  102 words of extra memory for PDF output out of 10000 (max. 10000000)
 
