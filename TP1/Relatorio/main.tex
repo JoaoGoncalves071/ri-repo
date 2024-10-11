@@ -607,10 +607,53 @@ implementada e configurada como indicado nos passos (alíneas) seguintes:
 \textbf{a) Configure as VLAN preferencialmente de acordo com a tabela anterior.}
 \vspace{0.2cm}
 
+Primeiramente, verificou-se em todos os switches a existência de VLANs, como se pode ver na figura \ref{fig:2a1}. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa2/2.a.1.png}
+    \caption{Tarefa 2 a) - Verificar VLANs}
+    \label{fig:2a1}
+\end{figure}
+
+\vspace{0.2cm}
+
+Caso existissem, eram eliminadas, como se pode ver na figura \ref{fig:2a2}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa2/2.a.2.png}
+    \caption{Tarefa 2 a) - Eliminar VLANs}
+    \label{fig:2a2}
+\end{figure}
+
+\vspace{0.2cm}
+
+De seguida, criaram-se as VLANs de acordo com a tabela fornecida, como se pode ver na figura \ref{fig:2a3}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa2/2.a.3.png}
+    \caption{Tarefa 2 a) - Criar VLANs}
+    \label{fig:2a3}
+\end{figure}
+
+
+A implementação de uma VLAN passa pelo uso do comando vlan (tag vlan) seguido de vlan (nome vlan). Assim sendo, executam-se, em cada switch, estes dois comandos para cada umas das 4 VLANs a implementar.
+
 \vspace{0.8cm}
 
 \textbf{b) Configure as portas em modo \textit{access} ou \textit{trunk} dependendo das necessidades. Desligue o protocolo \textit{Dynamic Trunking Protocol} (DTP) em cada interface que configurar como \textit{access} ou \textit{trunk}.}
 \vspace{0.2cm}
+
+Antes de começar a configurar as portas, é importante diferenciar os dois modos:
+
+\begin{itemize}
+    \item \textbf{Access:} é usado para conectar dispositivos finais à rede, como PCs. Estes dispositivos não processam as tags da VLAN, por isso, não precisam se preocupar com a segmentação em VLANs, pois a separação das ligações é uma responsabilidade dos switches.
+    \item \textbf{Trunk:} é usado para transportar várias VLANs e, normalmente, são usadas para ligações entre switches. As tramas usadas nestas ligações contêm campos adicionais para identificar a que VLAN pertencem.
+\end{itemize}
+
+
 
 \vspace{0.8cm}
 
