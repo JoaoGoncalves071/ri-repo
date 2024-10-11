@@ -859,6 +859,8 @@ Para verificar a conectividade entre os PCs de diferentes VLAN, foi feito um tes
 \pagebreak
 
 \section{Tarefa 4}
+Implemente a topologia da \textbf{Empresa B}, sabendo que o ISP forneceu a esta duas redes blocos de endereços IPv4 públicos, mas que para efeitos de racionamento de endereçamento a Empresa B utiliza internamente blocos IPv4 privados /26, onde N representa o número do grupo.  
+\vspace{0.2cm}
 
 \begin{table}[h!]
     \centering
@@ -873,7 +875,10 @@ Para verificar a conectividade entre os PCs de diferentes VLAN, foi feito um tes
     \caption{VLANs da Empresa B}
     \label{tab:vlansB}
 \end{table}
+\vspace{0.2cm}
 
+De acordo com a tabela das VLANs \ref{tab:vlansB}, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na tabela \ref{tab:ipB}.
+\vspace{0.2cm}
 
 \begin{table}[h!]
     \centering
@@ -890,6 +895,15 @@ Para verificar a conectividade entre os PCs de diferentes VLAN, foi feito um tes
     \label{tab:ipB}
 \end{table}
 
+\vspace{0.8cm}
+
+\textbf{a) Será uma boa decisão, e era necessário, os informáticos da empresa B optarem por endereços IPv4 privados usando máscaras /26? Justifique.}
+\vspace{0.2cm}
+
+A escolha da Empresa B em utilizar endereços IPv4 privados com máscara /26 para suas VLANs é uma boa decisão. Os endereços ipv4 públicos são limitados, e a utilização de endereços privados permite a criação de redes locais sem a necessidade de endereços públicos.
+A máscara /26 permite a criação de 4 sub-redes, cada uma com 62 endereços disponíveis, o que é suficiente para a quantidade de dispositivos que a empresa tem em cada VLAN. Além disso, o uso de endereços IPv4 privados é uma prática comum em redes locais, pois permite a segmentação da rede e a utilização de endereços públicos apenas nos dispositivos que necessitam de comunicação com a Internet. Assim, a utilização de endereços IPv4 privados com máscara /26 é uma decisão acertada e necessária para a Empresa B.
+
+\vspace{0.8cm}
 \chapter{Conclusões}
 
 
