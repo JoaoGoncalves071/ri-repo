@@ -894,6 +894,73 @@ De acordo com a tabela das VLANs \ref{tab:vlansB}, configuraram-se os endereços
     \caption{IPV4 Empresa B}
     \label{tab:ipB}
 \end{table}
+\vspace{0.2cm}
+
+Primeiramente, verificou-se no switch a existência de VLANs. Caso existissem, eram eliminadas e criadas as VLANs de acordo com a tabela fornecida, como se pode ver na figura \ref{fig:4.1.1}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa4/4.1.1.png}
+    \caption{Tarefa 4 - Verificar VLANs}
+    \label{fig:4.1.1}
+\end{figure}
+\vspace{0.2cm}
+
+De seguida, configuraram-se as portas de acordo com as necessidades de cada VLAN, bem como a desativação do DTP, como se pode ver na figura \ref{fig:4.1.2}.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.53\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa4/4.1.2.png}
+    \end{subfigure}%
+    \begin{subfigure}{.53\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa4/4.1.3.png}
+    \end{subfigure}
+    \caption{Tarefa 4 - Configurar portas}
+    \label{fig:4.1.2}
+\end{figure}
+\vspace{0.2cm}
+
+Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na figura \ref{fig:4.1.4}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa4/4.1.4.png}
+    \caption{Tarefa 4 - Configurar IPV4}
+    \label{fig:4.1.4}
+\end{figure}
+\vspace{0.2cm}
+
+A seguir, configuraram-se as interfaces do router, criando subinterfaces para cada VLAN e ativamos a interface, como se pode ver na figura \ref{fig:4.1.5}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa4/4.1.5.png}
+    \caption{Tarefa 4 - Configurar interfaces Router}
+    \label{fig:4.1.5}
+\end{figure}
+\vspace{0.2cm}
+
+Posteriormente, verficamos e atualizamos as portas trunk e as vlans que passam por elas, como se pode ver na figura \ref{fig:4.1.6}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa4/4.1.6.png}
+    \caption{Tarefa 4 - Verificar e atualizar portas trunk}
+    \label{fig:4.1.6}
+\end{figure}
+\vspace{0.2cm}
+
+Por fim, verificamos a conectividade entre os PCs das mesmas VLANs (PC1 com PC2) e entre PCs de VLANs distintas (PC1 com Server1), como se pode ver na figura \ref{fig:4.1.7}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa4/4.1.7.png}
+    \caption{Tarefa 4 - Verificar conetividade}
+    \label{fig:4.1.7}
+\end{figure}
 
 \vspace{0.8cm}
 
