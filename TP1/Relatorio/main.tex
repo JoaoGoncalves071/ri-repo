@@ -16,6 +16,7 @@
 \usepackage{subcaption}
 \usepackage{listings}
 \usepackage{afterpage}
+\usepackage{enumitem}
 \newcommand\blankpage{%
     \null
     \thispagestyle{empty}%
@@ -270,6 +271,19 @@ de cenários de redundância e falhas. O relatório detalha as configurações
 realizadas, as justificações das escolhas efetuadas e os resultados obtidos,
 proporcionando uma visão abrangente das técnicas e práticas utilizadas na gestão
 e operação de redes de computadores.
+
+\vspace{0.4cm}
+
+A topologia de rede implementada é a seguinte imagem:
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagens/topologia.png}
+    \caption{Topologia de rede}
+    \label{fig:topologia}
+\end{figure}
+
 
 \chapter{Desenvolvimento}
 
@@ -593,6 +607,7 @@ falsa, porque vai efetuar o mesmo percurso que fazia.
 
 
 \section{Tarefa 2}
+\vspace{0.2cm}
 
 Segmente a topologia da \textbf{Empresa A} utilizando VLAN para ficar de acordo
 com as regras abaixo (poderá criar outras VLAN se necessário). Os informáticos
@@ -758,6 +773,8 @@ Ambas as ligações entre o hub Hub0 e o switch SW\_DC estão ativas e deixam pa
 
 
 \section{Tarefa 3}
+\vspace{0.2cm}
+
 Ative o \textbf{RouterA} na topologia, ligando-o ao SW\_DC apenas configurando o RouterA e SW\_DC, segundo uma topologia \textit{router-on-a-stick}, e de acordo com as indicações que se seguem de maneira a estes ficarem com as configurações de acordo com as \textit{best practices}. Procure implementar, ao configurar as VLAN e o encaminhamento nos routers, as seguintes regras (sem recorrer a listas de acesso (ACL)) (Lembra-se que: Se no exterior de uma rede esta não for “conhecida”, os outros routers não enviarão tráfego para ela):
 
 \textbf{Nota}: No futuro, quando evoluir na matéria de Redes, utilizando listas de acesso (ACL) irá constatar que podem ser implementadas com facilidade outras alternativas à limitação da comunicação (filtros) entre equipamentos em redes distintas, mas isso não é requerido neste trabalho dado que essa matéria será aprofundada apenas mais à frente
@@ -859,8 +876,10 @@ Para verificar a conectividade entre os PCs de diferentes VLAN, foi feito um tes
 \pagebreak
 
 \section{Tarefa 4}
-Implemente a topologia da \textbf{Empresa B}, sabendo que o ISP forneceu a esta duas redes blocos de endereços IPv4 públicos, mas que para efeitos de racionamento de endereçamento a Empresa B utiliza internamente blocos IPv4 privados /26, onde N representa o número do grupo.  
 \vspace{0.2cm}
+
+Implemente a topologia da \textbf{Empresa B}, sabendo que o ISP forneceu a esta duas redes blocos de endereços IPv4 públicos, mas que para efeitos de racionamento de endereçamento a Empresa B utiliza internamente blocos IPv4 privados /26, onde N representa o número do grupo.  
+\vspace{0.8cm}
 
 \begin{table}[h!]
     \centering
@@ -976,6 +995,8 @@ Portanto, a utilização de endereços IPv4 privados com máscara /26 é uma est
 \pagebreak
 
 \section{Tarefa 5}
+\vspace{0.2cm}
+
 Implemente a topologia do \textbf{ISP} de interligação com os clientes (empresas A e B e muitas outras não presentes na topologia):   
 \vspace{0.8cm}
 
@@ -1024,9 +1045,188 @@ Para garantir a conectividade com os clientes e outros dispositivos na Internet,
 \textbf{c) Configure os caminhos das VLAN na malha de \textit{switches} do ISP (configurando as interfaces em \textit{trunk} ou \textit{access} quando necessário), sabendo que para efeitos de redundância de camada 2, o ISP construiu um circuito entre as duas empresas, logo este é para ser usado apenas em caso necessário se os routers do ISP falharem. No caso de falha de um equipamento de rede deve ser possível manter o serviço mesmo que haja troços que fiquem com tráfego maior.}
 \vspace{0.2cm}
 
+Antes de começar a configurar as portas, é importante pensar na implementação. Existem 2 VLANs, uma para cada empresa, e cada uma delas tem um router associado. Assim, as portas que ligam os switches aos routers devem ser configuradas em mode access e as portas que ligam os switches entre si devem ser configuradas em mode trunk.
+Ou seja, os routers A e B vão estar endereçados nas suas portas físicas, enquanto que os routers 1 e 3 vão estar endereçados nas suas subinterfaces.
+
+\vspace{0.2cm}
+
+Começa-se pelos routers A e B. Vamos endereçar as portas físicas dos routers A e B, como se pode ver na figura \ref{fig:5.c.1}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.c.1.png}
+    \caption{Tarefa 5 c) - Configurar interfaces Routers das Empresas}
+    \label{fig:5.c.1}
+\end{figure}
+
+\vspace{0.2cm}
+
+De seguida, vamos configuar os switches de acesso aos routers. Vamos configurar as portas dos switches que ligam aos routers em modo access e todas as outras em mode trunk,como se pode ver na figura \ref{fig:5.c.2}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.c.2.png}
+    \caption{Tarefa 5 c) - Configurar portas switches de acesso}
+    \label{fig:5.c.2}
+\end{figure}
+
+\vspace{0.2cm}
+
+Para os switches de distruição, vamos verificar e criar as VLANs e para cada porta, vamos forçar o encapsulamento em dot1q, configurar as portas em modo trunk e fazer prune, como se pode ver na figura \ref{fig:5.c.3}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.c.3.png}
+    \caption{Tarefa 5 c) - Configurar portas switches de distribuição}
+    \label{fig:5.c.3}
+\end{figure}
+
+\vspace{0.2cm}
+
+Por fim, vamos configurar os routers 1 e 3. Vamos endereçar as subinterfaces dos routers 1 e 3, como se pode ver na figura \ref{fig:5.c.4}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.c.4.png}
+    \caption{Tarefa 5 c) - Configurar subinterfaces Routers do ISP}
+    \label{fig:5.c.4}
+\end{figure}
+
 \vspace{0.8cm}
 
+\newpage
 \textbf{d) Verifique se existe conetividade ponto a ponto entre os \textit{routers} R1, RA, R3 e RB. Justifique.}
+\vspace{0.2cm}
+
+Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, foi feito um teste de ping entre os dispositivos. Para testar, o RA vai dar ping ao R1 e o R3 ao RB. Os resultados foram positivos, como se pode ver na figura \ref{fig:5.d}.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.53\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa5/5.d.1.png}
+    \end{subfigure}%
+    \begin{subfigure}{.53\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa5/5.d.2.png}
+    \end{subfigure}
+    \caption{arefa 5 d) - Verificar conetividade}
+    \label{fig:5.d}
+\end{figure}
+\vspace{0.8cm}
+
+\textbf{e) Configure no ISP:}
+\begin{enumerate}[label=\Roman*.]
+    \item \textbf{O modo de STP é o Per-Vlan spanning tree.}
+    \vspace{0.2cm}
+
+    O mode de STP é o Per-Vlan Spanning Tree (PVST), que é uma versão do Spanning Tree Protocol (STP) que cria uma instância de STP para cada VLAN. Isto permite que cada VLAN tenha a sua própria árvore de spanning, o que ajuda a evitar loops de caminho redundantes e a melhorar a redundância da rede. Como se pode ver na figura \ref{fig:5.e.1}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.e.1.png}
+        \caption{Tarefa 5 e) - Configurar Per-Vlan Spanning Tree}
+        \label{fig:5.e.1}
+    \end{figure}
+
+    \vspace{0.8cm}
+
+    \item \textbf{O Swdistribution-1 é a Root Bridge (RB) primary da vlan 90 e RB secundary da vlan 95.}
+    \vspace{0.2cm}
+
+    Uma Root Bridge (RB) secundária é uma bridge que é eleita como a segunda melhor bridge para ser a Root Bridge. Isto significa que, se a Root Bridge principal falhar, a bridge secundária será a próxima a assumir o papel de Root Bridge. Como se pode ver na figura \ref{fig:5.e.2}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.e.2.png}
+        \caption{Tarefa 5 e) - Configurar RB do SWD1}
+        \label{fig:5.e.2}
+    \end{figure}
+
+    \vspace{0.8cm}
+    
+    \item \textbf{O Swdistribution-2 é a RB primary da vlan 95 e secundary da vlan 90.}
+    \vspace{0.2cm}
+
+    Tal como no ponto anterior, vamos configurar o Swdistribution-2 como a Root Bridge principal da VLAN 95 e secundária da VLAN 90. Como se pode ver na figura \ref{fig:5.e.3}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.e.3.png}
+        \caption{Tarefa 5 e) - Configurar RB do SWD2}
+        \label{fig:5.e.3}
+    \end{figure}
+
+    \vspace{0.8cm}
+    
+    \item \textbf{Faça “prune” nos trunks da topologia de switching do ISP para que apenas passem nos trunks as VLAN necessárias/utilizadas. Qual a vantagem/objetivo?}
+    \vspace{0.2cm}
+
+    O "pruning" é utilizado para remover VLANs desnecessárias de um trunk, reduzindo o tráfego supérfluo e melhorando o desempenho da rede. Ao otimizar os trunks com o \textit{prune}, diminui-se a carga de tráfego, o que contribui para maior eficiência e performance da infraestrutura de rede, conforme ilustrado na Figura \ref{fig:5.e.4}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.e.4.png}
+        \caption{Tarefa 5 e) - Configurar prune nos trunks}
+        \label{fig:5.e.4}
+    \end{figure}
+
+    \vspace{0.8cm}
+    
+    \item \textbf{Verifique quantas árvores de STP estão presentes?}
+    \vspace{0.2cm}
+
+    No Per-VLAN Spanning Tree (PVST), é criada uma árvore de spanning separada para cada VLAN, de modo que o número total de árvores STP corresponde ao número de VLANs na rede. Portanto, com 3 VLANs, existem 3 árvores STP, como ilustrado na Figura \ref{fig:5.e.5}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.e.5.png}
+        \caption{Tarefa 5 e) - Verificar árvores de STP}
+        \label{fig:5.e.5}
+    \end{figure}
+
+    \vspace{0.8cm}
+    
+    \item \textbf{Indique as portas bloqueadas da vlan 90 e 95. Justifique o bloqueio nestas portas.}
+    \vspace{0.2cm}
+
+    As portas bloqueadas são aquelas que não são utilizadas para encaminhar tráfego, mas sim para evitar loops de caminho redundantes. Neste caso, não existem portas bloqueadas, pois a configuração do Per-VLAN Spanning Tree (PVST) garante que cada VLAN tenha a sua própria árvore de spanning, o que evita loops e redundâncias na rede. Como se pode ver na figura \ref{fig:5.e.6}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa5/5.e.6.png}
+        \caption{Tarefa 5 e) - Verificar portas bloqueadas}
+        \label{fig:5.e.6}
+    \end{figure}
+
+\end{enumerate}
+
+\vspace{0.8cm}
+
+\textbf{f) Qual é o caminho entre o R1 e o RB? Consegue realizar com sucesso um Ping entre eles?}
+\vspace{0.2cm}
+
+O caminho entre o R1 e o RB passa pelos switches de distribuição, pelo switch de acesso e, finalmente, pelo router B. Para verificar a conectividade entre o R1 e o RB, foi realizado um teste de ping entre os dispositivos, que resultou em falha. Isso ocorreu porque o router 1 não possui uma rota para a VLAN 95, uma vez que o router B está configurado na VLAN 95, enquanto o router 1 está na VLAN 90, conforme descrito nas alíneas anteriores.
+
+\vspace{0.8cm}
+
+\section{Tarefa 6}
+\vspace{0.2cm}
+
+Configurar o \textit{routing} estático. No final deste ponto, os PC com comunicação para o exterior da EmpresaA devem conseguir “pingar" o Router1 e os PC da EmpresaB devem conseguir “pingar” o Router3.
+\vspace{0.8cm}
+
+\textbf{a) Configure nos routers das empresas as rotas estáticas default. Qual o “next-hop” destas rotas? Qual o objetivo?}
+\vspace{0.2cm}
+
+\vspace{0.8cm}
+
+\textbf{b) Neste momento os PC das empresas já conseguem pingar o seu respetivo router do ISP? Justifique.}
+\vspace{0.2cm}
+
+\vspace{0.8cm}
+
+\textbf{c) Configure as rotas estáticas que entender necessárias no R1 e R3 para que exista conetividade entre estes e as redes atribuídas a cada empresa. Qual o objetivo desta configuração?}
 \vspace{0.2cm}
 
 \vspace{0.8cm}
