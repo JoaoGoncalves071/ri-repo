@@ -1380,9 +1380,7 @@ PC da EmpresaB devem conseguir “pingar” o Router3.
 \textbf{a) Configure nos routers das empresas as rotas estáticas default. Qual o “next-hop” destas rotas? Qual o objetivo?}
 \vspace{0.2cm}
 
-O objetivo da configuração de \textit{routing} estático através da criação de
-rotas estáticas default nos routers é de garantir que qualquer tráfego que os
-dispositivos de ambas as empresas não consigam resolver localmente seja encaminhado para o router respetivo do ISP. Desta forma, os dispositivos podem comunicar com destinos externos à rede local. \par \vspace{0.2cm}
+As rotas estáticas por default são aquelas utilizadas quando não existem outras rotas conhecidas para o endereço de destino. No âmbito desta configuração, serão criadas duas rotas estáticas nos routers A e B, onde o next hop será, respetivamente, o IP da gateway dos routers R1 e R3. Assim, todas as comunicações provenientes dos routers A e B serão redirecionadas para o respetivo router do ISP. O objetivo dessa configuração de routing estático é garantir que qualquer tráfego que os dispositivos das duas empresas não consigam resolver localmente seja corretamente encaminhado para o ISP, permitindo a comunicação com destinos externos. \par \vspace{0.2cm}
 
 Para definir tais rotas apenas precisamos de usar o comando: \par \vspace{0.4cm}
 \small{\textbf{ip route <DESTINATION\_NETWORK> <SUBNET\_MASK><NEXT\_HOP\_IP\_ADDRESS>}}
@@ -1401,7 +1399,10 @@ Para definir tais rotas apenas precisamos de usar o comando: \par \vspace{0.4cm}
     \caption{Tarefa 6 a) - Rotas estáticas default nos routers das empresas}
     \label{fig:6.a}
 \end{figure}
-\vspace{0.8cm}
+\vspace{0.2cm}
+
+O “next-hop” refere o Router mais próximo para o qual um pacote pode ser encaminhado de modo a chegar a certo destino final. Mais especificamente, é uma entrada na tabela de roteamento que especifica o endereço IP do router melhor/mais próximo no caminho. As tabelas dos routers mantém,
+assim, entradas de endereços “next-hop”, calculados com base no protocolo de roteamento e métricas associadas. Ao armazenar estas informações, consegue-se reduzir o tamanho destas tabelas.
 
 
 \vspace{0.8cm}
@@ -1438,6 +1439,37 @@ Esta informação permite-nos compreender que, embora tenham sido configuradas r
 \textbf{c) Configure as rotas estáticas que entender necessárias no R1 e R3 para que exista conetividade entre estes e as redes atribuídas a cada empresa. Qual o objetivo desta configuração?}
 \vspace{0.2cm}
 
+Para garantir a conectividade entre os routers A e B e as redes atribuídas a cada empresa, é necessário configurar rotas estáticas nos routers 1 e 3. O objetivo dessa configuração é assegurar que os pacotes enviados pelos routers A e B para as redes das empresas sejam devidamente encaminhados para os respetivos routers corporativos, garantindo assim a comunicação bidirecional entre os dispositivos de ambas as redes.
+Para definir tais rotas apenas precisamos de usar o comando: \par \vspace{0.2cm}
+\small{\textbf{ip route <DESTINATION\_NETWORK> <SUBNET\_MASK><NEXT\_HOP\_IP\_ADDRESS>}}
+\par \vspace{0.2cm}
+O endereço de destino vai ser a rede atribuída às vlans de cada empresa, o next hop vai ser o endereço IP do router de cada empresa, tal como se pode ver na Fig. \ref{fig:6.c}.
+\par \vspace{0.2cm}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa6/6.c_Router1.png}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa6/6.c_Router3.png}
+    \end{subfigure}
+    \caption{Tarefa 6 c) - Rotas estáticas nos routers do ISP}
+    \label{fig:6.a}
+\end{figure}
+\vspace{0.2cm}
+
+Uma vez configuradas estas rotas, vamos verificar se os PCs das empresas conseguem fazer ping aos respetivos routers do ISP, tal como se pode ver na Fig. \ref{fig:6.c_ping}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/Tarefa6/6.c_Ping.png}
+    \caption{Tarefa 6 c) - Ping bem sucedido de um PC para o respetivo router do ISP}
+    \label{fig:6.c_ping}
+\end{figure}
 
 
 \vspace{0.8cm}
