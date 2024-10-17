@@ -516,7 +516,9 @@ Como se pode ver na figura \ref{fig:1k}
 \textbf{n) Force a root bridge para ser o SW\_DC através da prioridade. Possui alguma porta bloqueada?}
 \vspace{0.2cm}
 
-Como foi respondido anteriormente na alínea i, SW\_DC é a root bridge. Caso não fosse, poderia-se forçar a root bridge através do comando "spanning-tree vlan 1 priority 28672".
+Como foi respondido anteriormente na alínea i, SW\_DC é a root bridge. Caso não
+fosse, poderia-se forçar a root bridge através do comando "spanning-tree vlan 1
+priority 28672".
 \vspace{0.8cm}
 
 
@@ -621,7 +623,8 @@ implementada e configurada como indicado nos passos (alíneas) seguintes:
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{Nº Vlan} & \textbf{Nome} & \textbf{IP do Gateway} & \textbf{Rede} &  \textbf{PCs}\\
+\textbf{Nº Vlan} & \textbf{Nome} & \textbf{IP do Gateway} & \textbf{Rede} &
+\textbf{PCs}\\
 \hline
 51 & Contabilidade & 172.24.51.254 & 172.24.51.0/24 & PC7, PC9\\
 52 & Secretariado & 172.24.53.254 & 172.24.53.0/24 & PC5, PC8\\
@@ -637,7 +640,8 @@ implementada e configurada como indicado nos passos (alíneas) seguintes:
 \textbf{a) Configure as VLAN preferencialmente de acordo com a tabela anterior.}
 \vspace{0.2cm}
 
-Primeiramente, verificou-se em todos os switches a existência de VLANs, como se pode ver na figura \ref{fig:2a1}. 
+Primeiramente, verificou-se em todos os switches a existência de VLANs, como se
+pode ver na figura \ref{fig:2a1}. 
 
 \begin{figure}[H]
     \centering
@@ -659,7 +663,8 @@ Caso existissem, eram eliminadas, como se pode ver na figura \ref{fig:2a2}.
 
 \vspace{0.2cm}
 
-De seguida, criaram-se as VLANs de acordo com a tabela fornecida, como se pode ver na figura \ref{fig:2a3}.
+De seguida, criaram-se as VLANs de acordo com a tabela fornecida, como se pode
+ver na figura \ref{fig:2a3}.
 
 \begin{figure}[H]
     \centering
@@ -669,22 +674,35 @@ De seguida, criaram-se as VLANs de acordo com a tabela fornecida, como se pode v
 \end{figure}
 
 
-A implementação de uma VLAN passa pelo uso do comando vlan (tag vlan) seguido de vlan (nome vlan). Assim sendo, executam-se, em cada switch, estes dois comandos para cada umas das 4 VLANs a implementar.
+A implementação de uma VLAN passa pelo uso do comando vlan (tag vlan) seguido de
+vlan (nome vlan). Assim sendo, executam-se, em cada switch, estes dois comandos
+para cada umas das 4 VLANs a implementar.
 
 \vspace{0.8cm}
 
-\textbf{b) Configure as portas em modo \textit{access} ou \textit{trunk} dependendo das necessidades. Desligue o protocolo \textit{Dynamic Trunking Protocol} (DTP) em cada interface que configurar como \textit{access} ou \textit{trunk}.}
+\textbf{b) Configure as portas em modo \textit{access} ou \textit{trunk}
+dependendo das necessidades. Desligue o protocolo \textit{Dynamic Trunking
+Protocol} (DTP) em cada interface que configurar como \textit{access} ou
+\textit{trunk}.}
 \vspace{0.2cm}
 
 Antes de começar a configurar as portas, é importante diferenciar os dois modos:
 
 \begin{itemize}
-    \item \textbf{Access:} é usado para conectar dispositivos finais à rede, como PCs. Estes dispositivos não processam as tags da VLAN, por isso, não precisam se preocupar com a segmentação em VLANs, pois a separação das ligações é uma responsabilidade dos switches.
-    \item \textbf{Trunk:} é usado para transportar várias VLANs e, normalmente, são usadas para ligações entre switches. As tramas usadas nestas ligações contêm campos adicionais para identificar a que VLAN pertencem.
+    \item \textbf{Access:} é usado para conectar dispositivos finais à rede,
+    como PCs. Estes dispositivos não processam as tags da VLAN, por isso, não
+    precisam se preocupar com a segmentação em VLANs, pois a separação das
+    ligações é uma responsabilidade dos switches.
+    \item \textbf{Trunk:} é usado para transportar várias VLANs e, normalmente,
+    são usadas para ligações entre switches. As tramas usadas nestas ligações
+    contêm campos adicionais para identificar a que VLAN pertencem.
 \end{itemize}
 
-Com isto em mente, configuraram-se as portas de acordo com as necessidades de cada VLAN, como se pode ver na figura \ref{fig:2b}.
-O Dynamic Trunking Protocol (DTP) é um protocolo que permite a negociação automática de troncos entre dois switches. No entanto, para evitar problemas de segurança, desativou-se o DTP usando o comando \textit{switchport nonegotiate}.
+Com isto em mente, configuraram-se as portas de acordo com as necessidades de
+cada VLAN, como se pode ver na figura \ref{fig:2b}. O Dynamic Trunking Protocol
+(DTP) é um protocolo que permite a negociação automática de troncos entre dois
+switches. No entanto, para evitar problemas de segurança, desativou-se o DTP
+usando o comando \textit{switchport nonegotiate}.
 
 \begin{figure}[H]
     \centering
@@ -698,14 +716,16 @@ O Dynamic Trunking Protocol (DTP) é um protocolo que permite a negociação aut
 \textbf{c) Configure o endereçamento IPv4 de todos os equipamentos tendo em consideração o sugerido na tabela. }
 \vspace{0.2cm}
 
-De acordo com a tabela das VLANs \ref{tab:vlansA}, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na tabela \ref{tab:ipA}.
+De acordo com a tabela das VLANs \ref{tab:vlansA}, configuraram-se os endereços
+IPV4 dos equipamentos, como se pode ver na tabela \ref{tab:ipA}.
 \vspace{0.2cm}
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Nº Vlan} & \textbf{Dispositivo} & \textbf{IPV4} & \textbf{IP do Gateway}\\
+\textbf{Nº Vlan} & \textbf{Dispositivo} & \textbf{IPV4} & \textbf{IP do
+Gateway}\\
 \hline
 51 & PC7 & 172.24.51.1/24 & 172.24.51.254\\
 51 & PC9 & 172.24.51.2/24 & 172.24.51.254\\
@@ -720,7 +740,8 @@ De acordo com a tabela das VLANs \ref{tab:vlansA}, configuraram-se os endereços
 \end{table}
 \vspace{0.2cm}
 
-Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na figura \ref{fig:2c}.
+Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pode
+ver na figura \ref{fig:2c}.
 \vspace{0.2cm}
 
 \begin{figure}[H]
@@ -735,8 +756,13 @@ Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pod
 \textbf{d) Verifique se existe conetividade entre os equipamentos em cada uma das VLAN.}
 \vspace{0.2cm}
 
-Para verificar a conectividade entre os equipamentos de cada VLAN, foi feito um teste de ping entre os dispositivos. O ping é uma ferramenta que permite testar a conectividade entre dois dispositivos numa rede, em que envia pacotes de dados para um dispositivo e espera por uma resposta. Este sinal é enviado através do protocolo ICMP (Internet Control Message Protocol) e é medido em milissegundos (ms).
-Para testar, o PC9 vai fazer ping ao PC7 e os resultados foram positivos, como se pode ver na figura \ref{fig:2d}.
+Para verificar a conectividade entre os equipamentos de cada VLAN, foi feito um
+teste de ping entre os dispositivos. O ping é uma ferramenta que permite testar
+a conectividade entre dois dispositivos numa rede, em que envia pacotes de dados
+para um dispositivo e espera por uma resposta. Este sinal é enviado através do
+protocolo ICMP (Internet Control Message Protocol) e é medido em milissegundos
+(ms). Para testar, o PC9 vai fazer ping ao PC7 e os resultados foram positivos,
+como se pode ver na figura \ref{fig:2d}.
 
 \begin{figure}[H]
     \centering
@@ -750,8 +776,15 @@ Para testar, o PC9 vai fazer ping ao PC7 e os resultados foram positivos, como s
 \textbf{e) Verifique se existe conetividade entre os equipamentos de VLAN distintas.}
 \vspace{0.2cm}
 
-Para verificar a conectividade entre os equipamentos de VLAN distintas, foi feito um teste de ping entre os dispositivos. Para testar, o PC9 vai dar ping ao PC6 e, como não existe conectividade entre VLANs distintas, o ping não foi bem sucedido como se pode ver na figura \ref{fig:2e}.
-Para que haja conectividade entre VLANs distintas, é necessário um router ou um switch layer 3. Assim, quando um dispositivo de uma VLAN quer comunicar com um dispositivo de outra VLAN, terá de um usar um endereço IP de gateway que permita a comunicação entre as VLANs. Desta forma, o tráfego passa pelo router ou switch layer 3 que faz a interligação entre as VLANs.
+Para verificar a conectividade entre os equipamentos de VLAN distintas, foi
+feito um teste de ping entre os dispositivos. Para testar, o PC9 vai dar ping ao
+PC6 e, como não existe conectividade entre VLANs distintas, o ping não foi bem
+sucedido como se pode ver na figura \ref{fig:2e}. Para que haja conectividade
+entre VLANs distintas, é necessário um router ou um switch layer 3. Assim,
+quando um dispositivo de uma VLAN quer comunicar com um dispositivo de outra
+VLAN, terá de um usar um endereço IP de gateway que permita a comunicação entre
+as VLANs. Desta forma, o tráfego passa pelo router ou switch layer 3 que faz a
+interligação entre as VLANs.
 
 \begin{figure}[H]
     \centering
@@ -765,7 +798,14 @@ Para que haja conectividade entre VLANs distintas, é necessário um router ou u
 \textbf{f) Ambas as ligações entre o hub Hub0 e o switch  SW\_DC estão ativas e deixam passar tráfego IPv4? Justifique.}
 \vspace{0.2cm}
 
-Ambas as ligações entre o hub Hub0 e o switch SW\_DC estão ativas e deixam passar tráfego IPv4. Isto acontece porque um hub é um dispositivo da camada 1 que opera na camada física do modelo OSI, ou seja, é um dispositivo que apenas replica o sinal que recebe para todas as portas. Assim, todas as portas do hub estão sempre ativas e, por isso, o tráfego IPv4 passa sem problemas. Já o switch SW\_DC é um dispositivo da camada 2 que opera na camada de ligação de dados do modelo OSI, ou seja, é um dispositivo que encaminha tramas para o destino correto. Assim, o tráfego IPv4 passa sem problemas.
+Ambas as ligações entre o hub Hub0 e o switch SW\_DC estão ativas e deixam
+passar tráfego IPv4. Isto acontece porque um hub é um dispositivo da camada 1
+que opera na camada física do modelo OSI, ou seja, é um dispositivo que apenas
+replica o sinal que recebe para todas as portas. Assim, todas as portas do hub
+estão sempre ativas e, por isso, o tráfego IPv4 passa sem problemas. Já o switch
+SW\_DC é um dispositivo da camada 2 que opera na camada de ligação de dados do
+modelo OSI, ou seja, é um dispositivo que encaminha tramas para o destino
+correto. Assim, o tráfego IPv4 passa sem problemas.
 
 \vspace{0.8cm}
 
@@ -775,20 +815,35 @@ Ambas as ligações entre o hub Hub0 e o switch SW\_DC estão ativas e deixam pa
 \section{Tarefa 3}
 \vspace{0.2cm}
 
-Ative o \textbf{RouterA} na topologia, ligando-o ao SW\_DC apenas configurando o RouterA e SW\_DC, segundo uma topologia \textit{router-on-a-stick}, e de acordo com as indicações que se seguem de maneira a estes ficarem com as configurações de acordo com as \textit{best practices}. Procure implementar, ao configurar as VLAN e o encaminhamento nos routers, as seguintes regras (sem recorrer a listas de acesso (ACL)) (Lembra-se que: Se no exterior de uma rede esta não for “conhecida”, os outros routers não enviarão tráfego para ela):
+Ative o \textbf{RouterA} na topologia, ligando-o ao SW\_DC apenas configurando o
+RouterA e SW\_DC, segundo uma topologia \textit{router-on-a-stick}, e de acordo
+com as indicações que se seguem de maneira a estes ficarem com as configurações
+de acordo com as \textit{best practices}. Procure implementar, ao configurar as
+VLAN e o encaminhamento nos routers, as seguintes regras (sem recorrer a listas
+de acesso (ACL)) (Lembra-se que: Se no exterior de uma rede esta não for
+“conhecida”, os outros routers não enviarão tráfego para ela):
 
-\textbf{Nota}: No futuro, quando evoluir na matéria de Redes, utilizando listas de acesso (ACL) irá constatar que podem ser implementadas com facilidade outras alternativas à limitação da comunicação (filtros) entre equipamentos em redes distintas, mas isso não é requerido neste trabalho dado que essa matéria será aprofundada apenas mais à frente
+\textbf{Nota}: No futuro, quando evoluir na matéria de Redes, utilizando listas
+de acesso (ACL) irá constatar que podem ser implementadas com facilidade outras
+alternativas à limitação da comunicação (filtros) entre equipamentos em redes
+distintas, mas isso não é requerido neste trabalho dado que essa matéria será
+aprofundada apenas mais à frente
 
 \underline{Lembre-se que cada rede/VLAN tem atribuídos endereços IPv4 públicos (apenas para uso nos routers)}
 \underline{e privados. Do exterior das empresas só podem ser acedidos com endereços IPv4 públicos.}
 
 \vspace{0.8cm}
 
-\textbf{a) Configurar e ativar as \textit{interfaces} utilizadas de acordo com a regras enunciadas e as VLAN criadas (tenha em atenção que no uso de \textit{subinterfaces}, neste caso a correspondente interface física não possui configuração de IP).}
+\textbf{a) Configurar e ativar as \textit{interfaces} utilizadas de acordo com a
+regras enunciadas e as VLAN criadas (tenha em atenção que no uso de
+\textit{subinterfaces}, neste caso a correspondente interface física não possui
+configuração de IP).}
 \vspace{0.2cm}
 
-Começa-se por dividr a interface do router A em 4 subinterfaces, uma por VLAN, atribuindo a cada um o IP da default gateway da VLAN Associada.
-Fazemos o comando \textit{no shutdown} para ativar a interface. Como se pode ver na figura \ref{fig:3a}.
+Começa-se por dividr a interface do router A em 4 subinterfaces, uma por VLAN,
+atribuindo a cada um o IP da default gateway da VLAN Associada. Fazemos o
+comando \textit{no shutdown} para ativar a interface. Como se pode ver na figura
+\ref{fig:3a}.
 \vspace{0.2cm}
 
 \begin{figure}[H]
@@ -803,7 +858,9 @@ Fazemos o comando \textit{no shutdown} para ativar a interface. Como se pode ver
 \textbf{b) Atribuir o nome aos routers/switches com o comando hostname.}
 \vspace{0.2cm}
 
-Para atribuir um nome ao router, usamos o comando \textit{hostname} seguido do nome que queremos atribuir. Como se pode ver nas figuras \ref{fig:3b.1} e \ref{fig:3b.2}.
+Para atribuir um nome ao router, usamos o comando \textit{hostname} seguido do
+nome que queremos atribuir. Como se pode ver nas figuras \ref{fig:3b.1} e
+\ref{fig:3b.2}.
 \vspace{0.2cm}
 
 \begin{figure}[H]
@@ -825,7 +882,9 @@ Para atribuir um nome ao router, usamos o comando \textit{hostname} seguido do n
 \textbf{c) Configure uma mensagem inicial para quem entra no equipamento.}
 \vspace{0.2cm}
 
-Para configurar uma mensagem inicial, usamos o comando \textit{banner motd} seguido da mensagem que queremos que apareça. Como se pode ver na figura \ref{fig:3c}.
+Para configurar uma mensagem inicial, usamos o comando \textit{banner motd}
+seguido da mensagem que queremos que apareça. Como se pode ver na figura
+\ref{fig:3c}.
 \vspace{0.2cm}
 
 \begin{figure}[H]
@@ -840,7 +899,9 @@ Para configurar uma mensagem inicial, usamos o comando \textit{banner motd} segu
 \textbf{d)	Salve as configurações no router não se esquecendo da primeira vez de verificar se ficou mesmo salvo, se funcionou.}
 \vspace{0.2cm}
 
-Para salvar as configurações, usamos o comando \textit{write memory} ou \textit{copy running-config startup-config}. Como se pode ver na figura \ref{fig:3d}.
+Para salvar as configurações, usamos o comando \textit{write memory} ou
+\textit{copy running-config startup-config}. Como se pode ver na figura
+\ref{fig:3d}.
 \vspace{0.2cm}
 
 \begin{figure}[H]
@@ -852,10 +913,21 @@ Para salvar as configurações, usamos o comando \textit{write memory} ou \texti
 
 \vspace{0.8cm}
 
-\textbf{e) Verifique se a conetividade entre os PC de diferentes VLAN. Pode utilizar o \textit{Ping}. Caso tenha problemas, faça o \textit{troubleshooting} para verificar se o problema está na \textit{vlan/rede} (possível causa nos \textit{switches/vlan} não criadas/passadas; portas em \textit{access/trunks} ou a própria configuração dos PC/endereçamento/máscara do PC/GW)) execute um \textit{ping} ao seu GW ou utilize um \textit{traceroute} para verificar em que “hop” está o problema. Se estiver a tentar “pingar” o PC7 do PC5 e se cada PC possuir conetividade com o seu GW, então o problema estará no \textit{router}.}
+\textbf{e) Verifique se a conetividade entre os PC de diferentes VLAN. Pode
+utilizar o \textit{Ping}. Caso tenha problemas, faça o \textit{troubleshooting}
+para verificar se o problema está na \textit{vlan/rede} (possível causa nos
+\textit{switches/vlan} não criadas/passadas; portas em \textit{access/trunks} ou
+a própria configuração dos PC/endereçamento/máscara do PC/GW)) execute um
+\textit{ping} ao seu GW ou utilize um \textit{traceroute} para verificar em que
+“hop” está o problema. Se estiver a tentar “pingar” o PC7 do PC5 e se cada PC
+possuir conetividade com o seu GW, então o problema estará no \textit{router}.}
 \vspace{0.2cm}
 
-Para verificar a conectividade entre os PCs de diferentes VLAN, foi feito um teste de ping entre os dispositivos. Para testar, o PC7 vai dar ping ao Server2 e os resultados foram positivos, como se pode ver na figura \ref{fig:3.e.1}. Também podemos visualizar a tabela de arp do router A, onde podemos ver os endereços MAC associados a cada IP, como se pode ver na figura \ref{fig:3.e.2}.
+Para verificar a conectividade entre os PCs de diferentes VLAN, foi feito um
+teste de ping entre os dispositivos. Para testar, o PC7 vai dar ping ao Server2
+e os resultados foram positivos, como se pode ver na figura \ref{fig:3.e.1}.
+Também podemos visualizar a tabela de arp do router A, onde podemos ver os
+endereços MAC associados a cada IP, como se pode ver na figura \ref{fig:3.e.2}.
 \vspace{0.2cm}
 
 \begin{figure}[H]
@@ -878,14 +950,18 @@ Para verificar a conectividade entre os PCs de diferentes VLAN, foi feito um tes
 \section{Tarefa 4}
 \vspace{0.2cm}
 
-Implemente a topologia da \textbf{Empresa B}, sabendo que o ISP forneceu a esta duas redes blocos de endereços IPv4 públicos, mas que para efeitos de racionamento de endereçamento a Empresa B utiliza internamente blocos IPv4 privados /26, onde N representa o número do grupo.  
+Implemente a topologia da \textbf{Empresa B}, sabendo que o ISP forneceu a esta
+duas redes blocos de endereços IPv4 públicos, mas que para efeitos de
+racionamento de endereçamento a Empresa B utiliza internamente blocos IPv4
+privados /26, onde N representa o número do grupo.  
 \vspace{0.8cm}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|c|c|c|}
     \hline
-         \textbf{NºVlan} & \textbf{Nome} & \textbf{IP do Gateway} & \textbf{Rede} & \textbf{PCs}\\
+         \textbf{NºVlan} & \textbf{Nome} & \textbf{IP do Gateway} &
+         \textbf{Rede} & \textbf{PCs}\\
     \hline
         2 & Servidores & 192.168.52.62 & 192.168.52.0/26 & Server1\\
         3 & Engenharia & 192.168.53.62 & 192.168.53.0/26 & PC1, PC2\\
@@ -896,14 +972,16 @@ Implemente a topologia da \textbf{Empresa B}, sabendo que o ISP forneceu a esta 
 \end{table}
 \vspace{0.2cm}
 
-De acordo com a tabela das VLANs \ref{tab:vlansB}, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na tabela \ref{tab:ipB}.
+De acordo com a tabela das VLANs \ref{tab:vlansB}, configuraram-se os endereços
+IPV4 dos equipamentos, como se pode ver na tabela \ref{tab:ipB}.
 \vspace{0.2cm}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|c|c|}
     \hline
-        \textbf{NºVlan} & \textbf{Dispositivos} & \textbf{IPV4} & \textbf{IP do Gateway}\\
+        \textbf{NºVlan} & \textbf{Dispositivos} & \textbf{IPV4} & \textbf{IP do
+        Gateway}\\
     \hline
         2 & Server1 & 192.168.52.1/26 & 192.168.52.62\\
         3 & PC1 & 192.168.53.1/26 & 192.168.53.62\\
@@ -915,7 +993,9 @@ De acordo com a tabela das VLANs \ref{tab:vlansB}, configuraram-se os endereços
 \end{table}
 \vspace{0.2cm}
 
-Primeiramente, verificou-se no switch a existência de VLANs. Caso existissem, eram eliminadas e criadas as VLANs de acordo com a tabela fornecida, como se pode ver na figura \ref{fig:4.1.1}.
+Primeiramente, verificou-se no switch a existência de VLANs. Caso existissem,
+eram eliminadas e criadas as VLANs de acordo com a tabela fornecida, como se
+pode ver na figura \ref{fig:4.1.1}.
 
 \begin{figure}[H]
     \centering
@@ -925,7 +1005,8 @@ Primeiramente, verificou-se no switch a existência de VLANs. Caso existissem, e
 \end{figure}
 \vspace{0.2cm}
 
-De seguida, configuraram-se as portas de acordo com as necessidades de cada VLAN, bem como a desativação do DTP, como se pode ver na figura \ref{fig:4.1.2}.
+De seguida, configuraram-se as portas de acordo com as necessidades de cada
+VLAN, bem como a desativação do DTP, como se pode ver na figura \ref{fig:4.1.2}.
 
 \begin{figure}[h]
     \centering
@@ -942,7 +1023,8 @@ De seguida, configuraram-se as portas de acordo com as necessidades de cada VLAN
 \end{figure}
 \vspace{0.2cm}
 
-Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pode ver na figura \ref{fig:4.1.4}.
+Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pode
+ver na figura \ref{fig:4.1.4}.
 
 \begin{figure}[H]
     \centering
@@ -952,7 +1034,8 @@ Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pod
 \end{figure}
 \vspace{0.2cm}
 
-A seguir, configuraram-se as interfaces do router, criando subinterfaces para cada VLAN e ativamos a interface, como se pode ver na figura \ref{fig:4.1.5}.
+A seguir, configuraram-se as interfaces do router, criando subinterfaces para
+cada VLAN e ativamos a interface, como se pode ver na figura \ref{fig:4.1.5}.
 
 \begin{figure}[H]
     \centering
@@ -962,7 +1045,8 @@ A seguir, configuraram-se as interfaces do router, criando subinterfaces para ca
 \end{figure}
 \vspace{0.2cm}
 
-Posteriormente, verficamos e atualizamos as portas trunk e as vlans que passam por elas, como se pode ver na figura \ref{fig:4.1.6}.
+Posteriormente, verficamos e atualizamos as portas trunk e as vlans que passam
+por elas, como se pode ver na figura \ref{fig:4.1.6}.
 
 \begin{figure}[H]
     \centering
@@ -972,7 +1056,9 @@ Posteriormente, verficamos e atualizamos as portas trunk e as vlans que passam p
 \end{figure}
 \vspace{0.2cm}
 
-Por fim, verificamos a conectividade entre os PCs das mesmas VLANs (PC1 com PC2) e entre PCs de VLANs distintas (PC1 com Server1), como se pode ver na figura \ref{fig:4.1.7}.
+Por fim, verificamos a conectividade entre os PCs das mesmas VLANs (PC1 com PC2)
+e entre PCs de VLANs distintas (PC1 com Server1), como se pode ver na figura
+\ref{fig:4.1.7}.
 
 \begin{figure}[H]
     \centering
@@ -986,29 +1072,50 @@ Por fim, verificamos a conectividade entre os PCs das mesmas VLANs (PC1 com PC2)
 \textbf{a) Será uma boa decisão, e era necessário, os informáticos da empresa B optarem por endereços IPv4 privados usando máscaras /26? Justifique.}
 \vspace{0.2cm}
 
-A escolha da Empresa B em utilizar endereços IPv4 privados com máscara /26 para suas VLANs é uma decisão acertada. Os endereços IPv4 públicos são limitados, e a adoção de endereços privados permite a criação de redes locais sem a necessidade de endereços públicos.
+A escolha da Empresa B em utilizar endereços IPv4 privados com máscara /26 para
+suas VLANs é uma decisão acertada. Os endereços IPv4 públicos são limitados, e a
+adoção de endereços privados permite a criação de redes locais sem a necessidade
+de endereços públicos.
 
-A máscara /26 possibilita a criação de quatro sub-redes, cada uma com até 62 endereços disponíveis, o que é suficiente para a quantidade de dispositivos presentes em cada VLAN. Além disso, o uso de endereços IPv4 privados é uma prática comum em redes locais, pois facilita a segmentação da rede e permite que os endereços públicos sejam utilizados apenas nos dispositivos que necessitam de comunicação com a Internet.
+A máscara /26 possibilita a criação de quatro sub-redes, cada uma com até 62
+endereços disponíveis, o que é suficiente para a quantidade de dispositivos
+presentes em cada VLAN. Além disso, o uso de endereços IPv4 privados é uma
+prática comum em redes locais, pois facilita a segmentação da rede e permite que
+os endereços públicos sejam utilizados apenas nos dispositivos que necessitam de
+comunicação com a Internet.
 
-Portanto, a utilização de endereços IPv4 privados com máscara /26 é uma estratégia adequada e necessária para a Empresa B.
+Portanto, a utilização de endereços IPv4 privados com máscara /26 é uma
+estratégia adequada e necessária para a Empresa B.
 
 \pagebreak
 
 \section{Tarefa 5}
 \vspace{0.2cm}
 
-Implemente a topologia do \textbf{ISP} de interligação com os clientes (empresas A e B e muitas outras não presentes na topologia):   
+Implemente a topologia do \textbf{ISP} de interligação com os clientes (empresas
+A e B e muitas outras não presentes na topologia):   
 \vspace{0.8cm}
 
 \textbf{a) Decida se nos routers do ISP é preferível utilizar endereços IPv4 privados ou públicos. Justifique.}
 \vspace{0.2cm}
 
-Nos routers do ISP, é preferível utilizar endereços IPv4 públicos. Esses endereços são únicos e globais, permitindo a comunicação com dispositivos em qualquer parte do mundo. Além disso, os endereços IPv4 públicos são essenciais para a conectividade com a Internet, uma vez que os endereços IPv4 privados não são roteáveis fora de uma rede local.
+Nos routers do ISP, é preferível utilizar endereços IPv4 públicos. Esses
+endereços são únicos e globais, permitindo a comunicação com dispositivos em
+qualquer parte do mundo. Além disso, os endereços IPv4 públicos são essenciais
+para a conectividade com a Internet, uma vez que os endereços IPv4 privados não
+são roteáveis fora de uma rede local.
 
-Para garantir a conectividade com os clientes e outros dispositivos na Internet, é imprescindível utilizar endereços IPv4 públicos nos roteadores do ISP. Essa prática assegura que todos os dados trafeguem de forma eficaz e que a comunicação entre diferentes redes seja mantida de maneira confiável.
+Para garantir a conectividade com os clientes e outros dispositivos na Internet,
+é imprescindível utilizar endereços IPv4 públicos nos roteadores do ISP. Essa
+prática assegura que todos os dados trafeguem de forma eficaz e que a
+comunicação entre diferentes redes seja mantida de maneira confiável.
 \vspace{0.8cm}
 
-\textbf{b) Relembre-se que quer o ISP quer as empresas possuem endereços IPv4 públicos e que as \underline{empresas só devem comunicar entre elas através dos \textit{routers} do ISP}. No caso de falha de um dos \textit{routers} do ISP, os \textit{routers} das empresas devem poder comunicar para fora através do outro \textit{router} do ISP (\textit{routers} 1 e 3).}
+\textbf{b) Relembre-se que quer o ISP quer as empresas possuem endereços IPv4
+públicos e que as \underline{empresas só devem comunicar entre elas através dos
+\textit{routers} do ISP}. No caso de falha de um dos \textit{routers} do ISP, os
+\textit{routers} das empresas devem poder comunicar para fora através do outro
+\textit{router} do ISP (\textit{routers} 1 e 3).}
 
 \textbf{Existe a possibilidade do ISP utilizar duas redes /30 (P2P em layer3) de interligação entre os seus routers e o de cada empresa.}
 
@@ -1042,15 +1149,27 @@ Para garantir a conectividade com os clientes e outros dispositivos na Internet,
 
 \vspace{0.8cm}
 
-\textbf{c) Configure os caminhos das VLAN na malha de \textit{switches} do ISP (configurando as interfaces em \textit{trunk} ou \textit{access} quando necessário), sabendo que para efeitos de redundância de camada 2, o ISP construiu um circuito entre as duas empresas, logo este é para ser usado apenas em caso necessário se os routers do ISP falharem. No caso de falha de um equipamento de rede deve ser possível manter o serviço mesmo que haja troços que fiquem com tráfego maior.}
+\textbf{c) Configure os caminhos das VLAN na malha de \textit{switches} do ISP
+(configurando as interfaces em \textit{trunk} ou \textit{access} quando
+necessário), sabendo que para efeitos de redundância de camada 2, o ISP
+construiu um circuito entre as duas empresas, logo este é para ser usado apenas
+em caso necessário se os routers do ISP falharem. No caso de falha de um
+equipamento de rede deve ser possível manter o serviço mesmo que haja troços que
+fiquem com tráfego maior.}
 \vspace{0.2cm}
 
-Antes de começar a configurar as portas, é importante pensar na implementação. Existem 2 VLANs, uma para cada empresa, e cada uma delas tem um router associado. Assim, as portas que ligam os switches aos routers devem ser configuradas em mode access e as portas que ligam os switches entre si devem ser configuradas em mode trunk.
-Ou seja, os routers A e B vão estar endereçados nas suas portas físicas, enquanto que os routers 1 e 3 vão estar endereçados nas suas subinterfaces.
+Antes de começar a configurar as portas, é importante pensar na implementação.
+Existem 2 VLANs, uma para cada empresa, e cada uma delas tem um router
+associado. Assim, as portas que ligam os switches aos routers devem ser
+configuradas em mode access e as portas que ligam os switches entre si devem ser
+configuradas em mode trunk. Ou seja, os routers A e B vão estar endereçados nas
+suas portas físicas, enquanto que os routers 1 e 3 vão estar endereçados nas
+suas subinterfaces.
 
 \vspace{0.2cm}
 
-Começa-se pelos routers A e B. Vamos endereçar as portas físicas dos routers A e B, como se pode ver na figura \ref{fig:5.c.1}.
+Começa-se pelos routers A e B. Vamos endereçar as portas físicas dos routers A e
+B, como se pode ver na figura \ref{fig:5.c.1}.
 
 \begin{figure}[H]
     \centering
@@ -1061,7 +1180,9 @@ Começa-se pelos routers A e B. Vamos endereçar as portas físicas dos routers 
 
 \vspace{0.2cm}
 
-De seguida, vamos configuar os switches de acesso aos routers. Vamos configurar as portas dos switches que ligam aos routers em modo access e todas as outras em mode trunk,como se pode ver na figura \ref{fig:5.c.2}.
+De seguida, vamos configuar os switches de acesso aos routers. Vamos configurar
+as portas dos switches que ligam aos routers em modo access e todas as outras em
+mode trunk,como se pode ver na figura \ref{fig:5.c.2}.
 
 \begin{figure}[H]
     \centering
@@ -1072,7 +1193,9 @@ De seguida, vamos configuar os switches de acesso aos routers. Vamos configurar 
 
 \vspace{0.2cm}
 
-Para os switches de distruição, vamos verificar e criar as VLANs e para cada porta, vamos forçar o encapsulamento em dot1q, configurar as portas em modo trunk e fazer prune, como se pode ver na figura \ref{fig:5.c.3}.
+Para os switches de distruição, vamos verificar e criar as VLANs e para cada
+porta, vamos forçar o encapsulamento em dot1q, configurar as portas em modo
+trunk e fazer prune, como se pode ver na figura \ref{fig:5.c.3}.
 
 \begin{figure}[H]
     \centering
@@ -1083,7 +1206,8 @@ Para os switches de distruição, vamos verificar e criar as VLANs e para cada p
 
 \vspace{0.2cm}
 
-Por fim, vamos configurar os routers 1 e 3. Vamos endereçar as subinterfaces dos routers 1 e 3, como se pode ver na figura \ref{fig:5.c.4}.
+Por fim, vamos configurar os routers 1 e 3. Vamos endereçar as subinterfaces dos
+routers 1 e 3, como se pode ver na figura \ref{fig:5.c.4}.
 
 \begin{figure}[H]
     \centering
@@ -1095,10 +1219,14 @@ Por fim, vamos configurar os routers 1 e 3. Vamos endereçar as subinterfaces do
 \vspace{0.8cm}
 
 \newpage
-\textbf{d) Verifique se existe conetividade ponto a ponto entre os \textit{routers} R1, RA, R3 e RB. Justifique.}
+\textbf{d) Verifique se existe conetividade ponto a ponto entre os
+\textit{routers} R1, RA, R3 e RB. Justifique.}
 \vspace{0.2cm}
 
-Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, foi feito um teste de ping entre os dispositivos. Para testar, o RA vai dar ping ao R1 e o R3 ao RB. Os resultados foram positivos, como se pode ver na figura \ref{fig:5.d}.
+Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB,
+foi feito um teste de ping entre os dispositivos. Para testar, o RA vai dar ping
+ao R1 e o R3 ao RB. Os resultados foram positivos, como se pode ver na figura
+\ref{fig:5.d}.
 
 \begin{figure}[h]
     \centering
@@ -1110,7 +1238,7 @@ Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, f
         \centering
         \includegraphics[width=0.99\linewidth]{imagens/Tarefa5/5.d.2.png}
     \end{subfigure}
-    \caption{arefa 5 d) - Verificar conetividade}
+    \caption{Tarefa 5 d) - Verificar conetividade}
     \label{fig:5.d}
 \end{figure}
 \vspace{0.8cm}
@@ -1120,7 +1248,11 @@ Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, f
     \item \textbf{O modo de STP é o Per-Vlan spanning tree.}
     \vspace{0.2cm}
 
-    O mode de STP é o Per-Vlan Spanning Tree (PVST), que é uma versão do Spanning Tree Protocol (STP) que cria uma instância de STP para cada VLAN. Isto permite que cada VLAN tenha a sua própria árvore de spanning, o que ajuda a evitar loops de caminho redundantes e a melhorar a redundância da rede. Como se pode ver na figura \ref{fig:5.e.1}.
+    O mode de STP é o Per-Vlan Spanning Tree (PVST), que é uma versão do
+    Spanning Tree Protocol (STP) que cria uma instância de STP para cada VLAN.
+    Isto permite que cada VLAN tenha a sua própria árvore de spanning, o que
+    ajuda a evitar loops de caminho redundantes e a melhorar a redundância da
+    rede. Como se pode ver na figura \ref{fig:5.e.1}.
 
     \begin{figure}[H]
         \centering
@@ -1131,10 +1263,14 @@ Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, f
 
     \vspace{0.8cm}
 
-    \item \textbf{O Swdistribution-1 é a Root Bridge (RB) primary da vlan 90 e RB secundary da vlan 95.}
+    \item \textbf{O Swdistribution-1 é a Root Bridge (RB) primary da vlan 90 e
+    RB secundary da vlan 95.}
     \vspace{0.2cm}
 
-    Uma Root Bridge (RB) secundária é uma bridge que é eleita como a segunda melhor bridge para ser a Root Bridge. Isto significa que, se a Root Bridge principal falhar, a bridge secundária será a próxima a assumir o papel de Root Bridge. Como se pode ver na figura \ref{fig:5.e.2}.
+    Uma Root Bridge (RB) secundária é uma bridge que é eleita como a segunda
+    melhor bridge para ser a Root Bridge. Isto significa que, se a Root Bridge
+    principal falhar, a bridge secundária será a próxima a assumir o papel de
+    Root Bridge. Como se pode ver na figura \ref{fig:5.e.2}.
 
     \begin{figure}[H]
         \centering
@@ -1145,10 +1281,13 @@ Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, f
 
     \vspace{0.8cm}
     
-    \item \textbf{O Swdistribution-2 é a RB primary da vlan 95 e secundary da vlan 90.}
+    \item \textbf{O Swdistribution-2 é a RB primary da vlan 95 e secundary da
+    vlan 90.}
     \vspace{0.2cm}
 
-    Tal como no ponto anterior, vamos configurar o Swdistribution-2 como a Root Bridge principal da VLAN 95 e secundária da VLAN 90. Como se pode ver na figura \ref{fig:5.e.3}.
+    Tal como no ponto anterior, vamos configurar o Swdistribution-2 como a Root
+    Bridge principal da VLAN 95 e secundária da VLAN 90. Como se pode ver na
+    figura \ref{fig:5.e.3}.
 
     \begin{figure}[H]
         \centering
@@ -1159,10 +1298,16 @@ Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, f
 
     \vspace{0.8cm}
     
-    \item \textbf{Faça “prune” nos trunks da topologia de switching do ISP para que apenas passem nos trunks as VLAN necessárias/utilizadas. Qual a vantagem/objetivo?}
+    \item \textbf{Faça “prune” nos trunks da topologia de switching do ISP para
+    que apenas passem nos trunks as VLAN necessárias/utilizadas. Qual a
+    vantagem/objetivo?}
     \vspace{0.2cm}
 
-    O "pruning" é utilizado para remover VLANs desnecessárias de um trunk, reduzindo o tráfego supérfluo e melhorando o desempenho da rede. Ao otimizar os trunks com o \textit{prune}, diminui-se a carga de tráfego, o que contribui para maior eficiência e performance da infraestrutura de rede, conforme ilustrado na Figura \ref{fig:5.e.4}.
+    O "pruning" é utilizado para remover VLANs desnecessárias de um trunk,
+    reduzindo o tráfego supérfluo e melhorando o desempenho da rede. Ao otimizar
+    os trunks com o \textit{prune}, diminui-se a carga de tráfego, o que
+    contribui para maior eficiência e performance da infraestrutura de rede,
+    conforme ilustrado na Figura \ref{fig:5.e.4}.
 
     \begin{figure}[H]
         \centering
@@ -1176,7 +1321,10 @@ Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, f
     \item \textbf{Verifique quantas árvores de STP estão presentes?}
     \vspace{0.2cm}
 
-    No Per-VLAN Spanning Tree (PVST), é criada uma árvore de spanning separada para cada VLAN, de modo que o número total de árvores STP corresponde ao número de VLANs na rede. Portanto, com 3 VLANs, existem 3 árvores STP, como ilustrado na Figura \ref{fig:5.e.5}.
+    No Per-VLAN Spanning Tree (PVST), é criada uma árvore de spanning separada
+    para cada VLAN, de modo que o número total de árvores STP corresponde ao
+    número de VLANs na rede. Portanto, com 3 VLANs, existem 3 árvores STP, como
+    ilustrado na Figura \ref{fig:5.e.5}.
 
     \begin{figure}[H]
         \centering
@@ -1187,10 +1335,16 @@ Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, f
 
     \vspace{0.8cm}
     
-    \item \textbf{Indique as portas bloqueadas da vlan 90 e 95. Justifique o bloqueio nestas portas.}
+    \item \textbf{Indique as portas bloqueadas da vlan 90 e 95. Justifique o
+    bloqueio nestas portas.}
     \vspace{0.2cm}
 
-    As portas bloqueadas são aquelas que não são utilizadas para encaminhar tráfego, mas sim para evitar loops de caminho redundantes. Neste caso, não existem portas bloqueadas, pois a configuração do Per-VLAN Spanning Tree (PVST) garante que cada VLAN tenha a sua própria árvore de spanning, o que evita loops e redundâncias na rede. Como se pode ver na figura \ref{fig:5.e.6}.
+    As portas bloqueadas são aquelas que não são utilizadas para encaminhar
+    tráfego, mas sim para evitar loops de caminho redundantes. Neste caso, não
+    existem portas bloqueadas, pois a configuração do Per-VLAN Spanning Tree
+    (PVST) garante que cada VLAN tenha a sua própria árvore de spanning, o que
+    evita loops e redundâncias na rede. Como se pode ver na figura
+    \ref{fig:5.e.6}.
 
     \begin{figure}[H]
         \centering
@@ -1206,28 +1360,85 @@ Para verificar a conectividade ponto a ponto entre os routers R1, RA, R3 e RB, f
 \textbf{f) Qual é o caminho entre o R1 e o RB? Consegue realizar com sucesso um Ping entre eles?}
 \vspace{0.2cm}
 
-O caminho entre o R1 e o RB passa pelos switches de distribuição, pelo switch de acesso e, finalmente, pelo router B. Para verificar a conectividade entre o R1 e o RB, foi realizado um teste de ping entre os dispositivos, que resultou em falha. Isso ocorreu porque o router 1 não possui uma rota para a VLAN 95, uma vez que o router B está configurado na VLAN 95, enquanto o router 1 está na VLAN 90, conforme descrito nas alíneas anteriores.
+O caminho entre o R1 e o RB passa pelos switches de distribuição, pelo switch de
+acesso e, finalmente, pelo router B. Para verificar a conectividade entre o R1 e
+o RB, foi realizado um teste de ping entre os dispositivos, que resultou em
+falha. Isso ocorreu porque o router 1 não possui uma rota para a VLAN 95, uma
+vez que o router B está configurado na VLAN 95, enquanto o router 1 está na VLAN 90, conforme descrito nas alíneas anteriores.
 
 \vspace{0.8cm}
 
+\pagebreak
 \section{Tarefa 6}
 \vspace{0.2cm}
 
-Configurar o \textit{routing} estático. No final deste ponto, os PC com comunicação para o exterior da EmpresaA devem conseguir “pingar" o Router1 e os PC da EmpresaB devem conseguir “pingar” o Router3.
+Configurar o \textit{routing} estático. No final deste ponto, os PC com
+comunicação para o exterior da EmpresaA devem conseguir “pingar" o Router1 e os
+PC da EmpresaB devem conseguir “pingar” o Router3.
 \vspace{0.8cm}
 
 \textbf{a) Configure nos routers das empresas as rotas estáticas default. Qual o “next-hop” destas rotas? Qual o objetivo?}
 \vspace{0.2cm}
 
+O objetivo da configuração de \textit{routing} estático através da criação de
+rotas estáticas default nos routers é de garantir que qualquer tráfego que os
+dispositivos de ambas as empresas não consigam resolver localmente seja encaminhado para o router respetivo do ISP. Desta forma, os dispositivos podem comunicar com destinos externos à rede local. \par \vspace{0.2cm}
+
+Para definir tais rotas apenas precisamos de usar o comando: \par \vspace{0.4cm}
+\small{\textbf{ip route <DESTINATION\_NETWORK> <SUBNET\_MASK><NEXT\_HOP\_IP\_ADDRESS>}}
+\par \vspace{1.2cm}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa6/6.a_RouterA.png}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.99\linewidth]{imagens/Tarefa6/6.a_RouterB.png}
+    \end{subfigure}
+    \caption{Tarefa 6 a) - Rotas estáticas default nos routers das empresas}
+    \label{fig:6.a}
+\end{figure}
 \vspace{0.8cm}
 
+
+\vspace{0.8cm}
+
+\pagebreak
 \textbf{b) Neste momento os PC das empresas já conseguem pingar o seu respetivo router do ISP? Justifique.}
 \vspace{0.2cm}
 
+Para responder à questão, foram feitos testes práticos nos PCs de cada Empresa para verificar se estes conseguem fazer ping aos respetivos routers do ISP (Router 1 para a Empresa A e Router 3 para a Empresa B). \par \vspace{0.4cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/Tarefa6/6.b_PC_Ping.png}
+    \caption{Tarefa 6 b) - Ping não sucedido de um PC para o respetivo router do ISP}
+    \label{fig:6.b_ping}
+\end{figure}
+\vspace{0.4cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/Tarefa6/6.b_Router_ARP.png}
+    \caption{Tarefa 6 b) - Tabela ARP no router da Empresa A}
+    \label{fig:6.b_arp}
+\end{figure}
+\vspace{0.4cm}
+
+Foram efetuados diversos pings através de múltiplos PCs de ambas as empresas e todos obtiveram o mesmo resultado. Como se pode ver na Fig. \ref{fig:6.b_ping}, ainda não é possível fazer ping através dos PCs. No entanto, tanto o Router A como o Router B têm informação correspondente à receção dos pacotes enviados, como é possível observar consultando a tabela ARP de cada router (Fig. \ref{fig:6.b_arp}) \par \vspace{0.2cm}
+
+Esta informação permite-nos compreender que, embora tenham sido configuradas rotas entre os routers A e 1 e B e 3, os pacotes apenas conseguem ser enviados, não sendo possível receber mensagem de volta para o emissor, por não haverem rotas de retorno dos pacotes nos routers 1 e 3. \par \vspace{0.2cm}
+
 \vspace{0.8cm}
 
+\pagebreak
 \textbf{c) Configure as rotas estáticas que entender necessárias no R1 e R3 para que exista conetividade entre estes e as redes atribuídas a cada empresa. Qual o objetivo desta configuração?}
 \vspace{0.2cm}
+
+
 
 \vspace{0.8cm}
 
