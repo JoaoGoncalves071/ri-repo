@@ -1483,21 +1483,72 @@ Implementação do RIPv2 e conetividade global à Internet: No final deste ponto
 \vspace{0.2cm}
 
 
+Para ativar os equipamentos, bastou aceder ao router2 e ativar a interface que liga ao switch, fazendo o comando \textbf{no shutdown}. 
+\par Podemos ver os equipamentos ativados na figura \ref{fig:7.a}.
+\vspace{0.2cm}
 
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.a.png}
+    \caption{Tarefa 7 a) - Equipamentos ativados}
+    \label{fig:7.a}
+\end{figure}
 
 \vspace{0.8cm}
 
 \textbf{b) Foi atribuída a rede 10.0.0.0/26 ao \textit{core} do ISP. Configure as \textit{interfaces} de cada router.}
 \vspace{0.2cm}
 
+A seguinte tabela mostra o endereçamento das interfaces dos routers do ISP.
 
+\newpage
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+        \textbf{Router} & \textbf{Interface} & \textbf{Endereço IP}\\
+    \hline
+        Router1 & FastEthernet0/0 & 10.0.0.1/26 \\
+        Router2 & FastEthernet0/0 & 10.0.0.2/26 \\
+        Router3 & FastEthernet0/0 & 10.0.0.3/26 \\
+    \hline
+    \end{tabular}
+    \caption{Endereçamento das interfaces dos routers do ISP}
+    \label{tab:ipISP}
+\end{table}
+\vspace{0.2cm}
+
+Para configurar as interfaces dos routers do ISP, basta aceder a cada router e configurar a interface com o endereço IP correspondente. Podemos ver as configurações na figura \ref{fig:7.b}.
+\par Usou-se o comando \textbf{ip add <ipAddress> <MASCARA} para configurar o endereço IP e a máscara de rede.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.b.png}
+    \caption{Tarefa 7 b) - Configuração das interfaces dos routers do ISP}
+    \label{fig:7.b}
+\end{figure}
 
 
 \vspace{0.8cm}
 
 \textbf{c) É necessário efetuar alguma configuração do Swcore? Porquê?}
 \vspace{0.2cm}
+
+Na topologia de rede do ISP, o protocolo RIP (Routing Information Protocol) é executado exclusivamente entre routers, sem envolver a participação de switches. Os switches, como dispositivos transparentes, são utilizados apenas para ligar routers e dispositivos finais, como PCs ou servidores, não sendo necessários para o processo de encaminhamento de pacotes.
+
+\par O único switch presente na rede, designado por Swcore, faz a ligação entre os três routers do ISP, desempenhando a função de interligá-los. Dado que o Swcore é o único switch na topologia e não existem outros switches nas proximidades que possam causar loops de dados, não é necessário configurar mecanismos adicionais para evitar esses loops. Além disso, como habitualmente não existem VLANs no ambiente de um ISP, também não são necessárias alterações ou configurações no Swcore. Este opera de forma autónoma, aprendendo as rotas automaticamente ao conectar os routers, sem precisar de configurações específicas para o protocolo RIP ou outras intervenções adicionais.
+
+\par No entanto, quando usamos o comando \textbf{show vlan}, é possível observar que existe uma VLAN 2 definida no switch que não é a VLAN por omissão, a VLAN 1. Uma vez que o \textit{core} do ISP deve operar sobre a VLAN 1, é necessário fazer algumas alterações, como se pode ver na figura \ref{fig:7.c}.
+\par Usou-se o comando \textbf{switchport mode access} para alterar o modo das portascpara \textit{access} e o comando \textbf{switchport access vlan 1} para alterar a VLAN do switch.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.c.png}
+    \caption{Tarefa 7 c) - Configuração do Swcore}
+    \label{fig:7.c}
+\end{figure}
 
 \vspace{0.8cm}
 
@@ -1506,6 +1557,19 @@ Implementação do RIPv2 e conetividade global à Internet: No final deste ponto
     \item \textbf{Pretende-se que seja \textit{classless} e que utilize a versão 2 do RIP.}
     \vspace{0.2cm}
 
+    Para configurar o protocolo RIP no núcleo da rede do ISP, é necessário aceder a cada um dos três routers e ativar o protocolo RIP com o comando \textbf{router rip}. De seguida, utiliza-se o comando \textbf{version 2} para garantir que o router utiliza a versão 2 do protocolo RIP, que é mais eficiente e moderna.
+
+    \par Por defeito, o protocolo RIP realiza a sumarização automática de rotas, o que o torna classfull (limitado às classes de endereços IP). No entanto, para que o RIP opere de forma classless, permitindo o uso de sub-redes com diferentes máscaras, é necessário desativar essa função. Isso é feito com o comando \textbf{no auto-summary}, que desativa a sumarização automática e permite o encaminhamento de tráfego entre sub-redes sem as limitações das classes de IP.
+
+    \par Esta configuração foi realizada de forma semelhante em todos os três routers do núcleo do ISP, garantindo que a rede opere de forma classless e com a versão 2 do protocolo RIP. Podemos ver as configurações na figura \ref{fig:7.d.i}.
+    \vspace{0.2cm}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_1.png}
+        \caption{Tarefa 7 d.i) - Configuração do RIP no \textit{core} do ISP}
+        \label{fig:7.d.i}
+    \end{figure}
     
 
     \vspace{0.8cm}
@@ -1513,12 +1577,35 @@ Implementação do RIPv2 e conetividade global à Internet: No final deste ponto
     \item \textbf{Que forme vizinhos apenas nas \textit{interfaces} viradas para o \textit{core}.}
     \vspace{0.2cm}
 
-    
+    Para garantir que os routers do núcleo do ISP formem vizinhos apenas nas interfaces viradas para o core, é necessário utilizar o comando \textbf{passive-interface (interface)} nas interfaces que não devem participar na troca de atualizações de rotas. Interfaces passivas não conseguem estabelecer adjacências de vizinhos e não enviam atualizações relacionadas com o protocolo RIP, o que ajuda a limitar o tráfego desnecessário.
+
+    \par No caso dos routers Router1, Router2 e Router3, a interface fa0/0 de cada router é a única que deve formar adjacências com os vizinhos, pois está virada para o core. As interfaces fa1/0 dos routers Router1 e Router3, que estão conectadas às empresas A e B, respetivamente, devem ser configuradas como passivas. Esta configuração assegura que o protocolo RIP apenas estabeleça vizinhança nas interfaces corretas, otimizando assim o funcionamento da rede. Podemos ver as configurações dos routers 1 e 3 na figura \ref{fig:7.d.ii}. Com esta abordagem, o desempenho e a eficiência da comunicação no núcleo do ISP são melhorados.
+    \vspace{0.2cm}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_2.png}
+        \caption{Tarefa 7 d.ii) - Configuração Router 1 e Router 3}
+        \label{fig:7.d.ii}
+    \end{figure}
+
 
     \vspace{0.8cm}
     
     \item \textbf{Necessita de colocar o R1 e R3 a anunciar para os seus vizinhos que participam no RIP as rotas estáticas que possuam.}
     \vspace{0.2cm}
+
+    \par Para que os routers Router1 e Router3 anunciem as suas rotas estáticas aos vizinhos que participam no protocolo RIP, é necessário executar o comando \textbf{redistribute static} em ambos os routers, atribuindo uma métrica padrão de valor 1. Este comando permite que as rotas estáticas de um router sejam compartilhadas com todos os routers vizinhos que têm o protocolo RIP ativado.
+
+    \par Assim, ao configurar redistribute static em Router1 e Router3, estes routers poderão distribuir as suas rotas estáticas para os vizinhos, garantindo que a informação de roteamento esteja disponível em toda a rede. Podemos ver as configurações dos routers 1 e 3 na figura \ref{fig:7.d.iii}.
+    \vspace{0.2cm}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_3.png}
+        \caption{Tarefa 7 d.iii) - Configuração redistribute static nos Router 1 e Router 3}
+        \label{fig:7.d.iii}
+    \end{figure}
 
     
 
@@ -1527,10 +1614,55 @@ Implementação do RIPv2 e conetividade global à Internet: No final deste ponto
     \item \textbf{O R2 propaga automaticamente a rota por omissão (\textit{default}) através do RIP para o R1 e R3?}
     \vspace{0.2cm}
 
+    Para verificar se o router2 propaga a rota, podemos usar o comando \textbf{show ip route} nos routers 1 e 3. Se se for encontrada a mensagem "Gateway of last resort is not set", quer dizer que o router2 não está a anunciar a rota por omissão. Como se pode ver na figura \ref{fig:7.d_4.1}.
+    \vspace{0.2cm}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_4.1.png}
+        \caption{Tarefa 7 d.iv) - Gateway of last resort is not set}
+        \label{fig:7.d_4.1}
+    \end{figure}
+    \vspace{0.2cm}
+
+
+    Para que o Router2 anuncie a rota por omissão para os seus vizinhos Router1 e Router3, é necessário utilizar o comando \textbf{default-information originate}. Este comando permite que o Router2 propague a sua rota por omissão através do protocolo RIP, garantindo que os outros routers na rede tenham conhecimento desta rota, como se pode ver na figura \ref{fig:7.d_4.2}.
+    \vspace{0.2cm}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_4.2.png}
+        \caption{Tarefa 7 d.iv) - Configuração default-information originate no Router 2}
+        \label{fig:7.d_4.2}
+    \end{figure}
+    \vspace{0.2cm}
+
+    Podemos a configurar, podemos verificar que a rota por omissão é propagada para os routers 1 e 3, como se pode ver na figura \ref{fig:7.d_4.3}. o endereço 10.0.0.2 corresponde ao endereço IP do router2.
+    \vspace{0.2cm}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_4.3.png}
+        \caption{Tarefa 7 d.iv) - Gateway of last resort is set}
+        \label{fig:7.d_4.3}
+    \end{figure}
+
     \vspace{0.8cm}
     
     \item \textbf{Configure a \textit{interface} loopback0 no R2 com o IPv4 8.8.8.8/32, simulando desta forma a Internet.}
     \vspace{0.2cm}
+
+    Para isso, basta aceder ao router2 e configurar a interface loopback0 com o endereço IP, como se pode ver na figura \ref{fig:7.d.5}.
+
+    \par Usou-se o comando \textbf{ip address <ipAddress> <MASCARA} para configurar o endereço IP e a máscara de rede.
+    \vspace{0.2cm}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_5.png}
+        \caption{Tarefa 7 d.v) - Configuração da interface loopback0 no Router 2}
+        \label{fig:7.d.5}
+    \end{figure}
 
 
     \vspace{0.8cm}
@@ -1538,19 +1670,43 @@ Implementação do RIPv2 e conetividade global à Internet: No final deste ponto
     \item \textbf{É necessário colocar a rede 8.8.8.8/32 no RIP? Porquê?}
     \vspace{0.2cm}
 
+    Não é necessário incluir a rede 8.8.8.8/32 no protocolo RIP, pois os routers Router1 e Router3 podem encaminhar pacotes para esse endereço através da rota por omissão no Router2. Este router, que conhece o endereço 8.8.8.8, tem essa rede na sua interface virtual Loopback0.
 
-
-
+    \par Como Router1 e Router3 estão configurados com a rota de last resort para 10.0.0.2 (interface de Router2), conseguem aceder diretamente à rede 8.8.8.8/32. Assim, as máquinas que fazem ping para 8.8.8.8 têm os pacotes encaminhados sem que Router2 precise anunciar essa rede pelo protocolo RIP, otimizando a configuração da rede.
 
     \vspace{0.8cm}
 
     \item \textbf{O trabalho está completo quando existir a conetividade global prevista no enunciado com a redundância possível com os equipamentos utilizados.}
     \vspace{0.2cm}
 
+    Para verificar que a conetividade global foi estabelecida com sucesso, foram realizados testes de ping a partir dos PCs das empresas A e B. 
 
+    \par Começou-se por testar a conectividade através do PC1. O PC1 consegue fazer ping ao PC5 e à internet (interface loopback0 do Router2), como se pode ver na figura \ref{fig:7.d.7.1}.
+    \vspace{0.2cm}
 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_7_PC1.png}
+        \caption{Tarefa 7 d.vi) - Teste de conectividade do PC1}
+        \label{fig:7.d.7.1}
+    \end{figure}
+    \vspace{0.2cm}
 
+    \par De seguida, testou-se a conectividade através do PC8. O PC8 consegue fazer ping ao PC2, como se pode ver na figura \ref{fig:7.d.7.2}.
+    \vspace{0.2cm}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_7_PC8.png}
+        \caption{Tarefa 7 d.vi) - Teste de conectividade do PC2}
+        \label{fig:7.d.7.2}
+    \end{figure}
+    \vspace{0.2cm}
+
+    \par Com estes testes, foi possível confirmar que a conetividade global foi estabelecida com sucesso, permitindo a comunicação entre os PCs das empresas A e B e a internet, com redundância possível através dos equipamentos utilizados.
 \end{enumerate}
+
+\vspace{0.8cm}
 
 \pagebreak
 \section{Tarefa 8}
