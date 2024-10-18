@@ -143,6 +143,8 @@
 % Separates the first part of the report/thesis in Roman numerals
 \frontmatter
 
+\usepackage[nottoc,numbib]{tocbibind}
+
 \usepackage{listings}
 \usepackage{color}
 
@@ -1556,13 +1558,12 @@ Implementação do RIPv2 e conetividade global à Internet: No final deste ponto
 \section{Tarefa 8}
 \vspace{0.2cm}
 
-NAT 
-\vspace{0.8cm}
-
 \textbf{a) Explique onde teve de usar NAT para possibilitar a utilização de endereços IPv4 públicos para dar acesso externo a partir das empresas.}
 \vspace{0.2cm}
 
+O NAT foi configurado nos routers das empresas (RouterA e RouterB) nas interfaces conectadas ao ISP (interface Fa0/0 em ambos os routers), permitindo a tradução dos endereços IP privados das redes internas para endereços públicos fornecidos pelo ISP. \par
 
+Esta configuração possibilita que os dispositivos internos (das empresas) acedam à Internet, garantindo comunicação externa, já que os endereços privados não são roteáveis na Internet. \par
 
 
 
@@ -1571,7 +1572,9 @@ NAT
 \textbf{b) Qual a diferença no caso do servidor que é Web Server?}
 \vspace{0.2cm}
 
+No caso do Web Server, a diferença está no uso de NAT estático (ou Port Forwarding), em vez de NAT dinâmico. Isso porque o servidor precisa ser acessível externamente com um endereço IP público específico, enquanto que os outros dispositivos internos só precisam de endereços públicos temporários para iniciar conexões externas. \par
 
+O NAT estático mapeia um endereço IP público diretamente para o IP privado do servidor, permitindo que utilizadores externos acedam o Web Server a partir da Internet. \par
 
 
 
@@ -1580,21 +1583,99 @@ NAT
 \textbf{c) Teste, usando Ping entre os equipamentos nas várias redes, se as condições de limitação de acessos se confirmam.}
 \vspace{0.2cm}
 
+As condições de limitação de acesso podem ser interpretadas da seguinte maneira:
+\begin{enumerate}
+    \item \textbf{Separação entre as Empresas A e B:} \par
+    - Cada empresa possui seus blocos de endereços IPv4 privados internamente e os pacotes entre as empresas não devem ser roteados diretamente, mas sim via os roteadores do ISP. \par
+    - Qualquer comunicação entre as empresas deve passar pelos roteadores do ISP, evitando comunicação direta entre as redes internas. \par
 
+    \item \textbf{Controle de Roteamento (RIP e rotas estáticas):}
+    - O ISP utiliza o protocolo RIP para trocar informações de rotas entre seus próprios roteadores. \par
+    - Cada empresa tem uma rota estática default apontando para o roteador do ISP (Router 1 para a Empresa A e Router 3 para a Empresa B). \par
+    - As rotas estáticas no ISP garantem que as redes das empresas sejam acessíveis, mas o ISP controla a troca de tráfego. \par
+
+    \item \textbf{NAT e acesso à Internet:}
+    - O ISP possui um loopback virtual para simular a Internet, e as empresas usam NAT para converter seus endereços IPv4 privados em públicos ao acessar a Internet. \par
+    - As empresas não devem acessar os endereços públicos de outras empresas diretamente. \par
+\end{enumerate} \par \vspace{0.4cm}
+
+São então efetuados testes para confirmar que estas regras estão a ser respeitadas. O comando \textbf{ping} é usado para mostrar o envio correto e receção de mensagens entre dispositivos e, o comando \textbf{traceroute} mostra o caminho usado para chegar de um ponto ao outro, mostrando por quais dispositivos e interfaces é encaminhada a mensagem. \par
+
+\pagebreak
+\large
+\textbf{Testes de limitação de Acesso (com Ping e Traceroute)} \par
+\normalsize
+\begin{itemize}
+    \item \textbf{Dentro de cada empresa}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa8/8.c_empresa.png}
+        \caption{Tarefa 8 c) - Ping entre dispositivos da mesma empresa (RouterB para PC1)}
+        \label{fig:8.c_empresa}
+    \end{figure}
+    
+    Como se pode observar na Fig.\ref{fig:8.c_empresa}, foi efetuado um ping do \textbf{RouterB} para o \textbf{PC1}, ambos dispositivos pertencentes à Empresa B, com sucesso. \par 
+    O comando de traceroute mostra que este envio de mensagens é feito de forma direta. \par
+
+    \vspace{1.2cm}
+    \item \textbf{Entre as empresas}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa8/8.c_empresas.png}
+        \caption{Tarefa 8 c) - Ping entre dispositivos de diferentes empresas (RouterB para PC5)}
+        \label{fig:8.c_empresas}
+    \end{figure}
+
+    Como se pode observar na Fig.\ref{fig:8.c_empresas}, foi efetuado com sucesso um ping do \textbf{RouterB} da Empresa B para o \textbf{PC5} da Empresa A. \par 
+    O comando de traceroute confirma que, para além da mensagem ser entregue corretamente, esta segue as regras impostas de que a conexão entre dispositivos de diferentes empresas não pode ser feita diretamente mas sim através de roteamento pelo ISP. \par
+
+    \pagebreak
+    A rota da mensagem é a seguinte:
+    \begin{enumerate}
+        \item primeiramente passa pela interface \textbf{FastEthernet1/0.95 (10.5.95.5)} do \textbf{Router3}, que faz a ligação com a VLAN 95 da Empresa B (de onde vem a mensagem)
+        \item depois é recebida pela interface \textbf{FastEthernet0/0 (10.0.0.1) do Router1}, que faz a ligação entre os routers 1 e 3 do ISP.
+        \item a mensagem é agora passada da interface FastEthernet1/0 do Router1 para a interface \textbf{FastEthernet0/0 do RouterA} da Empresa A.
+        \item finalmente é entregue pelo RouterA ao destinatário \textbf{PC5 (172.24.53.1)}. 
+    \end{enumerate} \par \vspace{0.4cm}
+
+    Toda a configuração dos dispositivos e interfaces é claro crucial ao funcionamento do envio de mensagens, para além dos protocolos de roteamento. \par
+
+    \vspace{1.2cm}
+    \item \textbf{Para a Internet (via NAT)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{imagens/Tarefa8/8.c_internet.png}
+        \caption{Tarefa 8 c) - Ping para a Internet vindo do RouterA}
+        \label{fig:8.c_internet}
+    \end{figure}
+
+    Por último, para testar o acesso, simulado, à Internet através do uso de NAT, foi feito um ping desde o \textbf{RouterA} da Empresa A ao endereço que simula o acesso externo à rede \textbf{(8.8.8.8)}, como se pode observar na Fig.\ref{fig:8.c_internet}. \par
+    Mais uma vez foi usado o comando traceroute para verificar o caminho tomado pela mensagem desde o remetente ao destinatário. É possível observar que a mensagem apenas passa pelo \textbf{Router1 (interface FastEthernet1/0.90 - 10.5.90.1)} e depois enviado para a interface \textbf{Loopback0 (8.8.8.8) do Router2}, que simula a conexão extena com a Internet. \par
+\end{itemize} \par \vspace{0.8cm}
+
+
+Confirmam-se assim as condições de limitação de acesso. \par
 
 \pagebreak
 \chapter{Conclusões}
+Após o desenvolvimento do projeto e a implementação bem sucedida da topologia da rede, foi possível consolidar conhecimentos essenciais em redes de computadores, especialmente em relação à configuração de VLANs, protocolos de redundância (STP/RSTP) e o protocolo de roteamento RIPv2. \par \vspace{0.2cm}
+Através da resolução dos desafios propostos, os alunos adquiriram experiência prática na segmentação de redes, gestão de tráfego e configuração de rotas, o que se traduziu numa compreensão mais profunda das dinâmicas operacionais de um ISP. \par
 
 
 
-\chapter{Bibliografia}
-
-
+\begin{thebibliography}{4} % 100 is a random guess of the total number of
+    %references
+    \bibitem{Slides} Documentos de apoio da UC e material fornecido pelo docente
+    \bibitem{Vlan} VLAN Configuration Guide, Cisco IOS Release 15.2: \par
+    \url{https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960x/software/15-2_2_e/vlan/configuration_guide/b_vlan_1522e_2960x_cg.html}
+    \bibitem{STP} STP/RSTP, Cisco IOS Release 15.2: \par
+    \url{https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst2960/software/release/15-2_2_e/configuration/guide/b_1522e_2960_2960c_2960s_2960sf_2960p_cg/b_1522e_2960_2960c_2960s_2960sf_2960p_cg_chapter_010000.html}
+    \bibitem{RIPv2} RIPv2, Cisco IOS 15.2: \par
+    \url{https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_rip/configuration/15-mt/irr-15-mt-book/irr-cfg-info-prot.html}
+\end{thebibliography}
 
 \mainmatter
 
 
-
-\afterpage{\blankpage}
 
 \end{document}
