@@ -263,25 +263,21 @@ protocolos STP e RSTP, encaminhamento estático e RIP. O trabalho foi
 desenvolvido em grupo, utilizando o simulador Packet Tracer, e envolveu a
 criação e configuração de uma topologia de rede que representa uma
 infraestrutura simplificada de um Internet Service Provider (ISP) e duas
-empresas clientes.
-
-\vspace{0.4cm}
+empresas clientes. \par \vspace{0.2cm}
 
 Ao longo do trabalho, foram implementadas diversas tarefas que incluíram a
 configuração de VLANs, a aplicação de protocolos de encaminhamento e a simulação
 de cenários de redundância e falhas. O relatório detalha as configurações
 realizadas, as justificações das escolhas efetuadas e os resultados obtidos,
 proporcionando uma visão abrangente das técnicas e práticas utilizadas na gestão
-e operação de redes de computadores.
-
-\vspace{0.4cm}
+e operação de redes de computadores. \par \vspace{0.2cm}
 
 A topologia de rede implementada é a seguinte imagem:
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{imagens/topologia.png}
+    \includegraphics[width=0.54\textwidth]{imagens/topologia.png}
     \caption{Topologia de rede}
     \label{fig:topologia}
 \end{figure}
@@ -654,6 +650,7 @@ pode ver na figura \ref{fig:2a1}.
 
 \vspace{0.2cm}
 
+\pagebreak
 Caso existissem, eram eliminadas, como se pode ver na figura \ref{fig:2a2}.
 
 \begin{figure}[H]
@@ -700,11 +697,12 @@ Antes de começar a configurar as portas, é importante diferenciar os dois modo
     contêm campos adicionais para identificar a que VLAN pertencem.
 \end{itemize}
 
+\pagebreak
 Com isto em mente, configuraram-se as portas de acordo com as necessidades de
 cada VLAN, como se pode ver na figura \ref{fig:2b}. O Dynamic Trunking Protocol
 (DTP) é um protocolo que permite a negociação automática de troncos entre dois
 switches. No entanto, para evitar problemas de segurança, desativou-se o DTP
-usando o comando \textit{switchport nonegotiate}.
+usando o comando \textit{switchport nonegotiate}. \par \vspace{0.4cm}
 
 \begin{figure}[H]
     \centering
@@ -742,6 +740,7 @@ Gateway}\\
 \end{table}
 \vspace{0.2cm}
 
+\pagebreak
 Posteriormente, configuraram-se os endereços IPV4 dos equipamentos, como se pode
 ver na figura \ref{fig:2c}.
 \vspace{0.2cm}
@@ -775,6 +774,7 @@ como se pode ver na figura \ref{fig:2d}.
 
 \vspace{0.8cm}
 
+\pagebreak
 \textbf{e) Verifique se existe conetividade entre os equipamentos de VLAN distintas.}
 \vspace{0.2cm}
 
@@ -786,7 +786,7 @@ entre VLANs distintas, é necessário um router ou um switch layer 3. Assim,
 quando um dispositivo de uma VLAN quer comunicar com um dispositivo de outra
 VLAN, terá de um usar um endereço IP de gateway que permita a comunicação entre
 as VLANs. Desta forma, o tráfego passa pelo router ou switch layer 3 que faz a
-interligação entre as VLANs.
+interligação entre as VLANs. \par \vspace{0.4cm}
 
 \begin{figure}[H]
     \centering
@@ -842,15 +842,14 @@ regras enunciadas e as VLAN criadas (tenha em atenção que no uso de
 configuração de IP).}
 \vspace{0.2cm}
 
-Começa-se por dividr a interface do router A em 4 subinterfaces, uma por VLAN,
+Começa-se por dividir a interface do router A em 4 subinterfaces, uma por VLAN,
 atribuindo a cada um o IP da default gateway da VLAN Associada. Fazemos o
 comando \textit{no shutdown} para ativar a interface. Como se pode ver na figura
 \ref{fig:3a}.
-\vspace{0.2cm}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{imagens/Tarefa3/3.a.png}
+    \includegraphics[width=0.48\textwidth]{imagens/Tarefa3/3.a.png}
     \caption{Tarefa 3 a) - Configurar interfaces}
     \label{fig:3a}
 \end{figure}
@@ -1498,12 +1497,12 @@ Para ativar os equipamentos, bastou aceder ao router2 e ativar a interface que l
 
 \vspace{0.8cm}
 
+\pagebreak
 \textbf{b) Foi atribuída a rede 10.0.0.0/26 ao \textit{core} do ISP. Configure as \textit{interfaces} de cada router.}
 \vspace{0.2cm}
 
 A seguinte tabela mostra o endereçamento das interfaces dos routers do ISP.
 
-\newpage
 \begin{table}[h!]
     \centering
     \begin{tabular}{|c|c|c|}
@@ -1534,6 +1533,7 @@ Para configurar as interfaces dos routers do ISP, basta aceder a cada router e c
 
 \vspace{0.8cm}
 
+\pagebreak
 \textbf{c) É necessário efetuar alguma configuração do Swcore? Porquê?}
 \vspace{0.2cm}
 
@@ -1543,7 +1543,7 @@ Na topologia de rede do ISP, o protocolo RIP (Routing Information Protocol) é e
 
 \par No entanto, quando usamos o comando \textbf{show vlan}, é possível observar que existe uma VLAN 2 definida no switch que não é a VLAN por omissão, a VLAN 1. Uma vez que o \textit{core} do ISP deve operar sobre a VLAN 1, é necessário fazer algumas alterações, como se pode ver na figura \ref{fig:7.c}.
 \par Usou-se o comando \textbf{switchport mode access} para alterar o modo das portascpara \textit{access} e o comando \textbf{switchport access vlan 1} para alterar a VLAN do switch.
-\vspace{0.2cm}
+\vspace{0.4cm}
 
 \begin{figure}[H]
     \centering
@@ -1574,7 +1574,7 @@ Na topologia de rede do ISP, o protocolo RIP (Routing Information Protocol) é e
     \end{figure}
     
 
-    \vspace{0.8cm}
+    \vspace{0.4cm}
 
     \item \textbf{Que forme vizinhos apenas nas \textit{interfaces} viradas para o \textit{core}.}
     \vspace{0.2cm}
@@ -1592,8 +1592,9 @@ Na topologia de rede do ISP, o protocolo RIP (Routing Information Protocol) é e
     \end{figure}
 
 
-    \vspace{0.8cm}
+    \vspace{0.4cm}
     
+    \pagebreak
     \item \textbf{Necessita de colocar o R1 e R3 a anunciar para os seus vizinhos que participam no RIP as rotas estáticas que possuam.}
     \vspace{0.2cm}
 
@@ -1611,7 +1612,7 @@ Na topologia de rede do ISP, o protocolo RIP (Routing Information Protocol) é e
 
     
 
-    \vspace{0.8cm}
+    \vspace{0.4cm}
     
     \item \textbf{O R2 propaga automaticamente a rota por omissão (\textit{default}) através do RIP para o R1 e R3?}
     \vspace{0.2cm}
@@ -1621,7 +1622,7 @@ Na topologia de rede do ISP, o protocolo RIP (Routing Information Protocol) é e
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.7\textwidth]{imagens/Tarefa7/7.d_4.1.png}
+        \includegraphics[width=0.65\textwidth]{imagens/Tarefa7/7.d_4.1.png}
         \caption{Tarefa 7 d.iv) - Gateway of last resort is not set}
         \label{fig:7.d_4.1}
     \end{figure}
@@ -1651,6 +1652,7 @@ Na topologia de rede do ISP, o protocolo RIP (Routing Information Protocol) é e
 
     \vspace{0.8cm}
     
+    \pagebreak
     \item \textbf{Configure a \textit{interface} loopback0 no R2 com o IPv4 8.8.8.8/32, simulando desta forma a Internet.}
     \vspace{0.2cm}
 
@@ -1678,6 +1680,7 @@ Na topologia de rede do ISP, o protocolo RIP (Routing Information Protocol) é e
 
     \vspace{0.8cm}
 
+    \pagebreak
     \item \textbf{O trabalho está completo quando existir a conetividade global prevista no enunciado com a redundância possível com os equipamentos utilizados.}
     \vspace{0.2cm}
 
