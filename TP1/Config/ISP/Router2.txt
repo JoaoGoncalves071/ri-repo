@@ -1,0 +1,95 @@
+Current configuration : 1096 bytes
+!
+version 12.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 8.8.8.8 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 10.0.0.2 255.255.255.192
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface FastEthernet1/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+ version 2
+ network 10.0.0.0
+ default-information originate
+ no auto-summary
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+banner login ^C
+----                  Router R1                     ----
+----  --------------------------------------        ----
+----   UNSUTHORIZED ACCESS IS PROHIBITED            ----
+----  Entradas nao autorizadas sao punidas por lei  ----
+----      (lei 109/2009 de 15 de Setembro)          ----
+^C
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

@@ -1,0 +1,98 @@
+Current configuration : 1300 bytes
+!
+version 12.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname RouterA
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 10.5.90.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1.51
+ encapsulation dot1Q 51
+ ip address 172.24.51.254 255.255.255.0
+!
+interface FastEthernet0/1.52
+ encapsulation dot1Q 52
+ ip address 172.24.53.254 255.255.255.0
+!
+interface FastEthernet0/1.53
+ encapsulation dot1Q 53
+ ip address 172.24.55.126 255.255.255.128
+!
+interface FastEthernet0/1.54
+ encapsulation dot1Q 54
+ ip address 172.24.56.254 255.255.255.128
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.5.90.1 
+!
+ip flow-export version 9
+!
+!
+!
+banner login ^C
+---                      Router N                    --- 
+---  ----------------------------------------------  --- 
+---       UNAUTHORISED ACCESS IS PROHIBITED          --- 
+---  Entradas nao autorizadas sao punidas por lei    --- 
+---         (lei 109/2009 de 15 de Setembro)         --- 
+^C
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
