@@ -1,0 +1,43 @@
+1 - Initial Config:
+
+enable
+conf t
+hostname R9
+no ip domain-lookup
+enable secret class
+line console 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+end
+wr
+
+conf t
+no enable secret
+line con 0
+exec-timeout 0 0
+privilege level 15
+no password
+exit
+exit
+wr
+
+2 - Interface Config:
+
+conf t
+interface Loopback0
+ip address 9.9.9.9 255.255.255.255
+exit
+interface GigabitEthernet0/0
+ip address 10.2.8.3 255.255.255.248
+no shutdown
+end
+wr
+conf t
+interface GigabitEthernet1/0
+ip address 10.9.10.1 255.255.255.252
+no shutdown
+end
+wr

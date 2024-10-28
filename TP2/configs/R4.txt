@@ -1,0 +1,55 @@
+1 - Initial Config:
+
+enable
+conf t
+hostname R4
+no ip domain-lookup
+enable secret class
+line console 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+end
+wr
+
+conf t
+no enable secret
+line con 0
+exec-timeout 0 0
+privilege level 15
+no password
+exit
+exit
+wr
+
+2 - Interface Config:
+
+conf t
+interface Loopback0
+ip address 4.4.4.4 255.255.255.255
+exit
+interface GigabitEthernet0/0
+ip address 10.2.4.2 255.255.255.252
+no shutdown
+end
+wr
+conf t
+interface GigabitEthernet1/0
+ip address 10.3.4.2 255.255.255.252
+no shutdown
+end
+wr
+
+3 - Basic OSPF Area 0 and 3:
+
+conf t
+router ospf 1
+router-id 4.4.4.4
+network 4.4.4.4 0.0.0.0 area 0
+network 10.2.4.0 0.0.0.3 area 0
+network 10.3.4.0 0.0.0.3 area 0
+exit
+exit
+wr

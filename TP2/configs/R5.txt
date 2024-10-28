@@ -1,0 +1,54 @@
+1 - Initial Config:
+
+enable
+conf t
+hostname R5
+no ip domain-lookup
+enable secret class
+line console 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+end
+wr
+
+conf t
+no enable secret
+line con 0
+exec-timeout 0 0
+privilege level 15
+no password
+exit
+exit
+wr
+
+2 - Interface Config:
+
+conf t
+interface Loopback0
+ip address 5.5.5.5 255.255.255.255
+exit
+interface GigabitEthernet0/0
+ip address 10.5.6.3 255.255.255.248
+no shutdown
+end
+wr
+conf t
+interface GigabitEthernet1/0
+ip address 10.7.5.1 255.255.255.252
+no shutdown
+end
+wr
+
+3 - Basic OSPF Area 0 and 3:
+
+conf t
+router ospf 1
+router-id 5.5.5.5
+network 5.5.5.5 0.0.0.0 area 3
+network 10.5.6.0 0.0.0.7 area 3
+exit
+exit
+wr
