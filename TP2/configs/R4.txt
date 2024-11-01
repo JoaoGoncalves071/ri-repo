@@ -53,3 +53,32 @@ network 10.3.4.0 0.0.0.3 area 0
 exit
 exit
 wr
+
+4 - IMPLEMENTING OSPF AUTHENTICATION:
+
+conf t
+interface GigabitEthernet0/0 
+ip ospf message-digest-key 1 md5 ospfpass
+ip ospf authentication message-digest
+exit
+interface GigabitEthernet1/0 
+ip ospf message-digest-key 1 md5 ospfpass
+ip ospf authentication message-digest
+exit
+router ospf 1 
+area 0 authentication message-digest 
+exit
+exit
+wr
+
+5- CONFIGURING OSPF NETWORK TYPES:
+
+conf t
+interface GigabitEthernet0/0 
+ip ospf network point-to-point 
+exit
+interface GigabitEthernet1/0 
+ip ospf network point-to-point 
+exit
+exit
+wr

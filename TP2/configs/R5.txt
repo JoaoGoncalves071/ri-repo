@@ -52,3 +52,12 @@ network 10.5.6.0 0.0.0.7 area 3
 exit
 exit
 wr
+
+5- CONFIGURING OSPF NETWORK TYPES:
+
+conf t
+interface GigabitEthernet1/0 
+ip ospf network point-to-point 
+exit
+exit
+wr
