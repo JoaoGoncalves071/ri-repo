@@ -61,3 +61,34 @@ ip ospf network point-to-point
 exit
 exit
 wr
+
+
+7- CONFIGURING OSPF IN AREA 1:
+
+conf t
+router ospf 1
+network 10.7.5.0 0.0.0.3 area 1
+exit
+exit
+wr
+
+8- UNDERSTANDING THE NEED FOR A VIRTUAL LINK
+
+conf t
+router ospf 1
+area 3 virtual-link 3.3.3.3 authentication message-digest 
+area 3 virtual-link 3.3.3.3 message-digest-key 1 md5 vlink 
+area 3 virtual-link 1.1.1.1 authentication message-digest 
+area 3 virtual-link 1.1.1.1 message-digest-key 1 md5 vlink
+exit
+exit
+wr
+
+9- OPTIMIZING ROUTE DISTRIBUTION
+
+conf t
+router ospf 1
+area 1 stub no-summary
+exit
+exit
+wr

@@ -119,4 +119,13 @@ exit
 exit
 wr
 
+8- UNDERSTANDING THE NEED FOR A VIRTUAL LINK
+
+conf t
+router ospf 1 
+area 3 virtual-link 5.5.5.5 authentication authentication-key vlink 
+area 3 virtual-link 5.5.5.5 message-digest-key 1 md5 vlink
+exit
+exit
+wr
  	 
