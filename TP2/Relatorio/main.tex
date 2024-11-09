@@ -507,7 +507,7 @@ Por fim, vamos verificar a conectividade básica entre os routers, utilizando o 
 
 \section{Tarefa 2 - BASIC OSPF CONFIGURATION (AREA 0 AND AREA 3)}
 \vspace{0.2cm}
-Nesta tarefa, iremos aprofundar a configuração básica do OSPF (Open Shortest Path First), um protocolo de roteamento dinâmico amplamente utilizado em redes de grande escala. Esta tarefa terá como foco a implementação do OSPF nas áreas 0 e 3, começando pela configuração da área backbone, que é fundamental para a interconexão entre diferentes áreas de um Sistema Autónomo. Além disso, abordaremos a autenticação do OSPF, um aspecto crucial para garantir a segurança das comunicações entre routers. Durante este processo, também configuraremos os tipos de rede do OSPF, manipularemos os identificadores dos routers (router IDs) e controlaremos a eleição do Designated Router (DR) e do Backup Designated Router (BDR). Estes passos visam não apenas solidificar o entendimento sobre o funcionamento do OSPF, mas também preparar a rede para uma operação mais segura e eficiente.
+Nesta tarefa, iremos aprofundar a configuração básica do OSPF (Open Shortest Path First), um protocolo de routing dinâmico amplamente utilizado em redes de grande escala. Esta tarefa terá como foco a implementação do OSPF nas áreas 0 e 3, começando pela configuração da área backbone, que é fundamental para a interconexão entre diferentes áreas de um Sistema Autónomo. Além disso, abordaremos a autenticação do OSPF, um aspecto crucial para garantir a segurança das comunicações entre routers. Durante este processo, também configuraremos os tipos de rede do OSPF, manipularemos os identificadores dos routers (router IDs) e controlaremos a eleição do Designated Router (DR) e do Backup Designated Router (BDR). Estes passos visam não apenas solidificar o entendimento sobre o funcionamento do OSPF, mas também preparar a rede para uma operação mais segura e eficiente.
 \vspace{0.2cm}
 
 \subsection{Configure OSPF in Area 0 (backbone area)}
@@ -702,22 +702,13 @@ Para verificar a configuração do OSPF e a eleição do DR e BDR, vamos utiliza
   \item \textbf{Why is it important to manually set OSPF router IDs?} 
   \vspace{0.2cm}
 
-  \par Definir manualmente os IDs dos routers no OSPF é fundamental para assegurar uma rede estável e bem organizada. Ao configurar manualmente os router IDs, garante-se que cada router possui um identificador único e estável, o que é essencial para evitar problemas de convergência e instabilidade na rede.
-  \vspace{0.2cm}
-
-  Se o router ID for atribuído automaticamente, será baseado no IP mais elevado de uma interface ativa (ou de uma loopback, se configurada). No entanto, isso pode causar diversos problemas, especialmente se o IP da interface ativa mudar, algo que pode ocorrer em situações de falha, atualização ou reconfiguração das interfaces de rede. Estas mudanças forçam o OSPF a recalcular toda a topologia, prolongando o tempo de convergência e podendo causar interrupções nos serviços.
-  \vspace{0.2cm}
-
-  Caso os router IDs não sejam definidos manualmente, o OSPF atribuirá automaticamente um ID com base no endereço IP da interface loopback mais elevada ou, na ausência desta, na interface ativa com IP mais elevado. Este processo pode gerar instabilidade, uma vez que o router ID é utilizado para identificar o router e calcular os caminhos mais curtos para os destinos na rede. Se o router ID mudar, os cálculos de roteamento OSPF podem ser afetados, levando a alterações indesejadas na topologia e na convergência do OSPF.
-  \vspace{0.2cm}
-
-  Além disso, definir manualmente os router IDs assegura consistência e ajuda a prevenir problemas operacionais do OSPF. O router ID é utilizado para identificar exclusivamente os routers OSPF, especialmente em cenários multi-área.
+  \par Definir manualmente os IDs dos routers no OSPF garante uma rede estável e organizada, prevenindo problemas de convergência. Caso o router ID seja atribuído automaticamente, pode mudar caso o IP de uma interface ativamente configurada seja alterado, causando recalculações de routing e instabilidade. O router ID manual assegura consistência, especialmente em cenários multi-área.
   \vspace{0.2cm}
 
   \item \textbf{What is the purpose of OSPF authentication, and why is MD5 preferred over clear text?}
   \vspace{0.2cm}
 
-  \par A autenticação OSPF é um mecanismo fundamental que garante a integridade e autenticidade das mensagens trocadas entre routers, protegendo a rede contra ameaças como spoofing e injeções de rotas maliciosas. A utilização do MD5 é preferida em relação ao texto claro, uma vez que oferece uma segurança superior ao criptografar as atualizações de roteamento, dificultando significativamente a falsificação de mensagens por parte de potenciais atacantes.
+  \par A autenticação OSPF é um mecanismo fundamental que garante a integridade e autenticidade das mensagens trocadas entre routers, protegendo a rede contra ameaças como spoofing e injeções de rotas maliciosas. A utilização do MD5 é preferida em relação ao texto claro, uma vez que oferece uma segurança superior ao criptografar as atualizações de routing, dificultando significativamente a falsificação de mensagens por parte de potenciais atacantes.
   \vspace{0.2cm}
 
   \item \textbf{In what scenarios would you choose to configure an OSPF network type as point-to-point?}
@@ -736,69 +727,38 @@ Para verificar a configuração do OSPF e a eleição do DR e BDR, vamos utiliza
   \item \textbf{Explain the roles of DR and BDR in OSPF, and why we might want to control their election.}
   \vspace{0.2cm}
 
-  \par O Designated Router (DR) e o Backup Designated Router (BDR) são routers especiais que desempenham funções críticas na rede OSPF, especialmente onde estão conectados vários routers, como as redes Ethernet.
-  \vspace{0.2cm}
-
-  \par O DR é responsável por coordenar a comunicação entre os routers na rede OSPF, minimizando a sobrecarga de tráfego e garantindo a eficiência da rede. O DR é eleito com base na prioridade do router, sendo que o router com a prioridade mais elevada é escolhido como DR. Se dois routers tiverem a mesma prioridade, o router com o router ID mais elevado é escolhido como DR.
-  \vspace{0.2cm}
-
-  \par O BDR é o router que assume a função de DR caso o DR falhe. O BDR é eleito com base na prioridade do router, sendo que o router com a segunda prioridade mais elevada é escolhido como BDR. Se dois routers tiverem a mesma prioridade, o router com o router ID mais elevado é escolhido como BDR.
-  \vspace{0.2cm}
-
-  \par Controlar a eleição do DR e BDR é importante para garantir a estabilidade e eficiência da rede OSPF. Ao definir manualmente o DR e BDR, os administradores de rede podem garantir que os routers mais adequados assumam essas funções críticas, minimizando a possibilidade de falhas e interrupções na rede. Além disso, controlar a eleição do DR e BDR permite otimizar o desempenho da rede, garantindo que os routers mais capazes desempenhem funções críticas de coordenação e backup.
+  \par O Designated Router (DR) coordena a comunicação em redes OSPF multiacesso, enquanto o Backup Designated Router (BDR) assume a função do DR em caso de falha. Controlar suas eleições garante estabilidade e desempenho, assegurando que routers mais capazes desempenhem essas funções.
   \vspace{0.2cm}
 
   \item \textbf{What happens when a router with a higher priority than the DR or BDR is added?}
   \vspace{0.2cm}
 
-  \par Quando um router com uma prioridade mais elevada do que a do DR ou BDR é adicionado à rede OSPF, pode ser eleito como DR ou BDR durante o próximo processo de eleição. Isto significa que o novo router substituirá o DR atual ou o BDR, dependendo da sua prioridade em relação aos outros routers na rede.
-  \vspace{0.2cm}
-
-  \par A eleição do DR e BDR é dinâmica e baseada na prioridade dos routers. O router com a prioridade mais alta torna-se o novo DR, enquanto o segundo com a maior prioridade assume o papel de BDR. Este processo de eleição pode causar um período de instabilidade na rede, pois todos os routers precisarão se ajustar à nova configuração e à nova coordenação de comunicação. Durante esse tempo, podem ocorrer mudanças nas rotas e flutuações na conectividade até que o novo DR e BDR se estabilizem.
+  \par Se um router com prioridade mais alta for adicionado, ele será eleito como DR ou BDR durante a próxima eleição, substituindo o router atual. Isso pode causar instabilidade temporária enquanto a nova configuração é propagada.
   \vspace{0.2cm}
 
   \item \textbf{On the segment S2 there are adjacencies with status 2WAY, explain the observed behaviour.}
   \vspace{0.2cm}
 
-  \par No segmento S2, a presença de adjacências com o estado 2WAY indica que os routers conseguem se ver e trocar pacotes de hello, mas ainda não estabeleceram uma adjacência completa. Este estado ocorre frequentemente em redes multiacesso, como Ethernet, e pode ser resultado de algumas situações:
-
-  \begin{itemize}
-    \item \textbf{Não Eleição de DR/BDR}: Se os routers não se tornam DR ou BDR, não é necessário estabelecer uma adjacência FULL entre eles, pois a troca de informações de roteamento é reduzida.
-    \item \textbf{Tipo de Rede Configurado}: Em segmentos configurados como "point-to-multipoint", é comum que os routers operem apenas no estado 2WAY, sem necessidade de uma adjacência FULL.
-    \item \textbf{Condições de Rede}: Problemas de conectividade, configuração incorreta ou falhas de comunicação podem impedir a transição para o estado FULL, mantendo a adjacência em 2WAY.
-  \end{itemize}
+  \par O estado 2WAY indica que os routers podem trocar pacotes hello, mas não estabeleceram uma adjacência FULL. Isso pode ocorrer em redes multiacesso sem DR/BDR ou em redes ponto a ponto. Problemas de conectividade também podem impedir a transição para o estado FULL.
   \vspace{0.2cm}
 
   \item \textbf{WHow does the point-to-point network type differ from the other OSPF network types?}
   \vspace{0.2cm}
 
-  \par O tipo de rede OSPF ponto a ponto difere dos outros tipos de rede OSPF, como broadcast e point-to-multipoint, de várias maneiras. As principais diferenças incluem:
-
-  \begin{itemize}
-    \item \textbf{Comunicação Direta}: Em redes ponto a ponto, a comunicação é direta entre dois routers, sem a necessidade de eleger um DR ou BDR. Isto resulta em menos sobrecarga de tráfego e maior eficiência na troca de informações de roteamento.
-    \item \textbf{Menor Overhead}: A comunicação ponto a ponto é mais eficiente e requer menos overhead de protocolo, uma vez que não é necessário enviar pacotes de hello para todos os routers na rede.
-    \item \textbf{Maior Segurança}: A comunicação ponto a ponto é mais segura, uma vez que é direta entre os routers e não é transmitida para outros dispositivos na rede. Isso reduz a exposição a possíveis ataques e melhora a segurança da rede.
-    \item \textbf{Maior Estabilidade}: As redes ponto a ponto são mais estáveis e previsíveis, uma vez que a comunicação é direta entre os routers e não depende de outros dispositivos na rede.
-  \end{itemize}
+  \par OEm redes ponto a ponto, a comunicação ocorre diretamente entre dois routers, sem a necessidade de DR/BDR, o que reduz o overhead e aumenta a segurança e eficiência, ao contrário das redes broadcast ou ponto-a-multiponto.
   \vspace{0.2cm}
 
   \item \textbf{Are hello packets for this network type (P2P) sent as unicast or multicast?}
   \vspace{0.2cm}
 
-  \par Os pacotes hello para redes ponto a ponto (P2P) são enviados como unicast. Numa rede P2P, existem apenas dois routers diretamente conectados entre si, o que significa que a comunicação ocorre de forma direta entre esses dois dispositivos. Quando um router envia pacotes hello, estes são direcionados ao endereço IP do router vizinho, em vez de serem transmitidos para todos os routers na rede, como acontece nas redes de broadcast.
-  \vspace{0.2cm}
-
-  Este método de envio de pacotes hello como unicast é eficiente, pois reduz o tráfego desnecessário e consome menos largura de banda, garantindo que apenas o destinatário pretendido receba os pacotes. Ao minimizar o overhead e focar a comunicação apenas entre dois routers, as ligações ponto a ponto melhoram a eficiência global do protocolo OSPF.
+  \par Em redes ponto a ponto, os pacotes hello são enviados como unicast, garantindo uma comunicação direta e eficiente entre os dois routers, sem tráfego desnecessário para outros dispositivos.
   \vspace{0.2cm}
 
   \item \textbf{Does the P2P network type support the DR/BDR election? Why or why not?}
   \vspace{0.2cm}
 
-  \par O tipo de rede OSPF ponto a ponto (P2P) não suporta a eleição do Designated Router (DR) e do Backup Designated Router (BDR). Numa rede P2P, a comunicação ocorre diretamente entre dois routers, sem a presença de outros dispositivos ou múltiplas conexões de broadcast. Assim, não há necessidade de um DR ou BDR, uma vez que a comunicação é restrita a esses dois routers.
-
-  \par A ausência de um DR e BDR em redes ponto a ponto simplifica a topologia e melhora a eficiência da comunicação, uma vez que não é necessário coordenar a troca de informações de roteamento entre vários routers. Esta abordagem direta e simplificada é ideal para ligações dedicadas e túneis VPN, onde a comunicação é direta e não requer a coordenação de um router central.
-
-
+  \par O tipo de rede ponto a ponto não suporta eleição de DR/BDR, pois a comunicação é direta entre dois routers, tornando desnecessária a coordenação de múltiplos dispositivos.
+  \vspace{0.2cm}
 
   \item \textbf{Activate in R1 and R2 the debug ip ospf events. Change the hello timers on the interface between R1 and 
   R2 to half of the current value. Wait for the dead interval. What was the impact from this change on the 
@@ -808,7 +768,7 @@ Para verificar a configuração do OSPF e a eleição do DR e BDR, vamos utiliza
   \par Após a ativação do comando \textit{debug ip ospf events} nos routers R1 e R2 e a alteração dos temporizadores hello na interface entre eles para metade do valor atual, utilizando o comando \textit{ip ospf hello-interval 5}, observou-se um impacto significativo na topologia da rede.
   \vspace{0.2cm}
 
-  \par A redução do temporizador hello causou uma falha na comunicação entre os routers, levando à interrupção da adjacência OSPF e à reconfiguração da topologia da rede. A alteração resultou na remoção do router R2 da tabela de routing do router R1, causando uma interrupção na conectividade entre os routers. Esta situação demonstra a importância dos temporizadores hello e morto no OSPF e o impacto que podem ter na estabilidade e convergência da rede.
+  \par Após reduzir os temporizadores hello entre R1 e R2, a adjacência OSPF foi interrompida, resultando na perda de conectividade e reconfiguração da topologia. Esse impacto mostra a importância dos temporizadores hello e dead para a estabilidade e convergência do OSPF.
   \vspace{0.2cm}
 
   Como se pode observar na figura \ref{fig:config14}.
@@ -825,14 +785,7 @@ Para verificar a configuração do OSPF e a eleição do DR e BDR, vamos utiliza
   \item \textbf{What is the relation between the hello and dead interval? Revert the hello timer to the previous value.}
   \vspace{0.2cm}
 
-  \par O temporizador hello e o temporizador morto estão diretamente relacionados no OSPF. O temporizador hello é o intervalo de tempo entre a transmissão de pacotes hello, que são utilizados para manter a adjacência OSPF e trocar informações de roteamento. O temporizador morto é o intervalo de tempo que um router espera antes de declarar um vizinho OSPF como inativo e remover a adjacência.
-  \vspace{0.2cm}
-
-  \par Por padrão no OSPF, o temporizador morto é quatro vezes o valor do temporizador hello. Isto significa que, se o temporizador hello for alterado, o temporizador morto também deve ser ajustado proporcionalmente para garantir que os routers possam detectar falhas de vizinhança e remover adjacências inativas de forma eficiente.
-  \vspace{0.2cm}
-
-  \par Após a alteração do temporizador hello, é importante reverter o valor para o valor anterior para manter a consistência e a estabilidade da rede OSPF, usando o comando \textit{ip ospf hello-interval 10}. Ao restaurar o valor original do temporizador hello, os routers podem retomar a comunicação e reestabelecer as adjacências OSPF, garantindo a continuidade da operação da rede.
-
+  \par O temporizador dead é quatro vezes o valor do temporizador hello. Se o temporizador hello for alterado, o dead também deve ser ajustado proporcionalmente para garantir a remoção eficiente de adjacências inativas. Após a alteração, é importante reverter o temporizador hello ao valor original (\textit{ip ospf hello-interval 10}) para manter a estabilidade da rede e reestabelecer as adjacências OSPF.
 \end{enumerate}
 \vspace{0.2cm}
 
@@ -895,7 +848,278 @@ Por fim, o para verificar a conectividade entre os routers nas Áreas 0 e 3, uti
 \section{Tarefa 3 - OSPF AREA 1 AND VIRTUAL LINK CONFIGURATION}
 \vspace{0.2cm}
 
+Nesta tarefa, o objetivo é configurar o OSPF na Área 1 e estabelecer um virtual link para conectar a Área 1 ao backbone (Área 0) através da Área 3. Inicialmente, será configurado o OSPF nos routers R7 e R5 na Área 1. Em seguida, um virtual link será criado entre o router R5 (Área 3) e os routers R1 e R3 (Área 0), garantindo a conectividade entre as áreas.
+
+Além disso, abordaremos a importância dos router IDs para a configuração do virtual link, bem como as limitações e erros comuns. Para otimizar a distribuição de rotas, transformaremos a Área 1 numa rede stub no-summary, reduzindo o tráfego de routing. No final, será verificada a conectividade entre todas as áreas, assegurando o correto funcionamento do OSPF na rede.
+\vspace{0.2cm}
+
+\subsection{CONFIGURING OSPF IN AREA 1}
+\vspace{0.2cm}
+
+Para os routers R7 e R5, vamos configurar o OSPF na Área 1 com os seguintes passos:
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{Ativar o OSPF} no router, utilizando o comando \textit{router ospf} seguido do número do processo OSPF.
+  \item \textbf{Definir o router ID} do router, utilizando o comando \textit{router-id} seguido do endereço IP da loopback.
+  \item \textbf{Configurar as interfaces} do router para o OSPF, utilizando o comando \textit{network} seguido do endereço IP da interface, da wildcard mask e da área OSPF.
+\end{enumerate}
+\vspace{0.2cm}
+
+Para o router 7, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config18}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/12.config_R7_ospf.png}
+    \caption{Configuração do OSPF no Router 7}
+    \label{fig:config18}
+\end{figure}
+\vspace{0.2cm}
+
+Para o router 5, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config19}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/12.config_R5_ospf.png}
+    \caption{Configuração do OSPF no Router 5}
+    \label{fig:config19}
+\end{figure}
+\vspace{0.2cm}
+
+\subsection{UNDERSTANDING THE NEED FOR A VIRTUAL LINK}
+\vspace{0.2cm}
+
+Para garantir a conectividade entre a Área 1 e o backbone (Área 0) em OSPF, quando não existe uma ligação direta entre elas, é necessário criar um virtual link. Como a Área 1 não está conectada diretamente à Área 0, podemos estabelecer uma ligação lógica através da Área 3, configurando o link entre os routers da Área 3 (R5) e os routers da Área 0 (R1 e R3).
+
+Este virtual link permite que as áreas não contíguas troquem informações de routing, assegurando a comunicação entre elas, mesmo sem uma ligação física direta. Assim, o virtual link é uma solução eficiente para conectar áreas que não são adjacentes e não partilham uma área comum, mantendo a conectividade e a continuidade da rede OSPF.
+\vspace{0.2cm}
+
+Vamos utilizar os seguintes comandos:
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{router ospf 1}: Ativa o OSPF no router, utilizando o número do processo OSPF.
+  \item \textbf{area 3 virtual-link}: Cria um virtual link entre as áreas OSPF, especificando o endereço IP do router vizinho na área 3.
+  \item \textbf{authentication message-digest}: Ativa a autenticação MD5 para o virtual link, garantindo a segurança da comunicação.
+  \item \textbf{message-digest-key 1 md5 vlink}: Define a chave de autenticação MD5 para o virtual link, assegurando a integridade das mensagens.
+  \item \textbf{authentication-key vlink}: Define a chave de autenticação para o virtual link, garantindo a segurança da comunicação.
+\end{enumerate}
+\vspace{0.2cm}
+
+Para o router 5, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config20}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/13.virtual_link_R5.png}
+    \caption{Configuração do virtual link no Router 5}
+    \label{fig:config20}
+\end{figure}
+\vspace{0.2cm}
+
+Para os routers 1 e 3, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config21}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/13.virtual_link_R1.png}
+    \caption{Configuração do virtual link nos Routers 1 e 3}
+    \label{fig:config21}
+\end{figure}
+\vspace{0.2cm}
+
+\newpage 
+\subsection{OPTIMIZING ROUTE DISTRIBUTION}
+\vspace{0.2cm}
+
+Para otimizar a distribuição de rotas na rede, podemos configurar a Área 1 como uma rede stub no-summary. Como a Área 1 está localizada no final da rede, com uma única conexão à rede, essa configuração ajuda a reduzir o tráfego de routing, evitando a propagação de informações de routing desnecessárias para a área. Além disso, ao transformá-la em uma rede stub, a Área 1 não irá propagar informações de routing para outras áreas, o que melhora a eficiência e a segurança da rede OSPF. Essa abordagem resulta em uma rede mais otimizada, com um menor número de rotas e maior controle sobre o tráfego de routing.
+\vspace{0.2cm}
+
+Para os routers R7 e R5, vamos configurar a Área 1 como uma rede stub no-summary com os seguintes passos:
+
+\begin{enumerate}
+  \item \textbf{router ospf 1}: Ativa o OSPF no router, utilizando o número do processo OSPF.
+  \item \textbf{area 1 stub no-summary}: Configura a Área 1 como uma rede stub no-summary, evitando a propagação de informações de routing para outras áreas.
+\end{enumerate}
+\vspace{0.2cm}
+
+Para o router 5, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config22}.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/14.optimizing_route_R5.png}
+    \caption{Configuração da Área 1 como uma rede stub no-summary no Router 5}
+    \label{fig:config22}
+\end{figure}
+\vspace{0.2cm}
+
+\subsection{VERIFICATION AND TROUBLESHOOTING}
+\vspace{0.2cm}
+
+Para verificar a configuração do OSPF e do virtual link, bem como a otimização da distribuição de rotas, vamos utilizar os seguintes comandos:
+\vspace{0.2cm}
+
+\begin{itemize}
+  \item \textbf{show ip ospf virtual-links}: Mostra informações sobre os links virtuais OSPF, incluindo o estado do link, o endereço IP do router vizinho e a autenticação MD5. Tal como se pode observar na figura \ref{fig:config23}.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/15.virtual_link_test_R5.png}
+    \caption{Verificar o virtual link no Router 5}
+    \label{fig:config23}
+  \end{figure}
+  \vspace{0.2cm}
+
+  \item \textbf{show ip ospf neighbor}: Mostra a lista de vizinhos OSPF com os quais o router estabeleceu adjacências. Tal como se pode observar na figura \ref{fig:config24}.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/15.ospf_neigh_R5.png}
+    \caption{Verificar os vizinhos OSPF no Router 5}
+    \label{fig:config24}
+  \end{figure}
+  \vspace{0.2cm}
+
+  \item \textbf{show ip route ospf}: Mostra a tabela de routing OSPF, que inclui as rotas aprendidas através do OSPF. Tal como se pode observar na figura \ref{fig:config25}.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/15.ospf_route_R5.png}
+    \caption{Verificar a tabela de routing OSPF no Router 5}
+    \label{fig:config25}
+  \end{figure}
+  \vspace{0.2cm}
+
+  \item \textbf{show ip ospf database}: Mostra a base de dados OSPF, que inclui informações sobre as redes OSPF, os routers vizinhos e os links (LSAs) entre routers. Tal como se pode observar na figura \ref{fig:config26}.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.83\textwidth]{imagens/Tarefa3/15.ospf_database_R5.png}
+    \caption{Verificar a base de dados OSPF no Router 5}
+    \label{fig:config26}
+  \end{figure}
+  \vspace{0.2cm}
+\end{itemize}
+
+\newpage
+\subsection{REVIEW QUESTIONS}
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{What is the purpose of an OSPF virtual link?}
+  \vspace{0.2cm}
+
+  \par O virtual link OSPF permite interligar áreas OSPF não contíguas, garantindo a comunicação entre elas através de uma ligação lógica, mesmo sem uma conexão física direta. Ele é usado quando duas áreas não compartilham uma área comum, mas precisam trocar informações de routing. Isso é feito estendendo a área backbone (área 0) para incluir áreas não adjacentes, mantendo a conectividade e propagação de rotas.
+  \vspace{0.2cm}
+
+  \item \textbf{Why is authentication important on a virtual link?}
+  \vspace{0.2cm}
+
+  \par A autenticação é essencial para garantir a segurança da troca de informações de routing e evitar ataques como spoofing e injeção de rotas maliciosas. A autenticação MD5, com uma chave secreta partilhada, assegura que as mensagens OSPF não foram alteradas, evitando a propagação de rotas fraudulentas e protegendo contra ataques man-in-the-middle.
+  \vspace{0.2cm}
+
+  \item \textbf{How does a virtual link affect the path that packets take through the network?}
+  \vspace{0.2cm}
+
+  \par O virtual link permite que os pacotes atravessem áreas OSPF não diretamente conectadas, ao criar uma ligação lógica entre elas. Isso pode alterar a rota dos pacotes, pois eles podem passar por áreas que não seriam diretamente acessíveis, garantindo a continuidade da comunicação entre as áreas.
+  \vspace{0.2cm}
+
+  \item \textbf{What are some limitations or potential issues with using virtual links?}
+  \vspace{0.2cm}
+
+  \par Existem várias limitações e potenciais problemas ao utilizar virtual links no OSPF, que devem ser cuidadosamente considerados ao planejar a rede. Alguns dos principais pontos incluem:
+
+  \begin{itemize}
+    \item \textbf{Complexidade de Configuração}: A configuração de links virtuais pode ser difícil e exige conhecimento da topologia da rede.
+    \item \textbf{Instabilidade}: Links mal configurados podem causar falhas de conectividade e afetar a troca de informações de routing.
+    \item \textbf{Segurança}: Links virtuais podem ser vulneráveis a ataques, por isso a autenticação é essencial.
+    \item \textbf{Impacto na Convergência}: Problemas de conectividade podem aumentar o tempo de convergência do OSPF.
+    \item \textbf{Dependência da Área Backbone}: OA falha no link virtual ou na área 0 pode afetar toda a rede OSPF.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  \item \textbf{What happens when area 0 becomes partitioned?}
+  \vspace{0.2cm}
+
+  \par A partição da Área 0 impede a comunicação entre áreas OSPF, pois todas devem se conectar à área backbone. Se a área 0 for dividida, as sub-áreas resultantes ficam isoladas. A restauração da Área 0 é necessária para retomar a conectividade total.
+  \vspace{0.2cm}
+
+  \item \textbf{What does the IP address used in the virtual-link statement refer to?}
+  \vspace{0.2cm}
+
+  \par O endereço IP refere-se ao Router ID do router vizinho que está na área adjacente. Esse Router ID é utilizado para estabelecer a conexão lógica entre áreas não contíguas.
+  \vspace{0.2cm}
+
+  \item \textbf{Must this address be reachable before the virtual-link can be established?}
+  \vspace{0.2cm}
+
+  \par Sim, o endereço IP do router vizinho deve ser alcançável para que o virtual link funcione corretamente. Caso contrário, a comunicação entre as áreas não será possível.
+  \vspace{0.2cm}
+
+  \item \textbf{How can we optimize the route tables of non-transit areas?}
+  \vspace{0.2cm}
+
+  \par Para otimizar as tabelas de routing de áreas não transitórias no OSPF, é possível configurá-las como áreas stub ou áreas stub no-summary. Essas configurações ajudam a melhorar o desempenho da rede, reduzindo a quantidade de informações de routing propagadas e, consequentemente, o tráfego de routing entre as áreas.
+
+  \par Aqui estão as opções para otimizar as tabelas de routing:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Área Stub}: Restringe a propagação de rotas externas, permitindo apenas a rota padrão.
+    \item \textbf{Área Stub No-Summary}: Além das rotas externas, evita a propagação de rotas de resumo.
+    \item \textbf{Área Totally Stubby}: Não propaga rotas externas nem de resumo, permitindo apenas as rotas locais e a padrão.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  \par Estas configurações reduzem o tráfego e as tabelas de routing, melhorando a eficiência da rede.
+  \vspace{0.2cm}
+  \end{enumerate}
+
+\subsection{LAB TASKS}
+\vspace{0.2cm}
+
+\par Após concluir todas as configurações e responder às perguntas, o objetivo deste laboratório é verificar a conectividade entre os dispositivos. As tarefas incluem a verificação da conectividade completa OSPF entre todos os routers nas Áreas 0, 1 e 3, a monitorização do caminho de um pacote de R8 para R2, documentando cada salto, e a avaliação da conectividade ICMP entre os PCs PC11 <-> PC22 e PC11 <-> PC33.
+
+\par Primeiramente, vamos verificar a conectividade entre os routers nas Áreas 0, 1 e 3, utilizando o comando \textit{ping} seguido do endereço IP do router de destino. Para tal, é necessário verificar se o router de origem consegue enviar pacotes ICMP para o router de destino e se este consegue responder aos mesmos. Como se pode observar na figura \ref{fig:config27}, a conectividade foi verificada com sucesso entre os routers nas Áreas 0, 1 e 3 (R8 -> R2 e R8 -> R7).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa3/16.ping_R7_R2_R6.png}
+    \caption{Verificar a conectividade entre os Routers nas Áreas 0, 1 e 3}
+    \label{fig:config27}
+\end{figure}
+\vspace{0.2cm}
+
+\par Posteriormente, vamos monitorizar o caminho de um pacote de R8 para R2, utilizando o comando \textit{traceroute} seguido do endereço IP do router de destino. Este comando permite documentar cada salto que o pacote faz ao longo do caminho, mostrando os routers intermediários que o pacote atravessa. Como se pode observar na figura \ref{fig:config28}, o caminho do pacote de R8 para R2 passa pelos routers R7 e R2.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{imagens/Tarefa3/16.traceroute_R7_R2_R6.png}
+    \caption{Monitorizar o caminho de um pacote de R7 para R2 e para }
+    \label{fig:config28}
+\end{figure}
+\vspace{0.2cm}
+
+\newpage
+\par Por fim, vamos verificar a conectividade ICMP entre os PCs PC11 e PC22, assim como entre os PCs PC11 e PC33, utilizando o comando \textit{ping} seguido do endereço IP do PC de destino. Como se pode observar na figura \ref{fig:config29}, a conectividade foi verificada com sucesso entre os PCs PC11 e PC22, assim como entre os PCs PC11 e PC33.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{imagens/Tarefa3/16.ping_PC11_PC22_PC33.png}
+    \caption{Verificar a conectividade entre os PCs PC11 e PC22, PC11 e PC33}
+    \label{fig:config29}
+\end{figure} 
 \pagebreak
+
+\section{OSPF AREA 2 AND EXTERNAL ROUTE REDISTRIBUTION}
+\vspace{0.2cm}
 
 \mainmatter
 \end{document}
