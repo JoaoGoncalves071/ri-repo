@@ -1047,7 +1047,10 @@ Para verificar a configuração do OSPF e do virtual link, bem como a otimizaç�
   \item \textbf{What happens when area 0 becomes partitioned?}
   \vspace{0.2cm}
 
-  \par A partição da Área 0 impede a comunicação entre áreas OSPF, pois todas devem se conectar à área backbone. Se a área 0 for dividida, as sub-áreas resultantes ficam isoladas. A restauração da Área 0 é necessária para retomar a conectividade total.
+  \par Quando a área 0 é dividida/partitioned, são definidas duas outras sub-áreas de backbone que agem em separado, onde cada uma irá efetuar o tratamento do encaminhamento das rotas inter-área.
+  \vspace{0.2cm}
+
+  \par A criação de novas sub-áreas de backbone não deverá afetar o funcionamento e a relação destas com qualquer outra área na rede, sendo que estas continuarão a ser as áreas de backbone da topologia de rede em questão.
   \vspace{0.2cm}
 
   \item \textbf{What does the IP address used in the virtual-link statement refer to?}
@@ -1120,6 +1123,44 @@ Para verificar a configuração do OSPF e do virtual link, bem como a otimizaç�
 
 \section{OSPF AREA 2 AND EXTERNAL ROUTE REDISTRIBUTION}
 \vspace{0.2cm}
+
+Nesta tarefa, o objetivo é configurar o OSPF na Área 2 e estabelecer RIP em especificas interfaces para conectar a Área 2 ao backbone (Area 0).
+
+
+\subsection{CONFIGURING OSPF IN AREA 2}
+\vspace{0.2cm}
+
+Para os routers R9, R8 e R2, vamos configurar o OSPF na Área 2 com os seguintes passos:
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{Ativar o OSPF} no router, utilizando o comando \textit{router ospf} seguido do número do processo OSPF.
+  \item \textbf{Definir o router ID} do router, utilizando o comando \textit{router-id} seguido do endereço IP da loopback.
+  \item \textbf{Configurar as interfaces} do router para o OSPF, utilizando o comando \textit{network} seguido do endereço IP da interface, da wildcard mask e da área OSPF.
+\end{enumerate}
+\vspace{0.2cm}
+
+Para o router 9, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config30}:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/17.config_R9.png}
+  \caption{Configuração do OSPF no Router 9.}
+  \label{fig:config30}
+\end{figure}
+\vspace{0.2cm}
+
+
+Para o router 8, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config31}:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/18.config_R8.png}
+  \caption{Configuração do OSPF no Router 8.}
+  \label{fig:config31}
+\end{figure}
+\vspace{0.2cm}
+
 
 \mainmatter
 \end{document}
