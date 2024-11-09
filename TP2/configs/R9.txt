@@ -50,3 +50,58 @@ ip ospf network point-to-point
 exit
 exit
 wr
+
+10- Configuring OSPF INN AREA 2:
+
+conf t
+router ospf 1
+router-id 9.9.9.9
+network 9.9.9.9 0.0.0.0 area 2
+network 10.2.8.0 0.0.0.7 area 2
+exit
+exit
+wr
+
+11- Configuring RIP
+
+conf t
+router rip
+version 2
+network 10.0.0.0 ???
+no auto-summary
+exit
+exit
+wr
+
+
+12- Redistributing RIP into OSPF and OSPF to RIP
+
+conf t
+router ospf 1
+redistribute rip subnets
+router rip
+redistribute ospf 1 metric 1
+exit
+exit
+wr
+
+
+13- Controlling LSA Propagation
+
+conf t
+router ospf 1
+area 2 nssa
+exit
+exit
+wr
+
+14- Adjusting OSPF Metrics for external routes
+
+conf t
+router ospf 1
+redistribute rip subnets metric-type 1 metric 1000
+exit
+exit
+wr
+
+

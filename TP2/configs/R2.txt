@@ -88,3 +88,23 @@ ip ospf network point-to-point
 exit
 exit
 wr
+
+
+10- Configuring OSPF INN AREA 2:
+
+conf t
+router ospf 1
+router-id 2.2.2.2
+network 10.2.8.0 0.0.0.7 area 2
+exit
+exit
+wr
+
+13- Controlling LSA Propagation
+
+conf t
+router ospf 1
+area 2 nssa
+exit
+exit
+wr
