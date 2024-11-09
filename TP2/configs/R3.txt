@@ -109,7 +109,7 @@ wr
 
 conf t
 router ospf 1 
-area 3 virtual-link 5.5.5.5 authentication authentication-key vlink 
+area 3 virtual-link 5.5.5.5 authentication message-digest
 area 3 virtual-link 5.5.5.5 message-digest-key 1 md5 vlink
 exit
 exit
