@@ -1087,9 +1087,9 @@ Para verificar a configuração do OSPF e do virtual link, bem como a otimizaç�
 \subsection{LAB TASKS}
 \vspace{0.2cm}
 
-\par Após concluir todas as configurações e responder às perguntas, o objetivo deste laboratório é verificar a conectividade entre os dispositivos. As tarefas incluem a verificação da conectividade completa OSPF entre todos os routers nas Áreas 0, 1 e 3, a monitorização do caminho de um pacote de R8 para R2, documentando cada salto, e a avaliação da conectividade ICMP entre os PCs PC11 <-> PC22 e PC11 <-> PC33.
+\par Após concluir todas as configurações e responder às perguntas, o objetivo deste laboratório é verificar a conectividade entre os dispositivos. As tarefas incluem a verificação da conectividade completa OSPF entre todos os routers nas Áreas 0, 1 e 3, a monitorização do caminho de um pacote de R7 para R2, documentando cada salto, e a avaliação da conectividade ICMP entre os PCs PC11 <-> PC22 e PC11 <-> PC33.
 
-\par Primeiramente, vamos verificar a conectividade entre os routers nas Áreas 0, 1 e 3, utilizando o comando \textit{ping} seguido do endereço IP do router de destino. Para tal, é necessário verificar se o router de origem consegue enviar pacotes ICMP para o router de destino e se este consegue responder aos mesmos. Como se pode observar na figura \ref{fig:config27}, a conectividade foi verificada com sucesso entre os routers nas Áreas 0, 1 e 3 (R8 -> R2 e R8 -> R7).
+\par Primeiramente, vamos verificar a conectividade entre os routers nas Áreas 0, 1 e 3, utilizando o comando \textit{ping} seguido do endereço IP do router de destino. Para tal, é necessário verificar se o router de origem consegue enviar pacotes ICMP para o router de destino e se este consegue responder aos mesmos. Como se pode observar na figura \ref{fig:config27}, a conectividade foi verificada com sucesso entre os routers nas Áreas 0, 1 e 3 (R7 -> R2 e R7 -> R6).
 
 \begin{figure}[H]
     \centering
@@ -1099,7 +1099,7 @@ Para verificar a configuração do OSPF e do virtual link, bem como a otimizaç�
 \end{figure}
 \vspace{0.2cm}
 
-\par Posteriormente, vamos monitorizar o caminho de um pacote de R8 para R2, utilizando o comando \textit{traceroute} seguido do endereço IP do router de destino. Este comando permite documentar cada salto que o pacote faz ao longo do caminho, mostrando os routers intermediários que o pacote atravessa. Como se pode observar na figura \ref{fig:config28}, o caminho do pacote de R8 para R2 passa pelos routers R7 e R2.
+\par Posteriormente, vamos monitorizar o caminho de um pacote de R7 para R2, utilizando o comando \textit{traceroute} seguido do endereço IP do router de destino. Este comando permite documentar cada salto que o pacote faz ao longo do caminho, mostrando os routers intermediários que o pacote atravessa. Como se pode observar na figura \ref{fig:config28}, o caminho do pacote de R7 para R2 passa pelos routers R5 e R1.
 
 \begin{figure}[H]
     \centering
@@ -1121,11 +1121,15 @@ Para verificar a configuração do OSPF e do virtual link, bem como a otimizaç�
 \end{figure} 
 \pagebreak
 
-\section{OSPF AREA 2 AND EXTERNAL ROUTE REDISTRIBUTION}
+\section{Tarefa 4 - OSPF AREA 2 AND EXTERNAL ROUTE REDISTRIBUTION}
 \vspace{0.2cm}
 
-Nesta tarefa, o objetivo é configurar o OSPF na Área 2 e estabelecer RIP em especificas interfaces para conectar a Área 2 ao backbone (Area 0).
+Nesta tarefa, o objetivo é configurar o OSPF na Área 2 e integrar rotas externas através da redistribuição de RIP. Inicialmente, serão configurados os routers R2, R8 e R9 para suportar o OSPF na Área 2. Em seguida, será estabelecida a redistribuição de rotas RIP nas interfaces específicas dos routers R10 e R9 para conectar a Área 2 ao backbone (Área 0), permitindo a troca de rotas entre OSPF e RIP.
 
+Será implementada a redistribuição de rotas do RIP para o OSPF, assegurando a conectividade entre redes externas e a topologia OSPF. Para melhorar o controlo das LSAs (Link-State Advertisements), a Área 2 será configurada como uma NSSA (Not-So-Stubby Area), limitando a propagação de LSAs externas desnecessárias. Adicionalmente, os custos das rotas redistribuídas serão ajustados para otimizar o encaminhamento do tráfego.
+
+Por fim, serão utilizados comandos de verificação para validar a configuração e resolver possíveis problemas, garantindo o correto funcionamento do protocolo OSPF e a integração das rotas externas.
+\vspace{0.2cm}
 
 \subsection{CONFIGURING OSPF IN AREA 2}
 \vspace{0.2cm}
@@ -1140,27 +1144,294 @@ Para os routers R9, R8 e R2, vamos configurar o OSPF na Área 2 com os seguintes
 \end{enumerate}
 \vspace{0.2cm}
 
-Para o router 9, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config30}:
+Para o router 8, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config30}:
+\vspace{0.2cm}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/17.config_R9.png}
-  \caption{Configuração do OSPF no Router 9.}
+  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/17.config_R8.png}
+  \caption{Configuração do OSPF no Router 8}
   \label{fig:config30}
 \end{figure}
 \vspace{0.2cm}
 
+\subsection{CONFIGURING RIP}
+\vspace{0.2cm}
 
-Para o router 8, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config31}:
+Para os routers R9 e R10, vamos configurar o RIP nas interfaces específicas com os seguintes passos:
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{Ativar o RIP} no router, utilizando o comando \textit{router rip}.
+  \item \textbf{version 2} para ativar o RIP versão 2.
+  \item \textbf{Configurar as interfaces} do router para o RIP, utilizando o comando \textit{network} seguido do endereço IP da interface.
+  \item \textbf{no auto-summary} para desativar a sumarização automática de rotas.
+\end{enumerate}
+\vspace{0.2cm}
+
+Para o router 9, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config31}:
+\vspace{0.2cm}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/18.config_R8.png}
-  \caption{Configuração do OSPF no Router 8.}
+  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/18.config_R9.png}
+  \caption{Configuração do RIP no Router 9}
   \label{fig:config31}
 \end{figure}
 \vspace{0.2cm}
 
+\subsection{REDISTRIBUTING RIP INTO OSPF AND OSPF TO RIP}
+\vspace{0.2cm}
+
+Para o router R9, vamos redistribuir as rotas RIP no OSPF e ajustar os custos das rotas redistribuídas com os seguintes passos:
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{router ospf 1}: Ativa o OSPF no router, utilizando o número do processo OSPF.
+  \item \textbf{redistribute rip subnets}: Redistribui as rotas RIP no OSPF, incluindo as sub-redes.
+  \item \textbf{router rip}: Ativa o RIP no router.
+  \item \textbf{redistribute ospf 1 metric 1}: Redistribui as rotas OSPF no RIP, ajustando o custo para 1.
+\end{enumerate}
+\vspace{0.2cm}
+
+Para o router 9, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config32}:
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/19.redistribute_R9.png}
+  \caption{Redistribuição de rotas RIP no OSPF e OSPF no RIP no Router 9}
+  \label{fig:config32}
+\end{figure}
+\vspace{0.2cm}
+
+\subsection{CONTROLLING LSA PROPAGATION}
+\vspace{0.2cm}
+
+Para os routers R9, R8 e R2, vamos configurar a Área 2 como uma NSSA (Not-So-Stubby Area) para controlar a propagação de LSAs externas com os seguintes passos:
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{router ospf 1}: Ativa o OSPF no router, utilizando o número do processo OSPF.
+  \item \textbf{area 2 nssa}: Configura a Área 2 como uma NSSA, limitando a propagação de LSAs externas.
+\end{enumerate}
+\vspace{0.2cm}
+
+Para o router 8, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config33}:
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/20.nssa_R8.png}
+  \caption{Configuração da Área 2 como uma NSSA no Router 8}
+  \label{fig:config33}
+\end{figure}
+\vspace{0.2cm}
+
+\subsection{ADJUSTING OSPF METRICS FOR EXTERNAL ROUTES}
+\vspace{0.2cm}
+
+Para o router R9, vamos ajustar os custos das rotas OSPF para otimizar o encaminhamento do tráfego com os seguintes passos:
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{router ospf 1}: Ativa o OSPF no router, utilizando o número do processo OSPF.
+  \item \textbf{redistribute rip subnets metric-type 1 metric 1000}: Ajusta o custo das rotas redistribuídas do RIP para 1000.
+\end{enumerate}
+\vspace{0.2cm}
+
+Para o router 9, as configurações foram realizadas com sucesso, como se pode observar na figura \ref{fig:config34}:
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/21.adjust_R9.png}
+  \caption{Ajustar os custos das rotas OSPF no Router 9}
+  \label{fig:config34}
+\end{figure}
+\vspace{0.2cm}
+
+\subsection{VERIFICATION AND TROUBLESHOOTING}
+\vspace{0.2cm}
+
+Para verificar a configuração do OSPF, RIP e redistribuição de rotas, bem como a configuração da Área 2 como uma NSSA e o ajuste dos custos das rotas OSPF, vamos utilizar os seguintes comandos:
+\vspace{0.2cm}
+
+\begin{itemize}
+  \item \textbf{show ip ospf neighbor}: Mostra a lista de vizinhos OSPF com os quais o router estabeleceu adjacências. Tal como se pode observar na figura \ref{fig:config35}.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/22.ospf_neigh_R9.png}
+    \caption{Verificar os vizinhos OSPF no Router 9}
+    \label{fig:config35}
+  \end{figure}
+  \vspace{0.2cm}
+
+  \item \textbf{show ip route}: Mostra a tabela de routing, que inclui as rotas aprendidas através do OSPF e do RIP. Tal como se pode observar na figura \ref{fig:config36}.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/22.route_R9.png}
+    \caption{Verificar a tabela de routing no Router 9}
+    \label{fig:config36}
+  \end{figure}
+  \vspace{0.2cm}
+
+  \item \textbf{show ip ospf database nssa-external}: Mostra a base de dados OSPF para LSAs externas na NSSA, incluindo informações sobre as rotas redistribuídas. Tal como se pode observar na figura \ref{fig:config37}.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/22.ospf_database_R9.png}
+    \caption{Verificar a base de dados OSPF na NSSA no Router 9}
+    \label{fig:config37}
+  \end{figure}
+  \vspace{0.2cm}
+
+  \item \textbf{show ip protocols}: Mostra informações sobre os protocolos de routing configurados, incluindo OSPF e RIP. Tal como se pode observar na figura \ref{fig:config38}.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imagens/Tarefa4/22.ip_protocols_R9.png}
+    \caption{Verificar os protocolos de routing no Router 9}
+    \label{fig:config38}
+  \end{figure}
+  \vspace{0.2cm}
+\end{itemize}
+
+\newpage
+\subsection{REVIEW QUESTIONS}
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{What is the purpose of redistributing routes between routing protocols?}
+  \vspace{0.2cm}
+
+  \par A redistribuição de rotas entre protocolos de routing permite a troca de informações entre diferentes domínios de routing, como OSPF e RIP. Este processo é essencial em situações como:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Integração de redes heterogéneas}: Por exemplo, após uma fusão de empresas, onde cada uma utiliza um protocolo de routing diferente.
+    \item \textbf{Migração entre protocolos}: Durante uma transição gradual de um protocolo para outro, permitindo que as redes coexistam temporariamente.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  Sem redistribuição, estas redes podem ficar isoladas, comprometendo a conectividade e a eficiência global. No entanto, a redistribuição deve ser configurada cuidadosamente para evitar problemas como loops de routing e inconsistências de métricas.
+  \vspace{0.2cm}
+
+  \item \textbf{How does configuring an area as NSSA affect LSA propagation?}
+  \vspace{0.2cm}
+
+  \par Configurar uma área como NSSA (Not-So-Stubby Area) limita a propagação de LSAs externas, permitindo:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Controlo de LSAs externas}: Apenas LSAs tipo 7 são permitidas, que são convertidas para LSAs tipo 5 no backbone OSPF, evitando a inundação de rotas externas para outras áreas.
+    \item \textbf{Redução de tráfego de routing}: Restringe rotas externas desnecessárias, o que melhora o desempenho em redes grandes.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  Isto é particularmente útil em redes OSPF de grande escala, onde as áreas NSSA mantêm a escalabilidade ao controlar a injeção de rotas externas sem comprometer a conectividade.
+  \vspace{0.2cm}
+
+  \item \textbf{Why might we want to adjust metrics for redistributed routes?}
+  \vspace{0.2cm}
+
+  \par Ajustar as métricas para rotas redistribuídas é essencial para:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Evitar loops de routing}: Garantindo que um protocolo não volta a anunciar as suas próprias rotas redistribuídas. Por exemplo, ao redistribuir rotas de RIP para OSPF, as métricas podem ser configuradas para evitar que as rotas retornem ao RIP.
+    \item \textbf{Otimizar o tráfego}: Permite ajustar os custos de rotas para refletir a preferência de encaminhamento, direcionando o tráfego por caminhos mais rápidos ou mais fiáveis.
+    \item \textbf{Evitar rotas assimétricas}: Métricas inconsistentes podem levar a situações em que o tráfego segue por um caminho, mas o retorno ocorre por outro, causando latências ou falhas inesperadas.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  Este ajuste é frequentemente realizado através de comandos como metric ou metric-type nos dispositivos de routing.
+  \vspace{0.2cm}
+
+  \item \textbf{What are the potential risks or challenges of route redistribution?}
+  \vspace{0.2cm}
+
+  \par A redistribuição de rotas entre protocolos de routing apresenta vários riscos que devem ser mitigados com planeamento adequado:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Risco de Loops de Rotas}:Pode ocorrer se as rotas redistribuídas forem anunciadas de volta ao protocolo original. Este problema pode ser evitado com políticas de redistribuição e uso de tags para identificar rotas.
+    \item \textbf{Convergência Lenta}: Redes redistribuídas podem demorar mais tempo a convergir, afetando a estabilidade em caso de falha de ligação.
+    \item \textbf{Inconsistência de Métricas}: Diferenças entre métricas de protocolos como RIP e OSPF podem levar a rotas ineficientes.
+    \item \textbf{Risco de Injeção de Rotas Maliciosas}: Rotas indesejadas ou maliciosas podem ser injetadas durante o processo, comprometendo a segurança. Políticas de redistribuição e filtros de rotas ajudam a mitigar este risco.
+    \item \textbf{Complexidade de Configuração}:Configurações incorretas podem causar interrupções ou loops. É fundamental conhecer bem a topologia da rede antes de redistribuir rotas.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  \item \textbf{What different options are there for converting RIP external route costs on the OSPF?}
+  \vspace{0.2cm}
+
+  \par Ao redistribuir rotas do RIP para OSPF, os custos das rotas podem ser ajustados de várias formas:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Redistribuição com Métricas Fixas}: Atribui um custo fixo para todas as rotas redistribuídas, garantindo consistência. Por exemplo, redistribute rip metric 20.
+    \item \textbf{Redistribuição com Métricas Dinâmicas}: Ajusta os custos com base em parâmetros dinâmicos, como largura de banda ou atraso.
+    \item \textbf{Redistribuição com Métricas Relativas}: Configura as métricas proporcionalmente às métricas RIP originais, refletindo a diferença entre os dois protocolos.
+    \item \textbf{Redistribuição com Métricas Personalizadas}: Define métricas adaptadas às necessidades específicas da rede, como custos diferenciados para rotas de backup.
+    \item \textbf{Redistribuição com Métricas Padrão ou Estáticas}: Utiliza métricas baseadas em valores padrão ou configuradas manualmente, como largura de banda ou atraso mínimo.
+  \end{itemize}
+  \vspace{0.2cm}
+  \end{enumerate}
+
+\newpage
+\subsection{LAB TASKS}
+\vspace{0.2cm}
+
+\par Após concluir todas as configurações e responder às perguntas, o objetivo deste laboratório é verificar a conectividade entre os dispositivos.  As tarefas incluem validar a redistribuição de rotas RIP no OSPF, monitorizar o percurso de um pacote de R1 para a rede 10.9.10.0/30, documentando cada salto, e garantir a conectividade ICMP entre os dispositivos, como R10 (interface loopback0) e todas as interfaces loopback dos outros routers, bem como entre os PCs na topologia, incluindo PC55 e os restantes PCs.
+\vspace{0.2cm}
+
+\par Primeiramente, vamos verificar a redistribuição de rotas RIP no OSPF, utilizando o comando \textit{show ip route} para verificar as rotas aprendidas através do OSPF e do RIP. Isto já foi feito anteriormente, como se pode observar na figura \ref{fig:config36}.
+\vspace{0.2cm}
+
+\par Posteriormente, vamos monitorizar o caminho de um pacote de R1 para a rede 10.9.10.0/30. Para tal, vamos utilizar o comando \textit{traceroute} seguido do endereço IP da rede de destino. Este comando permite documentar cada salto que o pacote faz ao longo do caminho, mostrando os routers intermediários que o pacote atravessa. Como se pode observar na figura \ref{fig:config39}, o caminho do pacote de R1 para a rede 172.16.1.0/24 passa pelos routers R2 e R9.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{imagens/Tarefa4/23.traceroute_R1_10.9.10.1.png}
+  \caption{Monitorizar o caminho de um pacote de R1 para a rede 172.16.1.0/24}
+  \label{fig:config39}
+\end{figure}
+\vspace{0.2cm}
+
+\par Seguidamente, vamos garantir a conectividade ICMP entre os dispositivos, como R10 (interface loopback0) e todas as interfaces loopback dos outros routers. Para tal, vamos utilizar o comando \textit{ping} seguido do endereço IP do dispositivo de destino, bem como \textit{source loopback0}. Como se pode observar na figura \ref{fig:config40}, a conectividade foi verificada com sucesso entre os dispositivos.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{imagens/Tarefa4/23.ping_R10_loopback0.png}
+  \caption{Verificar a conectividade entre R10 (interface loopback0) e as interfaces loopback dos outros routers}
+  \label{fig:config40}
+\end{figure}
+\vspace{0.2cm}
+
+\par Por fim, vamos garantir a conectividade ICMP entre os PCs na topologia, incluindo PC55 e os restantes PCs. Para tal, vamos utilizar o comando \textit{ping} seguido do endereço IP do PC de destino. Como se pode observar na figura \ref{fig:config41}, a conectividade foi verificada com sucesso entre os PCs na topologia.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{imagens/Tarefa4/23.ping_PC55_PC11_PC22_PC33.png}
+  \caption{Verificar a conectividade entre PC55 e os restantes PCs}
+  \label{fig:config41}
+\end{figure}
+\pagebreak
+
+\section{ADVANCED OSPF CONFIGURATIONS AND MAINTENANCE SCENARIO}
+\vspace{0.2cm}
+
+\pagebreak
 
 \mainmatter
 \end{document}

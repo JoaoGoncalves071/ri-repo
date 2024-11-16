@@ -54,7 +54,6 @@ exit
 exit
 wr
 
-
 11- Configuring RIP
 
 conf t

@@ -51,7 +51,7 @@ exit
 exit
 wr
 
-10- Configuring OSPF INN AREA 2:
+10- Configuring OSPF IN AREA 2:
 
 conf t
 router ospf 1
@@ -73,7 +73,6 @@ exit
 exit
 wr
 
-
 12- Redistributing RIP into OSPF and OSPF to RIP
 
 conf t
@@ -84,7 +83,6 @@ redistribute ospf 1 metric 1
 exit
 exit
 wr
-
 
 13- Controlling LSA Propagation
 
@@ -103,5 +101,3 @@ redistribute rip subnets metric-type 1 metric 1000
 exit
 exit
 wr
-
-

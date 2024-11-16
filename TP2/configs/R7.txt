@@ -54,7 +54,6 @@ exit
 exit
 wr
 
-
 7- CONFIGURING OSPF IN AREA 1:
 
 conf t
