@@ -123,9 +123,17 @@ wr
 
 conf t
 router ospf 1 
-area 3 virtual-link 5.5.5.5 authentication message-digest 
+area 3 virtual-link 5.5.5.5 authentication message-digest
 area 3 virtual-link 5.5.5.5 message-digest-key 1 md5 vlink
 exit
 exit
 wr
- 	 
+
+16- SIMULATING A MAINTENANCE SCENARIO 
+
+conf t
+interface GigabitEthernet1/0 
+ip ospf cost 1000  	 
+exit
+exit
+wr

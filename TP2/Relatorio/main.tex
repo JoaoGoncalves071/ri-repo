@@ -1395,13 +1395,13 @@ Para verificar a configuração do OSPF, RIP e redistribuição de rotas, bem co
 \par Primeiramente, vamos verificar a redistribuição de rotas RIP no OSPF, utilizando o comando \textit{show ip route} para verificar as rotas aprendidas através do OSPF e do RIP. Isto já foi feito anteriormente, como se pode observar na figura \ref{fig:config36}.
 \vspace{0.2cm}
 
-\par Posteriormente, vamos monitorizar o caminho de um pacote de R1 para a rede 10.9.10.0/30. Para tal, vamos utilizar o comando \textit{traceroute} seguido do endereço IP da rede de destino. Este comando permite documentar cada salto que o pacote faz ao longo do caminho, mostrando os routers intermediários que o pacote atravessa. Como se pode observar na figura \ref{fig:config39}, o caminho do pacote de R1 para a rede 172.16.1.0/24 passa pelos routers R2 e R9.
+\par Posteriormente, vamos monitorizar o caminho de um pacote de R1 para a rede 10.9.10.0/30. Para tal, vamos utilizar o comando \textit{traceroute} seguido do endereço IP da rede de destino. Este comando permite documentar cada salto que o pacote faz ao longo do caminho, mostrando os routers intermediários que o pacote atravessa. Como se pode observar na figura \ref{fig:config39}, o caminho do pacote de R1 para a rede 10.9.10.0/30 passa pelos routers R2 e R9.
 \vspace{0.2cm}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.82\textwidth]{imagens/Tarefa4/23.traceroute_R1_10.9.10.1.png}
-  \caption{Monitorizar o caminho de um pacote de R1 para a rede 172.16.1.0/24}
+  \caption{Monitorizar o caminho de um pacote de R1 para a rede 10.9.10.0/30}
   \label{fig:config39}
 \end{figure}
 \vspace{0.2cm}

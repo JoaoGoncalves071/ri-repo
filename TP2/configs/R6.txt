@@ -47,7 +47,7 @@ exit
 exit
 wr
 
-6. CONTROLLING DR/BDR ELECTION :
+6- CONTROLLING DR/BDR ELECTION :
 
 conf t
 interface GigabitEthernet0/0 

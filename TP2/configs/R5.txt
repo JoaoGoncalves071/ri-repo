@@ -91,3 +91,12 @@ area 1 stub no-summary
 exit
 exit
 wr
+
+15- ROUTE SUMMARIZATION
+
+conf t
+router ospf 1
+area 1 range 10.2.0.0 255.255.0.0
+exit
+exit
+wr
