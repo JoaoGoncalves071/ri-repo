@@ -1511,24 +1511,24 @@ Para verificar a configuração da sumarização de rotas e a simulação de man
   \item \textbf{show ip ospf database summary}: Mostra a base de dados OSPF para LSAs de sumarização, incluindo informações sobre as rotas sumarizadas. Tal como se pode observar na figura \ref{fig:config42}.
   \vspace{0.2cm}
 
-  \item \textbf{trace <destination-ip> }: Permite monitorizar o caminho de um pacote para o destino, mostrando os routers intermediários que o pacote atravessa. Tal como se pode observar na figura \ref{fig:config43}.
+  \item \textbf{trace <destination-ip> }: Permite monitorizar o caminho de um pacote para o destino, mostrando os routers intermediários que o pacote atravessa. Tal como se pode observar na figura \ref{fig:config44}.
   \vspace{0.2cm}
 
   \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{imagens/Tarefa5/25.trace_R7_R10.png}
     \caption{Monitorizar o caminho de um pacote de R7 para R10}
-    \label{fig:config43}
+    \label{fig:config44}
   \end{figure}
 
-  \item \textbf{show ip ospf interface}: Mostra informações detalhadas sobre as interfaces OSPF, incluindo custos e estados. Tal como se pode observar na figura \ref{fig:config44}.
+  \item \textbf{show ip ospf interface}: Mostra informações detalhadas sobre as interfaces OSPF, incluindo custos e estados. Tal como se pode observar na figura \ref{fig:config45}.
   \vspace{0.2cm}
 
   \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{imagens/Tarefa5/25.ospf_interface_R7.png}
     \caption{Verificar as Interfaces OSPF no Router 7}
-    \label{fig:config44}
+    \label{fig:config45}
   \end{figure}
   \vspace{0.2cm}
 \end{itemize}
@@ -1540,22 +1540,107 @@ Para verificar a configuração da sumarização de rotas e a simulação de man
   \item \textbf{How does filtering summary LSAs affect the routing table and network visibility?}
   \vspace{0.2cm}
 
-  
+  Os LSAs de sumarização podem afetar a tabela de routing e a visibilidade da rede de várias formas:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Redução da Tabela de Routing}: A sumarização de rotas reduz o número de entradas na tabela de routing, consolidando rotas semelhantes numa única entrada. Isto melhora a eficiência e escalabilidade do protocolo OSPF.
+    \item \textbf{Ocultação de Detalhes}: Ao sumarizar rotas, detalhes específicos de sub-redes individuais podem ser ocultados, tornando a rede menos visível em termos de topologia e endereçamento.
+    \item \textbf{Otimização do Encaminhamento}: A sumarização pode otimizar o encaminhamento do tráfego, direcionando-o por caminhos mais eficientes e reduzindo a latência.
+    \item \textbf{Impacto na Convergência}: Alterações na sumarização podem afetar a convergência do protocolo OSPF, especialmente durante eventos de falha ou manutenção. Em certos casos, uma sumarização incorreta pode resultar em routing subótimo ou falhas temporárias na rede.
+  \end{itemize}
+  \vspace{0.2cm}
 
   \item \textbf{What are the benefits and potential drawbacks of route summarization?}
   \vspace{0.2cm}
 
+  A sumarização de rotas oferece vários benefícios e desvantagens que devem ser considerados ao projetar uma rede OSPF:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Benefícios}:
+    \begin{itemize}
+      \item \textbf{Redução da Tabela de Routing}: Diminui o tamanho da tabela de routing, melhorando a eficiência e escalabilidade do protocolo.
+      \item \textbf{Otimização do Encaminhamento}: Direciona o tráfego por caminhos mais eficientes, reduzindo a latência e melhorando o desempenho.
+      \item \textbf{Consolidação de Rotas}: Agrupa rotas semelhantes numa única entrada, simplificando a gestão e manutenção da rede.
+      \item \textbf{Segurança e Privacidade}: Oculta detalhes específicos da rede, melhorando a segurança e privacidade dos endereços IP.
+    \end{itemize}
+    \item \textbf{Desvantagens}:
+    \begin{itemize}
+      \item \textbf{Perda de Visibilidade}: A sumarização pode ocultar detalhes importantes da rede, dificultando a resolução de problemas e a análise da topologia.
+      \item \textbf{Impacto na Convergência}: Alterações na sumarização podem afetar a convergência do protocolo OSPF, causando routing subótimo ou falhas temporárias.
+      \item \textbf{Complexidade de Configuração}: A sumarização requer uma configuração cuidadosa para evitar problemas como loops de routing ou falhas de conectividade.
+      \item \textbf{Risco de Erros}: Erros na sumarização podem resultar em routing ineficiente, falhas de conectividade ou problemas de segurança.
+    \end{itemize}
+  \end{itemize}
+
+
   \item \textbf{How does changing OSPF interface costs impact routing decisions?}
+  \vspace{0.2cm}
+
+  A alteração dos custos das interfaces OSPF pode ter um impacto significativo nas decisões de routing, afetando o caminho preferencial para o tráfego. Alguns efeitos incluem:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Redirecionamento de Tráfego}: Aumentar o custo de uma interface pode desencorajar o OSPF de utilizar esse caminho, direcionando o tráfego para rotas alternativas com custos mais baixos.
+    \item \textbf{Redundância e Resiliência}: Ao aumentar os custos de interfaces redundantes, o OSPF pode favorecer caminhos mais fiáveis, melhorando a resiliência da rede e garantindo maior disponibilidade.
+    \item \textbf{Otimização de Encaminhamento}: Ajustar os custos para refletir a largura de banda, atraso ou fiabilidade das interfaces pode otimizar o encaminhamento do tráfego, melhorando o desempenho geral da rede.
+    \item \textbf{Impacto na Convergência}: Alterações nos custos das interfaces podem afetar a convergência do protocolo OSPF, causando reajustes na tabela de routing e potenciais falhas temporárias na rede.
+  \end{itemize}
   \vspace{0.2cm}
 
   \item \textbf{In what scenarios might you want to manipulate OSPF costs in a production network?}
   \vspace{0.2cm}
 
-\end{enumerate}
+  A manipulação dos custos OSPF é útil em várias situações para otimizar o encaminhamento do tráfego e melhorar a resiliência da rede:
+  \vspace{0.2cm}
 
+  \begin{itemize}
+    \item \textbf{Redundância e Resiliência}: Ajustar os custos de interfaces redundantes para favorecer caminhos mais fiáveis, garantindo que o tráfego siga por rotas de backup em caso de falha.
+    \item \textbf{Otimização de Encaminhamento}: Ajustar os custos com base na largura de banda, atraso ou fiabilidade das interfaces para direcionar o tráfego por caminhos mais eficientes.
+    \item \textbf{Balanceamento de Carga}: Ajustar os custos para distribuir o tráfego de forma equilibrada entre várias rotas, evitando congestionamentos e melhorando o desempenho.
+    \item \textbf{Priorização de Tráfego}: Ajustar os custos para priorizar determinados tipos de tráfego, como VoIP ou vídeo, garantindo uma qualidade de serviço adequada.
+    \item \textbf{Manutenção e Testes}: Temporariamente aumentar os custos de interfaces durante manutenção ou testes para desviar o tráfego para rotas alternativas e evitar interrupções.
+    \item \textbf{Segurança e Privacidade}: Ajustar os custos para ocultar rotas específicas ou limitar o acesso a determinadas partes da rede, melhorando a segurança e privacidade.
+    \item \textbf{Resolução de Problemas}: Ajustar os custos para isolar problemas de conectividade, identificar rotas ineficientes ou testar novas configurações antes de implementá-las em produção.
+    \item \textbf{Adaptação a Alterações na Rede}: Ajustar os custos para refletir alterações na topologia da rede, como a adição de novos links ou a remoção de rotas obsoletas.
+  \end{itemize}
+\end{enumerate}
+\vspace{0.2cm}
 
 \subsection{LAB TASKS}
 \vspace{0.2cm}
+
+\par Após concluir as configurações e responder às perguntas, o objetivo deste laboratório é verificar a conectividade e avaliar o impacto das modificações realizadas na rede. Será comparada a tabela de encaminhamento no R9 antes e depois da implementação da sumarização de rotas no OSPF, monitorizando também o percurso dos pacotes de R7 a R10 e documentando qualquer alteração no caminho. A conectividade ICMP entre os dispositivos será verificada, e os resultados dos comandos de verificação serão capturados para garantir que a rede mantém o seu desempenho. O laboratório inclui ainda uma análise sobre como a sumarização de rotas e o cenário de manutenção afetam o comportamento da rede, com o objetivo de garantir a conectividade e a eficiência do encaminhamento.
+\vspace{0.2cm}
+
+\par Primeiramente, vamos verificar a tabela de encaminhamento no R9 antes e depois da implementação da sumarização de rotas no OSPF. Para tal, vamos utilizar o comando \textit{show ip route} para verificar as rotas aprendidas através do OSPF e do RIP. Como se pode observar na figura \ref{fig:config46}, a sumarização não reduziu o número de entradas na tabela de routing.
+\vspace{0.2cm}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{.51\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{imagens/Tarefa5/25.before_show_ip_route_R9.png}
+      \caption{Antes da Sumarização de Rotas}
+  \end{subfigure}%
+  \begin{subfigure}{.49\textwidth}
+      \centering
+      \includegraphics[width=.95\linewidth]{imagens/Tarefa5/25.after_show_ip_route_R9.png}
+      \caption{Depois da Sumarização de Rotas}
+  \end{subfigure}
+  \caption{Verificar a Tabela de Routing no Router 9}
+  \label{fig:config46}
+\end{figure}
+\vspace{0.2cm}
+
+\newpage
+\par Posteriormente, vamos monitorizar o caminho dos pacotes de R7 a R10, utilizando o comando \textit{tracerout} seguido do endereço IP de destino. Este comando permite documentar cada salto que o pacote faz ao longo do caminho, mostrando os routers intermediários que o pacote atravessa. Não se observaram alterações no caminho dos pacotes, ficou igual ao que se pode observar na figura \ref{fig:config44}.
+\vspace{0.2cm}
+
+\par A sumarização de rotas e o cenário de manutenção tiveram um impacto significativo no comportamento da rede, embora algumas expectativas não se tenham concretizado. No caso da sumarização de rotas implementada no Router 5, verificou-se que não houve redução no número de entradas na tabela de routing do R9, indicando que a configuração não foi aplicada corretamente ou que as sub-redes incluídas na sumarização não foram adequadamente ajustadas. Este problema comprometeu o objetivo de simplificar a tabela de encaminhamento e otimizar os recursos da rede. Para resolver esta questão, é necessário rever a configuração da sumarização, assegurando que as rotas são sumarizadas corretamente e alinhadas com as necessidades da rede.
+
+\par Já a simulação de manutenção no link entre os routers R1 e R3, através do aumento do custo OSPF para esse enlace, não resultou em alterações no percurso dos pacotes de R7 a R10. O comando \textit{traceroute} confirmou que o caminho dos pacotes permaneceu inalterado. Apesar disso, a rede manteve a conectividade esperada, demonstrando a estabilidade do protocolo OSPF. Estes resultados reforçam a importância de configurações precisas para que ferramentas como a sumarização de rotas e a manipulação de custos OSPF atinjam o seu pleno potencial na otimização e resiliência da rede.
 
 \pagebreak
 
