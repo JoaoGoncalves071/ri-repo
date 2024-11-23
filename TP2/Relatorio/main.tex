@@ -1647,9 +1647,305 @@ Para verificar a configuração da sumarização de rotas e a simulação de man
 \section{Tarefa 6 - OSPF OPTIMIZATION AND TROUBLESHOOTING}
 \vspace{0.2cm}
 
+No capítulo anterior, exploramos configurações avançadas do OSPF, abordando a sumarização de rotas para otimizar a tabela de roteamento e simulando cenários de manutenção para analisar o impacto no comportamento da rede. Essas ações proporcionaram insights sobre como gerenciar redes OSPF em situações que requerem alta resiliência e eficiência.
 
+Neste capítulo, avançaremos para técnicas de otimização de tempos de convergência, engenharia de tráfego dinâmica e análise detalhada de cenários de falhas. Este enfoque permitirá explorar soluções para melhorar a capacidade da rede de responder a mudanças de topologia, garantindo um desempenho confiável e previsível.
+
+\subsection{OPTIMIZING OSPF CONVERGENCE}
+\vspace{0.2cm}
+
+Otimizar o tempo de convergência do OSPF é essencial para redes que exigem alta disponibilidade e recuperação rápida de falhas. Uma técnica eficiente é configurar pacotes \textbf{"fast hello"}, reduzindo os tempos de detecção de falhas.
+\vspace{0.2cm}
+
+\textbf{Configuração:}
+Nos routers R1 e R2, aplicamos a seguinte configuração nas interfaces que os conectam (GigabitEthernet0/0 em ambos):
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{imagens/Tarefa6/27.ospf_convergence_R2.png}
+  \caption{Configuração de técnicas para melhorar tempo de convergência do OSPF nas interfaces que conectam R1 e R2}
+  \label{fig:config42}
+\end{figure}
+
+
+\begin{itemize}
+  \item \textbf{ip ospf dead-interval minimal}: Configura o OSPF para utilizar um intervalo de inatividade mínimo, ajustando-se ao envio de pacotes hello em intervalos menores.
+  \item \textbf{hello-multiplier 4}: Define que quatro pacotes hello serão enviados por segundo, acelerando a detecção de falhas.
+\end{itemize}
+
+Essa configuração reduz significativamente o tempo de convergência, permitindo que os vizinhos OSPF detectem a indisponibilidade de um link em milissegundos.
+
+
+\pagebreak
+\subsection{OSPF TRAFFIC ENGINEERING}
+\vspace{0.2cm}
+
+A engenharia de tráfego permite influenciar a seleção de rotas, ajustando custos dinamicamente com base no estado do link. Utilizamos ~\textbf{IP SLA} para monitorizar a latência, rastreamento para avaliar o estado do link e EEM para alterar automaticamente os custos do OSPF. \par \vspace{0.1cm}
+
+\vspace{0.8cm}
+\textbf{Configuração em R3}
+\begin{enumerate}
+  \item \textbf{Monitorização do link com IP SLA} \par \vspace{0.2cm}
+
+    \textbf{IP SLA:} Ferramenta que permite monitorizar a qualidade do link em termos de latência, perda de pacotes e conectividade. Usamos o IP SLA para monitorizar em tempo real o estado de um link crítico, enviando pacotes ICMP (pings) para verificar se o link está ativo ou se está degradado além de um limite aceitável.
+
+    \begin{verbatim}
+      ip sla 1
+      icmp-echo 10.3.4.[R4-g1/0-ipaddress] source-interface GigabitEthernet0/0
+      frequency 5
+      threshold 50
+      ip sla schedule 1 life forever start-time now
+    \end{verbatim}
+
+    \begin{itemize}
+      \item \textbf{icmp-echo}: Monitoriza a conectividade com o endereço do R4, simulando pacotes ICMP.
+      \item \textbf{frequency 5}: Define uma frequência de monitorizamento a cada 5 segundos.
+      \item \textbf{threshold 50}: Estabelece um limite de latência em milissegundos.
+    \end{itemize}
+
+    \vspace{0.4cm}
+  \item \textbf{Rastreamento do estado do link} \par
+
+    \begin{verbatim}
+      track 1 ip sla 1 state
+    \end{verbatim}
+
+    \textbf{Track (Rastreamento):} Mecanismo que avalia o estado de um objeto, como um IP SLA, para tomar decisões com base no seu status (ativo ou inativo). Vinculamos o rastreamento ao IP SLA para que possamos monitorizar automaticamente o estado do link e acionar mudanças no custo OSPF em caso de falha ou degradação. \par \vspace{0.2cm}
+
+    O rastreamento vincula o estado do IP SLA a um objeto de monitorização, permitindo que ações automáticas sejam tomadas com base no estado do link (ativo ou inativo).
+
+    \pagebreak
+  \item \textbf{Automação com EEM para ajustar custos do OSPF}
+    \par \vspace{0.2cm}
+
+    \textbf{EEM (Embedded Event Manager):} ferramenta que permite executar scripts ou comandos automaticamente quando ocorre um evento específico na rede. Configuramos o EEM para alterar o custo do OSPF quando o estado do rastreamento indica uma falha ou para restaurar o custo quando o link retorna ao normal.
+
+    \vspace{0.2cm}
+    \begin{itemize}
+      \item \textbf{Em caso de falha:}
+      \begin{verbatim}
+        event manager applet CHANGE_OSPF_COST
+        event track 1 state down
+        action 1.0 cli command "enable"
+        action 2.0 cli command "configure terminal"
+        action 3.0 cli command "interface GigabitEthernet0/0"
+        action 4.0 cli command "ip ospf cost 1000"
+        action 5.0 cli command "end"
+      \end{verbatim}
+
+      Quando o Track detecta que o link monitorado pelo IP SLA está inativo (estado down), o EEM altera o custo OSPF da interface para 1000. \par
+      Este aumento do custo força o OSPF a evitar o uso desse link como caminho preferencial, redirecionando o tráfego para rotas alternativas.
+
+      \vspace{0.8cm}
+
+      \item \textbf{Em caso de recuperação:}
+      \begin{verbatim}
+        event manager applet RESTORE_OSPF_COST
+        event track 1 state up
+        action 1.0 cli command "enable"
+        action 2.0 cli command "configure terminal"
+        action 3.0 cli command "interface GigabitEthernet0/0"
+        action 4.0 cli command "ip ospf cost 10"
+        action 5.0 cli command "end"
+      \end{verbatim}
+
+      Quando o Track detecta que o link voltou a ficar ativo (estado up), o EEM restaura o custo OSPF da interface para 10. \par
+      Isso permite que o OSPF volte a considerar o link como preferencial, se for a rota de menor custo.
+  \end{itemize}
+\end{enumerate}
+
+\pagebreak
+Portanto:
+\begin{itemize}
+  \item O IP SLA monitora a qualidade do link.
+  \item O Track avalia o estado do monitoramento e detecta mudanças (ativo/inativo).
+  \item O EEM age sobre essas mudanças, ajustando automaticamente o custo OSPF para influenciar as decisões de roteamento.
+\end{itemize}
+
+Essa abordagem dinâmica permite que o OSPF adapte os caminhos do tráfego de maneira automática e eficiente, garantindo o melhor desempenho possível mesmo em cenários adversos.
+
+\vspace{0.8cm}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{.8\textwidth}
+    \centering
+      \includegraphics[width=1\linewidth]{imagens/Tarefa6/28.ospf_traffic_engineering_R3_1.png}
+  \end{subfigure}
+  \begin{subfigure}{.8\textwidth}
+    \centering
+      \includegraphics[width=1\linewidth]{imagens/Tarefa6/28.ospf_traffic_engineering_R3_2.png}
+  \end{subfigure}
+  \caption{Configuração de técnicas de OSPF Traffic Engineering no router R3}
+  \label{fig:config43}
+\end{figure}
+\vspace{0.2cm}
+
+
+\pagebreak
+\subsection{FAILURE SCENARIO ANALYSIS}
+\vspace{0.2cm}
+
+A análise de falhas fornece uma compreensão detalhada da resiliência do OSPF e do impacto das mudanças de topologia. Os seguintes cenários foram simulados:
+
+\begin{enumerate}
+  \item \textbf{Link Congestion (Congestionamento no Link):} \par \vspace{0.2cm}
+    \textbf{Objetivo:} Analisar o impacto da latência no tráfego e a capacidade de adaptação do OSPF. \par \vspace{0.2cm}
+    
+    \textbf{Passos:}
+      \begin{enumerate}
+        \item Criar congestionamento artificial
+          \begin{itemize}
+            \item Executar um trace de R7 para o endereço IP de PC55:
+              \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.6\textwidth]{imagens/Tarefa6/29.link_congestion_1.png}
+                \caption{Traceroute de R7 para PC55}
+                \label{fig:config43}
+              \end{figure}
+            
+            \pagebreak
+            \item Ao mesmo tempo, fazer um ping entre R3 e R4:
+              \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.7\textwidth]{imagens/Tarefa6/29.link_congestion_2.png}
+                \caption{Ping de R3 para R4}
+                \label{fig:config44}
+              \end{figure}   
+          \end{itemize}
+        
+        \item Analisar os resultados \par \vspace{0.2cm}
+        
+        - \textbf{Quando o IP SLA está no estado up (sem congestionamento percebido):} \par
+
+        O tráfego segue a rota original, que passa pelo link R3–R4 e atinge o destino sem redirecionamento. \par
+        O traceroute neste estado mostra que o tráfego flui pelo caminho mais curto calculado pelo OSPF, priorizando o link entre R3 e R4. \par \vspace{0.6cm}
+
+        
+        - \textbf{Quando o IP SLA muda para o estado down (congestionamento detectado):} \par
+        
+        O IP SLA deveria sinalizar a falha ao rastrear atrasos excessivos no link. \par
+        No entanto, pelo que foi observado, o OSPF não alterou a rota; o tráfego continua passando pelo mesmo link congestionado (R3–R4), evidenciado pelos tempos de resposta altos e a presença do *.
+        
+        \pagebreak
+      \end{enumerate}
+
+  \item \textbf{Link Failure (Falha no link):} \par \vspace{0.2cm}
+      \textbf{Objetivo:} Simular falha numa interface \par \vspace{0.2cm}
+      \textbf{Passos:}
+        \begin{enumerate}
+          \item Desligar (shutdown) à interface que liga R3 a R4 (GigabitEthernet0/0)
+          \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{imagens/Tarefa6/30.link_failure_1.png}
+            \caption{Desligar interface entre R3 e R4}
+            \label{fig:config45}
+          \end{figure}   
+          
+          \item Analisar os resultados
+          \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{imagens/Tarefa6/30.link_failure_2.png}
+            \caption{Tabela OSPF Neighbors após shutdown interface}
+            \label{fig:config46}
+          \end{figure}
+        \end{enumerate}
+
+        Observa-se os seguintes impactos:
+        \begin{itemize}
+          \item \textbf{Perda de adjacência com R4:} Como a interface foi desativada, o R3 e o R4 não podem mais trocar informações de roteamento.
+          Isso afeta todas as rotas que dependiam do link entre os dois roteadores. Essas rotas são removidas das tabelas de roteamento em ambos os dispositivos.
+          \item \textbf{Redirecionamento de Tráfego:} O OSPF recalcula as melhores rotas com base nas métricas disponíveis.
+          O tráfego que antes usava o link direto entre R3 e R4 agora será redirecionado por rotas alternativas.
+          \item \textbf{Convergência:} OSPF levou cerca de 40 segundos para remover o vizinho da tabela, como indicado pelo Dead Time padrão (40 segundos).
+        \end{itemize} \par \vspace{0.8cm}
+  
+        A simulação de falha pela desativação da interface GigabitEthernet0/0 no R3 confirma o funcionamento esperado do OSPF: detecta a falha, remove a adjacência e recalcula as rotas.
+  \pagebreak
+  \item \textbf{Router Failure (Falha no Router):} \par \vspace{0.2cm}
+  \textbf{Objetivo:} Simular falha num router \par \vspace{0.2cm}
+  \textbf{Passos:}
+        \begin{enumerate}
+          \item Simular falha no router R3 desligando-o
+          \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{imagens/Tarefa6/31.router_failure_1.png}
+            \caption{Desligar router R3}
+            \label{fig:config47}
+          \end{figure}
+            Desligamos apenas o dispositivo no ambiente.
+            \vspace{0.4cm}
+
+          \pagebreak
+          \item Observar o impacto na rede
+            \begin{enumerate}
+              \item \textbf{OSPF Neighbors} \par \vspace{0.2cm}
+                É mostrado os OSPF neighbors nos dispositivos R1 e R4 (adjacentes a R3) antes e depois de R3 ser desligando
+                \begin{figure}[h]
+                  \centering
+                  \begin{subfigure}{.8\textwidth}
+                    \centering
+                    \includegraphics[width=0.75\textwidth]{imagens/Tarefa6/31.router_failure_2.png}
+                  \end{subfigure}
+                  \begin{subfigure}{.8\textwidth}
+                    \centering
+                    \includegraphics[width=0.75\textwidth]{imagens/Tarefa6/31.router_failure_3.png}
+                  \end{subfigure}
+                  \caption{OSPF neighbors nos routers R1 e R4}
+                  \label{fig:config48}
+                \end{figure}
+
+                É possível observar que os dispositivos vizinhos detectam a falha ao deixarem de receber pacotes Hello do R3. \par
+                O estado OSPF passa de FULL para DOWN para todas as adjacências envolvendo o R3.
+
+              \pagebreak
+              \item \textbf{OSPF Routing Table} \par \vspace{0.2cm}
+                Verificam-se as tabelas de roteamento OSPF nos routers R1 e R4
+                \vspace{0.4cm}
+                \begin{figure}[h]
+                  \centering
+                  \subfloat{{\includegraphics[width=0.4\textwidth]{imagens/Tarefa6/31.router_failure_4.png} }}%
+                  \qquad
+                  \subfloat{{\includegraphics[width=0.4\textwidth]{imagens/Tarefa6/31.router_failure_5.png} }}%
+                  \caption{Tabelas de roteamento OSPF nos routers R1 e R4}%
+                  \label{fig:example}
+                \end{figure} \par \vspace{0.4cm}
+
+                As rotas aprendidas através do R3 são removidas da base de dados OSPF. \par
+                Os dispositivos da rede recalculam os seus caminhos, contornando o R3.
+              
+              \pagebreak
+              \item \textbf{Testes de Conectividade} \par \vspace{0.2cm}
+                São usados os comandos \textbf{ping} e \textbf{show ip route} para testar a conectividade. É feito um envio desde o router R6 para o router R4, antes e depois de ser desligado o router R3, para verificar se existem alterações no funcionamento. \par \vspace{0.4cm}
+                
+                \begin{figure}[H]
+                  \centering
+                  \includegraphics[width=0.6\textwidth]{imagens/Tarefa6/31.router_failure_6.png}
+                  \caption{Teste de conectividade com falha no R3}
+                \end{figure}
+
+                Analisando os resultados podemos observar:
+                \begin{itemize}
+                  \item \textbf{Preferência de Rota Antes da Falha:} Mesmo com o R3 operacional, o R6 utilizou a rota via R1 em vez de diretamente pelo R3.
+                  Isso ocorre devido à configuração de IP SLA no R3, que dinamicamente aumenta o custo OSPF para 1000 ao detectar alterações de estado na ligação. Esta configuração torna o caminho pelo R3 menos preferível em relação à rota alternativa via R1 e R2, que possui um custo cumulativo menor.
+                  
+                  \item \textbf{Impacto da Falha do R3:} Quando o R3 foi desligado, o R6 perdeu a adjacência OSPF com ele, mas a tabela de rotas do R6 não sofreu alterações significativas porque já estava a utilizar a rota alternativa via R1.
+                  O tempo de convergência foi mínimo, pois a rota via R1 era a preferida antes mesmo da falha.
+
+                  \item \textbf{Alteração no Tempo de Resposta:} O ligeiro aumento no tempo de resposta (74 ms para 89 ms) pode ser explicado por mudanças subtis na rede devido à perda de LSAs originadas pelo R3, o que pode ter causado ajustes nos cálculos de OSPF e no balanceamento de carga no caminho.
+                \end{itemize}              
+            \end{enumerate}
+
+        \end{enumerate}
+  
+
+\end{enumerate}
+
+
+
+
+\pagebreak
 \subsection{Review Questions}
-
 
 \begin{enumerate}
   \item \textbf{How do fast hello packets affect OSPF convergence?}:

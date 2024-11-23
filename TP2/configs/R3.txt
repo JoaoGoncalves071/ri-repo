@@ -1,5 +1,4 @@
 1 - Initial Config:
-
 enable
 conf t
 hostname R3
@@ -24,8 +23,8 @@ exit
 exit
 wr
 
-2 - Interface Config:
 
+2 - Interface Config:
 conf t
 interface Loopback0
 ip address 3.3.3.3 255.255.255.255
@@ -48,8 +47,8 @@ no shutdown
 end
 wr
 
-3 - Basic OSPF Area 0 and 3:
 
+3 - Basic OSPF Area 0 and 3:
 conf t
 router ospf 1
 router-id 3.3.3.3
@@ -67,8 +66,8 @@ exit
 exit
 wr
 
-4 - IMPLEMENTING OSPF AUTHENTICATION:
 
+4 - IMPLEMENTING OSPF AUTHENTICATION:
 conf t
 interface GigabitEthernet0/0 
 ip ospf message-digest-key 1 md5 ospfpass
@@ -84,8 +83,8 @@ exit
 exit
 wr
 
-5- CONFIGURING OSPF NETWORK TYPES:
 
+5- CONFIGURING OSPF NETWORK TYPES:
 conf t
 interface GigabitEthernet0/0 
 ip ospf network point-to-point 
@@ -96,8 +95,8 @@ exit
 exit
 wr
 
-6. CONTROLLING DR/BDR ELECTION:
 
+6 - CONTROLLING DR/BDR ELECTION:
 conf t
 interface GigabitEthernet2/0 
 ip ospf priority 100 
@@ -105,8 +104,8 @@ exit
 exit
 wr
 
-6. CONTROLLING DR/BDR ELECTION:
 
+7 - CONTROLLING DR/BDR ELECTION:
 conf t
 interface GigabitEthernet2/0 
 ip ospf priority 100 
@@ -114,8 +113,8 @@ exit
 exit
 wr
 
-8- UNDERSTANDING THE NEED FOR A VIRTUAL LINK
 
+8 - UNDERSTANDING THE NEED FOR A VIRTUAL LINK
 conf t
 router ospf 1 
 area 3 virtual-link 5.5.5.5 authentication message-digest
@@ -124,11 +123,52 @@ exit
 exit
 wr
 
-16- SIMULATING A MAINTENANCE SCENARIO 
 
+16 - SIMULATING A MAINTENANCE SCENARIO 
 conf t
 interface GigabitEthernet1/0 
 ip ospf cost 1000  	 
+exit
+exit
+wr
+
+
+18 - OSPF TRAFFIC ENGINEERING
+conf t
+ip sla 1
+icmp-echo 10.3.4.2 source-interface GigabitEthernet0/0
+frequency 5
+threshold 50
+exit
+wr
+
+ip sla schedule 1 life forever start-time now
+track 1 ip sla 1 state
+interface GigabitEthernet0/0
+ip ospf cost 10
+exit
+wr
+
+conf t
+event manager applet CHANGE_OSPF_COST
+event track 1 state down
+action 1.0 cli command "enable"
+action 2.0 cli command "configure terminal"
+action 3.0 cli command "interface GigabitEthernet0/0"
+action 4.0 cli command "ip ospf cost 1000"
+action 5.0 cli command "end"
+exit
+exit
+wr
+
+conf t
+event manager applet RESTORE_OSPF_COST
+event track 1 state up
+action 1.0 cli command "enable"
+action 2.0 cli command "configure terminal"
+action 3.0 cli command "interface GigabitEthernet0/0"
+action 4.0 cli command "ip ospf cost 10"
+action 5.0 cli command "end"
 exit
 exit
 wr

@@ -107,3 +107,11 @@ area 2 nssa
 exit
 exit
 wr
+
+17 - OPTIMIZING OSPF CONVERGENCE
+conf t
+interface GigabitEthernet0/0
+ip ospf dead-interval minimal hello-multiplier 4
+exit
+exit
+wr
