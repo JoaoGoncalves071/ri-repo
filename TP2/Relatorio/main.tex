@@ -1647,6 +1647,106 @@ Para verificar a configuração da sumarização de rotas e a simulação de man
 \section{Tarefa 6 - OSPF OPTIMIZATION AND TROUBLESHOOTING}
 \vspace{0.2cm}
 
+
+\subsection{Review Questions}
+
+
+\begin{enumerate}
+  \item \textbf{How do fast hello packets affect OSPF convergence?}:
+  \vspace{0.2cm}
+
+  No OSPF, a configuração de pacotes Hello rápidos pode afetar significativamente o tempo de convergência, ou seja, o tempo necessário para que a rede se adapte a mudanças, como falhas de links ou mudanças na topologia.
+  \vspace{0.2cm}
+
+  Estes afetão a convergencia de OSPF das seguintes formas:
+  \begin{itemize}
+    \item \textbf{Detecção mais rápida de falhas:} O principal efeito de configurar intervalos de Hello menores (por exemplo, 1 segundo) é a detecção mais rápida de falhas nos vizinhos OSPF. O OSPF utiliza pacotes Hello para verificar se os vizinhos estão ativos. Se um roteador não receber pacotes Hello dentro do intervalo de tempo especificado (Dead Interval), ele considera o vizinho como "morto" e começa o processo de reconvergência. Também tem o efeito de reduzir proporcionalmente o dead interval, tendo o mesmo efeito de mais rapidez na deteção de erros e mais fazer mais rapido o processo de reconvergência para escloher novas rotas.
+    \item \textbf{Menor tempo para a transição de estado de vizinhança:} Com os intervalos de Hello mais rapidos, o processo de troca de informação e formação de vizinhos tona-se mais rapido, o que acelera a convergencia após quando há mudanças na topologia ou quando existe uma reinicialização de um roteador.
+    \item \textbf{Convergência mais rápida em ambientes dinâmicos:} Redes que mudam frequentemente (como era procurado neste projeto) podem se beneficiar de intervalos de Hello mais rápidos, pois isso acelera a detecção de falhas e reduz o tempo para a rede se ajustar a mudanças na topologia.
+  \end{itemize}
+  \vspace{0.2cm}
+
+
+  \item \textbf{What are the potential benefits and risks of OSPF traffic engineering?}
+  \vspace{0.2cm}
+
+  
+  A engenharia de tráfego (TE) com OSPF oferece benefícios significativos, mas também apresenta alguns riscos que devem ser considerados.
+  \vspace{0.2cm}
+
+  \textbf{Benefícios:}
+
+  \begin{itemize}
+      \item \textbf{Otimização de Recursos:} A TE permite a utilização eficiente da capacidade e topologia da rede, direcionando o tráfego por caminhos que atendem a requisitos específicos de largura de banda e latência.
+      \item \textbf{Flexibilidade de Roteamento:} Com a TE, é possível definir caminhos explícitos para fluxos de tráfego, evitando congestionamentos e melhorando o desempenho geral da rede. 
+  \end{itemize}
+  \vspace{0.2cm}
+
+  \textbf{Riscos}:
+
+  \begin{itemize}
+      \item \textbf{Complexidade de Configuração:} A implementação da TE com OSPF pode aumentar a complexidade da configuração e manutenção da rede, exigindo um planeamento cuidadoso e conhecimento especializado.
+      \item \textbf{Sobrecarga de Processamento:} A TE pode introduzir uma sobrecarga adicional nos roteadores devido ao processamento de informações adicionais de estado de link e cálculos de caminhos, o que pode afetar o desempenho em dispositivos com recursos limitados. 
+  \end{itemize}
+  \vspace{0.2cm}
+
+
+  
+  \item \textbf{Describe the process you would follow to troubleshoot an OSPF neighbour relationship issue.}
+  \vspace{0.2cm}
+
+  Para resolver um problema numa relação de vizinhança OSPF, fazemos os passos em baixo indicados:
+
+    \begin{enumerate}
+    
+        \item Verificar o Estado da Relação de Vizinhança através do comando \textit{show ip ospf neighbor} para confirmar se a relação de vizinhança foi estabelecida e qual é o estado.
+        
+        \item Validar Configurações Básicas como o ID de cada roteador ser único, verificar se ambos os roteadores estão corretamente na mesma área OSPF e confirmar se as interfaces envolvidas estão configuradas concertadamente (dentro do mesmo segmento e incluídas no processo OSPF corretamente, etc.)
+        
+        \item Verificar a Conectividade de Rede usando os comandos \texttt{ping} e \texttt{traceroute} para confirmar que há conectividade IP entre os vizinhos.
+        
+        \item Analisar Configurações de Autenticação, verificando se a autenticação OSPF está ativa e as chaves correspondem nos vizinhos.
+        
+        \item Examinar Parâmetros de Intervalos e Timers, para certificar que ambos os temporizadores hello e dead são iguais em ambos os lados, pois ao não haver impedirá a sincronização correta, através do comando \texttt{show ip ospf interface} para confirmar.
+        
+        \item Verificar Tipos de Rede OSPF através do comando \texttt{show ip ospf interface} para verificar se o tipo de rede é compatível em nos dois diapositivos.
+        
+        \item Examinar Logs e Mensagens de Debug como \texttt{debug ip ospf adjacency} para visualizar mensagens detalhadas de erro, para identificar problemas como incompatibilidades de MTU, discrepâncias de ID, entre outros.
+        
+        \item Inspecionar a Configuração de MTU para verificar se as interfaces têm valores de MTU compatíveis pois diferenças desses valores podem impedir o estado "Full"
+        
+        \item Avaliar Outras Configurações Avançadas, como filtros como LSA, se estes estão a bloquear o tráfego OSPF e se em caso de ser em redes broadcast, se a eleição de DR/BDR não está a causar conflitos.
+        
+        \item Por fim testar configurações corretivas, através dos comandos \texttt{show ip ospf neighbor} e \texttt{show ip ospf interface}, para verificar se estas resolveram os problemas encontrados e gradualmente corrigi-los se este não for caso.
+        
+    \end{enumerate}
+
+  
+
+  
+
+  
+  \item \textbf{How can you use IP SLA with OSPF to create more resilient networks?}
+  \vspace{0.2cm}
+
+  O IP SLA (IP Service Level Agreement), em conjunto com o OSPF, pode ser utilizado para aumentar a resiliência da rede, permitindo uma monitorização ativa de desempenho e decisões de roteamento mais dinâmicas.
+  \vspace{0.2cm}
+
+  \textbf{Benefícios para a Resiliência:}
+  \begin{enumerate}
+      \item \textbf{Failover Automático:}
+      Caso o IP SLA detete falhas (e.g., destino inatingível), o OSPF pode redirecionar o tráfego automaticamente para caminhos alternativos. Este mecanismo reduz o tempo de indisponibilidade e aumenta a disponibilidade geral da rede.
+      \item \textbf{Roteamento Baseado na Qualidade:}
+      OSPF pode evitar caminhos congestionados ou com alta latência, escolhendo os que apresentam melhor desempenho. Ideal para aplicações sensíveis, como voz e vídeo.
+      \item \textbf{Melhor Gestão de Links Secundários:}
+      IP SLA pode ativar ou desativar links de backup dinamicamente, garantindo que são usados apenas quando necessário.
+
+  \end{enumerate}
+
+  
+
+\end{enumerate}
+
 \pagebreak
 
 \chapter{Conclusões}
