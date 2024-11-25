@@ -259,12 +259,140 @@
 \chapter{Introdução}
 \vspace{0.2cm}
 
+\par Este relatório científico, elaborado no âmbito da unidade curricular de Redes de Internet, tem como objetivo explorar e aprofundar o conhecimento sobre a implementação do protocolo BGP (Border Gateway Protocol) em redes de computadores, com especial destaque na configuração de BGP entre diferentes Sistemas Autónomos (AS), representando Provedores de Serviços de Internet (ISP). O trabalho consiste na construção e configuração de uma topologia que simula a comunicação entre múltiplos AS, utilizando o BGP como protocolo de gateway externo (EGP) para estabelecer o encaminhamento de pacotes entre esses sistemas.
+\vspace{0.2cm}
+
+\par Ao longo do trabalho, foram realizadas diversas tarefas que incluíram a configuração do BGP para a troca de informações de encaminhamento entre os AS, a implementação de políticas de encaminhamento, e a verificação da conectividade entre os dispositivos da rede. Estas atividades permitiram observar o comportamento do protocolo BGP em diferentes cenários e testar a flexibilidade das suas políticas, bem como a escalabilidade e segurança do encaminhamento em ambientes simulados de internet. O relatório descreve em detalhe as configurações efetuadas, as justificações para cada escolha realizada, e os resultados obtidos, oferecendo uma visão abrangente das práticas de configuração e gestão aplicadas na operação de redes de computadores, utilizando o BGP.
+\vspace{0.2cm}
+
+\par A topologia de rede implementada é a seguinte imagem:
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.73\textwidth]{imagens/topologia.png}
+  \caption{Topologia de rede}
+  \label{fig:topologia}
+\end{figure}
+
+\pagebreak
+
 \chapter{Enquadramento Teórico}
+\vspace{0.2cm}
 
+Sendo que ao longo do documento são abordados o RIPv2, OSPF e BGP, abaixo sumarizar-se-ão os temas 
+sob a forma de um glossário de modo a facilitar a compreensão dos tópicos: 
 
+\begin{itemize}
+  \item \textbf{OSPF}
+  \vspace{0.2cm}
+  \par O OSPF é um protocolo do tipo \textbf{link state}, de routing interno (\textbf{IGP - Internal Gateway Protocol}), dinâmico e "aberto", que pode ser implementado por qualquer fabricante sem o pagamento de licença, permitindo assim o seu uso generalizado. Apresenta diversas vantagens, como a inexistência de limites no número de saltos (hops), suporte ao encaminhamento \textbf{classless}, e \textbf{menor tráfego}, uma vez que as atualizações dos caminhos são enviadas com intervalos mais longos ou apenas quando ocorre uma alteração na topologia. Além disso, proporciona uma \textbf{convergência rápida}, \textbf{não cria loops}, reage prontamente às mudanças na rede, oferece um \textbf{melhor balanceamento} de carga, permite a \textbf{definição lógica de áreas}, facilitando a gestão da rede através do princípio de "dividir para reinar", possibilita a \textbf{marcação de rotas externas} e \textbf{suporta autenticação}.
+  \vspace{0.2cm}
 
+  Cada router \textbf{constrói um "mapa" da topologia da sua área}, trocando mensagens de \textbf{Link State Update} entre si para anunciar as ligações que possuem. Sempre que possível, utilizam \textbf{multicast} para essa comunicação. Cada router, então, calcula o \textbf{caminho mais curto} para todos os outros routers da área, utilizando o algoritmo de \textbf{Dijkstra}. A \textbf{tabela de routing} inclui a informação resultante deste cálculo, assim como a informação proveniente dos routers que fazem fronteira com outras áreas. Para manter a integridade da rede, os routers enviam constantemente mensagens \textbf{Hello} para verificar se os outros routers estão ativos. Caso um router não responda, os restantes routers da área são notificados e recalculam os melhores caminhos.
+  \vspace{0.2cm}
 
-    
+  No contexto do OSPF, um grupo de routers que troca informações de encaminhamento entre si é denominado \textbf{Sistema Autónomo (AS)}. Este é constituído por um conjunto de redes que pode ser subdividido em várias \textbf{áreas} menores. A divisão em áreas traz vantagens, como ocultar a topologia de cada área das outras, isolar a eventual instabilidade de uma área das restantes e permitir que os routers necessitem de menos memória, dado que, sendo as áreas menores, o número de routers e redes em cada uma é reduzido, com as rotas para as outras \textbf{áreas a serem sumarizadas}.
+  
+  \newpage
+  Adicionalmente, é importante mencionar os vários tipos de routers no OSPF:
+  \begin{itemize}
+    \item \textbf{Internal Router} em ligações apenas a routers da mesma área.
+    \item \textbf{Area Border Router (ABR)} tem ligações a routers de outra área 0, sendo o responsável pela troca de informações de routing entre áreas. Cada ABR numa área sumariza para a área o custo para todas as redes externas à área. Depois de ser calculada a árvore SPF para a área, os caminhos para os destinos inter-área (exteriores à área) são calculados examinando os sumários dos ABR. 
+    \item \textbf{Autonomous System Border Router (ASBR)} tem ligações a routers de outros Sistemas Autónomos. Também pode executar outros protocolos de routing (IGP ou EGP - RIP, EIGRP, BGP). 
+    \item \textbf{Backbone Router} tem pelo menos uma interface que executa o OSPF na área 0.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  \item \textbf{BGP}
+  \vspace{0.2cm}
+
+  O Border Gateway Protocol (BGP) é um protocolo de routing, do tipo \textbf{path-vector}, utilizado para a troca de informações de encaminhamento entre Sistemas Autónomos (ASs).
+  \vspace{0.2cm}
+
+  No BGP:
+  \begin{itemize}
+    \item São anunciados caminhos completos, ou seja, uma lista de ASs.
+    \item Os ciclos são detetados localmente e ignorados.
+    \item As políticas locais permitem escolher o melhor caminho.
+    \item Cada AS mantém uma tabela dos melhores caminhos.
+    \item Quando uma ligação falha, o caminho é retirado.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  Alguns conceitos importantes de BGP:
+  \begin{itemize}
+    \item \textbf{Sessão BGP}: Ligação TCP entre dois peers BGP. Faz-se uso do keepalive para monitorizar o estado da sessão. 
+    \item \textbf{Router fronteira}: Router com ligação a outras AS.
+    \item \textbf{Tráfego de trânsito}: Tráfego que tem origem ou destino no AS em causa.
+    \item \textbf{AS Path}: Lista de todos os AS atravessados por uma rota, no contexto da troa de informação 
+    de encaminhamento.
+    \item \textbf{Anúncio}: O BGP anuncia aos seus vizinhos todas as rotas para se alcançar um destino.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  \newpage
+  Existem duas sessões BGP:
+  \begin{itemize}
+    \item \textbf{eBGP}: São sessões estabelecidas entres peers de AS diferentes.
+    \item \textbf{iBGP}: São sessões estabelecidas entre peers do mesmo AS, tipicamente implementado com todos os peers interligados, também conhecido como full mesh. Quando se usa este método, há uma sobrecarga de processamento, havendo, por outro lado, métodos para minimizar a quantidade de ligações tal como:
+    \begin{itemize}
+      \item \textbf{Reflexão}: Apenas um peer iBGP é vizinho de todos os outros peer iBGP.
+      \item \textbf{Confederações}: Divide-se um AS em vários sub-AS, utilizando números de AS privaddos, e apenas realizando o full mesh dentro dos sub-AS. 
+    \end{itemize}
+  \vspace{0.2cm}
+  
+  O BGP possui hierarquia, e 3 tipos de relações diferentes:
+  \begin{itemize}
+    \item \textbf{Fornecedor}: Anuncia todas as rotas aprendidas através de outros AS.
+    \item \textbf{Cliente}: Anuncia todas as rotas que estão sobre o seu domínio e importa todas as rotas.
+    \item \textbf{Peers}: Uma relação recíproca entre ISP que fornece conetividade a cada cliente de ambos.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  No protocolo BGP, existem 4 tipos de mensagem:
+  \begin{itemize}
+    \item \textbf{OPEN}: Abre uma ligação TCP para um peer e autentica o emissor.
+    \item \textbf{UPDATE}: Anuncia novo caminho ou retira o antigo.
+    \item \textbf{KEEPALIVE}: Mantêm a ligação aberta na ausência de mensagens de UPDATE, também serve como ACK ao pedido de OPEN.
+    \item \textbf{NOTIFICATION}: Reporta erros nas mensagens anteriores ou fecha a ligação.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  Por fim, falta referir os atributos do BGP que permitem escolher a melhor rota, por exemplo. Alguns dos atributos mais recorrentemente falados são:
+  \begin{itemize}
+    \item \textbf{ORIGIN}: Indica como o BGP aprendeu sobre a rota particular (IGP, EGP ou Incomplete).
+    \item \textbf{AS\_PATH}: Lista os números de AS que descrevem o percurso para atingir um destino.
+    \item \textbf{NEXT\_HOP}: Endereço ip do router que se encontra no próximo salto para alcançar este destino.
+    \item \textbf{MULTI\_EXIT\_DISC (MED)}: Quando um caminho inclui múltiplos ponto de saida ou entrada, este valor pode ser utilizado como métrica para escolher entre eles.
+    \item \textbf{LOCAL\_PREF}: Utilizado entre BGP do mesmo AS para indicar o nível de preferência a um caminho de saída, em relação a um diferente.
+    \item \textbf{WEIGHT}: Se um router aprende mais de uma rota para o mesmo destino, a rota com maio weight é a preferencial.
+  \end{itemize}
+\end{itemize}
+\vspace{0.2cm}
+\end{itemize}
+
+É de notar que ao longo do desenvolvimento do projeto no \textbf{GNS3}, serão desenvolvidos ainda os conceitos estudados anteriormente.
+
+\pagebreak
+
+\chapter{Desenvolvimento}
+
+\section{Tarefa 1 - CONFIGURE ALL THE IGP CONFIGS INTERNAL TO THE AS’S}
+\vspace{0.2cm}
+
+Nesta tarefa, será realizada a configuração dos protocolos internos de encaminhamento (IGP) dentro dos Sistemas Autónomos (AS) de acordo com o esquema de endereçamento fornecido e as regras de design definidas. O objetivo principal é configurar as interfaces de rede nos routers, aplicar o protocolo OSPF (Open Shortest Path First) para garantir uma comunicação eficiente entre os dispositivos dentro de cada AS e verificar a conectividade tanto dentro dos AS como entre diferentes AS’s. Para tal, serão configurados os endereços IP de cada interface, conforme a tabela de endereçamento fornecida.
+\vspace{0.2cm}
+
+Durante esta tarefa, também serão realizados testes para garantir que a infraestrutura privada dentro dos AS esteja corretamente configurada e que as interfaces estejam operacionais. A configuração do OSPF será verificada para assegurar que as relações de vizinhança estejam estabelecidas corretamente. Além disso, será realizada a validação de conectividade básica através de pings e do comando traceroute, para confirmar que o encaminhamento está a funcionar conforme o esperado, tanto internamente dentro do AS como entre os AS’s.
+\vspace{0.2cm}
+
+Após a configuração e verificação da conectividade, será importante salvar todas as configurações dos routers e do ambiente de simulação, garantindo que o progresso realizado seja guardado corretamente.
+
+\vspace{0.2cm}
+
+Foi fornecida a seguinte tabela (devido ao tamanho, foi dividia em 3):
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|}
@@ -277,13 +405,13 @@ R1 & G2/0 & 10.1.3.1 /30 & \\ \hline
 R1 & G4/0 &  & 47.73.240.1 /30 \\ \hline
 R2 & Loopback0 & 10.2.2.2 /32 & \\ \hline
 R2 & Loopback1 & & 47.73.239.22 /32 \\ \hline
-R2 & G1/0 & 10.0.1.1 & \\ \hline
-R2 & G2/0 & 10.0.4.1 & \\ \hline
-R2 & f0/0 & ?.?.?.? & ?.?.?.? \\ \hline
+R2 & f0/0 & & 47.73.239.2 /30 \\ \hline
+R2 & G1/0 & 10.1.2.2 /30 & \\ \hline
+R2 & G2/0 & 10.2.4.1 /30 & \\ \hline
 R3 & Loopback0 & 10.3.3.3 /32 & \\ \hline
 R3 & Loopback1 & & 47.73.239.33 /32  \\ \hline
 R3 & G1/0 & 10.3.4.1 /30 & \\ \hline
-R3 & G2/0 & 10.1.3.1 /30 & \\ \hline
+R3 & G2/0 & 10.1.3.2 /30 & \\ \hline
 R3 & G3/0 & 10.3.5.1 /30 & \\ \hline
 R3 & G4/0 & & 47.73.240.5 /30 \\ \hline
 R4 & Loopback0 & 10.4.4.4 /32 & \\ \hline
@@ -308,10 +436,9 @@ R7 & G1/0 & 10.7.8.1 /30 & \\ \hline
 R7 & G4/0 & & 47.73.240.6 /30 \\ \hline
 R7 & G5/0 & & 63.112.0.6 /30 \\ \hline
 \end{tabular}
-\caption{Endereços IP das interfaces do Router 1}
+\caption{Endereços IP}
 \label{tab:ip1}
 \end{table}
-
 
 \begin{table}[H]
 \centering
@@ -321,13 +448,13 @@ R7 & G5/0 & & 63.112.0.6 /30 \\ \hline
 R8 & Loopback0 & 10.8.8.8 /32 & \\ \hline
 R8 & Loopback1 & & 129.41.46.88 /32 \\ \hline
 R8 & f0/0 & & 129.41.46.5 /30 \\ \hline
-R8 & G1/0 & 10.7.6.2 /30 & \\ \hline
+R8 & G1/0 & 10.7.8.2 /30 & \\ \hline
 R8 & G4/0 & & 47.73.240.2 /30 \\ \hline
 R8 & G5/0 & & 129.41.46.2 /30 \\ \hline
 R9 & Loopback0 & 10.9.9.9 /32 & \\ \hline
 R9 & Loopback1 & & 129.41.47.99 /32 \\ \hline
-R9 & f0/0 & & 129.41.47.10 /30 \\ \hline
-R9 & f1/0 & & 129.41.47.6 /30\\ \hline
+R9 & f0/0 & & 129.41.46.10 /30 \\ \hline
+R9 & f1/0 & & 129.41.46.6 /30\\ \hline
 R10 & Loopback0 & 10.10.10.10 /32 & \\ \hline
 R10 & Loopback1 & & 45.87.162.110 /32 \\ \hline
 R10 & G1/0 & 10.10.11.1 /30 & \\ \hline
@@ -355,6 +482,17 @@ R14 & f0/0 & & 63.96.0.2 /30 \\ \hline
 R14 & G1/0 & & 63.112.0.1 /30 \\ \hline
 R14 & G3/0 & & 63.112.0.9 /30 \\ \hline
 R14 & G5/0 & & 63.112.0.5 /30 \\ \hline
+\end{tabular}
+\caption{Endereços IP}
+\label{tab:ip1}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Router / Equipment} & \textbf{Interface} & \textbf{Private IP Address} & \textbf{Public IP Address} \\ \hline
 R15 & Loopback0 & 10.15.15.15 /32 & \\ \hline
 R15 & Loopback1 & & 210.176.128.115 /32 \\ \hline
 R15 & f0/0 & & 210.176.128.2 /30 \\ \hline
@@ -363,7 +501,7 @@ R15 & G2/0 & & 210.176.129.1 /30 \\ \hline
 R15 & G3/0 & & 63.112.0.10 /30 \\ \hline
 R15 & G4/0 &  & 210.176.129.5 /30 \\ \hline
 R16 & Loopback0 & 10.16.16.16 /32 & \\ \hline
-R16 & G2/0 & & 47.73.250.22 /30 \\ \hline
+R16 & G2/0 & & 47.73.240.22 /30 \\ \hline
 R16 & G4/0 & & 45.88.20.2 /30 \\ \hline
 Badguy & Loopback0 & 10.66.66.66 /32 & \\ \hline
 Badguy & G4/0 & & 210.176.129.6 /30 \\ \hline
@@ -374,11 +512,240 @@ Server4 & e0 & & 210.176.128.1 /30 \\ \hline
 Server5 & e0 & & 45.87.162.1 /30 \\ \hline
 Server6 & e0 & & 157.23.228.1 /30 \\ \hline
 \end{tabular}
-\caption{Endereços IP das interfaces do Router 1}
+\caption{Endereços IP}
 \label{tab:ip1}
 \end{table}
+\vspace{0.2cm}
 
+\newpage
+\subsection{INTERFACE CONFIGURATION}
+\vspace{0.2cm}
+
+Para a configuração das interfaces de rede nos routers, foi necessário atribuir os endereços IP privados e públicos de acordo com a tabela de endereçamento fornecida. O OSPF também foi configurado para permitir a troca de informações de encaminhamento entre os routers dentro de cada AS. Para tal, foram necessários os seguintes comandos:
+\vspace{0.2cm}
+
+\begin{itemize}
+  \item \textbf{interface}: Aceder ao modo de configuração de interface seguido da indentificação da interface a configurar.
+  \item \textbf{ip address}: Atribuir o endereço IP privado (ou público) e a máscara de sub-rede à interface.
+  \item \textbf{no shutdown}: Ativar a interface.
+  \item \textbf{exit}: Sair do modo de configuração de interface.
+  \item \textbf{write memory}: Salvar as configurações. 
+  \item \textbf{router ospf 1}: Aceder ao modo de configuração OSPF, seguido da identificação do processo OSPF.
+  \item \textbf{router id}: Atribuir o ID do router.
+  \item \textbf{passive-interface}: Configurar a interface como passiva.
+  \item \textbf{network point-to-point}: Configurar a interface como ponto-a-ponto.
+  \item \textbf{network}: Seguido do endereço IP e máscara de sub-rede da interface a anunciar, bem como a área OSPF.
+\end{itemize}
+\vspace{0.2cm}
+
+\newpage
+Para os Routers, tal como se pode observar na figura \ref{fig:config1}, as configurações foram realizadas com sucesso no router 1.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa1/1.configR1.png}
+  \caption{Configuração do Router 1}
+  \label{fig:config1}
+\end{figure}
+\vspace{0.2cm}
+
+\newpage
+Para os Servers, tal como se pode observar na figura \ref{fig:configServer1}, as configurações foram realizadas com sucesso no Server 1.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa1/1.configServer1.png}
+  \caption{Configuração do Server 1}
+  \label{fig:configServer1}
+\end{figure}
+\vspace{0.2cm}
+
+\subsection{VERIFY BASIC CONNECTIVITY}
+\vspace{0.2cm}
+
+Depois de configurar as interfaces de rede e o OSPF em cada router, é necessário verificar a conectividade básica entre os dispositivos dentro de cada AS.
+\vspace{0.2cm}
+
+Começando com teste de conectividade entre routers diretamente conectados, com o comando \textbf{ping}, foi possível confirmar que a comunicação entre os dispositivos está a funcionar corretamente. Tal como se pode observar na figura \ref{fig:testePing}, o ping foi bem sucedido entre o Router 1 para o Router 2 e o Router 13 para o 11.
+\vspace{0.2cm}
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=0.99\linewidth]{imagens/Tarefa1/2.pingR1_R2.png}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=0.99\linewidth]{imagens/Tarefa1/2.pingR13_R11.png}
+  \end{subfigure}
+  \caption{Teste de ping entre routers}
+  \label{fig:testePing}
+\end{figure}
+\vspace{0.2cm}
+
+\newpage
+Também foi realizado um teste de conectividade entre routers não diretamente conectados, com o comando \textbf{traceroute}, para verificar o caminho percorrido pelos pacotes entre os dispositivos. Tal como se pode observar na figura \ref{fig:testeTraceroute}, o traceroute foi bem sucedido entre o Router 1 para o Router 2 e o Router 13 para o 11.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=0.94\linewidth]{imagens/Tarefa1/2.tracerouteR1_R2.png}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{imagens/Tarefa1/2.tracerouteR13_R11.png}
+  \end{subfigure}
+  \caption{Teste de traceroute entre routers}
+  \label{fig:testeTraceroute}
+\end{figure}
+\vspace{0.2cm}
+
+Vamos utilizar os comandos \textbf{show ip ospf neighbor} e \textbf{sh ip ospf interface brief} para verificar as relações de vizinhança OSPF e as interfaces OSPF, respetivamente. Tal como se pode observar na figura \ref{fig:showOspf}, as relações de vizinhança OSPF estão estabelecidas corretamente entre os routers e as interfaces OSPF estão ativas.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa1/2.showOspf.png}
+  \caption{Verificação de OSPF}
+  \label{fig:showOspf}
+\end{figure}
+\vspace{0.2cm}
+
+\newpage
+Por fim, vamos utilizar o comando \textbf{ping} a todas as interfaces loopback dos routers para verificar a conectividade entre os dispositivos. Tal como se pode observar na figura \ref{fig:pingLoopback}, o ping foi bem sucedido entre os routers.
+\vspace{0.2cm}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa1/2.pingLoopback.png}
+  \caption{Teste de ping entre loopbacks}
+  \label{fig:pingLoopback}
+\end{figure}
+\vspace{0.2cm}
+
+\subsection{REVIEW QUESTIONS}
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{What is the concept of an Autonomous System} 
+  \vspace{0.2cm}
+
+  Um Sistema Autónomo (AS) é um conjunto de redes e routers geridos por uma única entidade, que partilham uma política de encaminhamento comum utilizando um protocolo de routing associado a um único número de Sistema Autónomo (ASN). Os AS são fundamentais para a gestão e operação de redes de computadores, permitindo dividir a Internet em áreas mais facilmente geríveis e isoladas, cada uma com políticas de encaminhamento específicas.
+  \vspace{0.2cm}
+
+  \newpage
+  \item \textbf{Use the https://bgp.tools/ and identify the AS’s entities involved in the lab topology.} 
+  \vspace{0.2cm}
+
+  Os Sistemas Autónomos (AS) visíveis na topologia são os seguintes:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{AS701 (Verizon Business)}: É um ISP Tier 1 global, ativo desde 1990, com 999 prefixos IPv4 e 38 IPv6, oferecendo conectividade sem depender de upstreams e participando em múltiplos IXPs.
+    \item \textbf{AS4637 (Telstra Global)}: É um ISP global ativo desde 1995, com 572 prefixos IPv4 e 15 IPv6, alocado pela APNIC, oferecendo conectividade como operadora internacional.
+    \item \textbf{BadGuy (1)}: É um AS suspeito, associado ao router marcado como "BadGuy".
+    \item \textbf{AS64513}: É um ASN privado (Bogon ASN) com 3 prefixos IPv4 e nenhum IPv6, utilizado para redes internas ou testes, sem conectividade pública direta.
+    \item \textbf{AS17390 (IBM)}: É um ASN ativo desde 2010, com 28 prefixos IPv4 e 21 IPv6, alocado pela ARIN, focado em redes corporativas e serviços "Eyeball" (acesso de utilizadores finais).
+    \item \textbf{AS1273 (Vodafone Group PLC)}: É um ASN ativo desde 2002, com 177 prefixos IPv4 e 1 IPv6, alocado pela RIPE, operando como operadora internacional de telecomunicações.
+    \item \textbf{AS20717 (DE-CIX Marseille Route Servers)}: É um ASN ativo desde 2015, alocado pela RIPE, sem prefixos próprios, usado para facilitar a troca de rotas entre redes através do ponto de troca de tráfego (IX) em Marselha.
+    \item \textbf{AS5511 (Orange S.A.)}: É um ISP Tier 1 ativo desde 2002, alocado pela RIPE, com 314 prefixos IPv4 e 9 IPv6. A Orange oferece soluções de IP Transit e conectividade global, sendo um operador de telecomunicações de grande porte.
+    \item \textbf{AS23344 (Disney Worldwide Services, Inc.)}: É um ASN ativo desde 2010, alocado pela ARIN, com 13 prefixos IPv4 e 13 IPv6. A Disney opera como uma rede de conteúdo, fornecendo serviços de distribuição de mídia e conteúdo através da Internet.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  \item \textbf{Identify tier 1 and tier 2 ISPs, explain the differences and the relations between them.} 
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item \textbf{Tier 1 ISP}:
+    \vspace{0.2cm}
+
+    \begin{itemize}
+      \item \textbf{Exemplos na Topologia}: AS 701 (Verizon Business) e AS 4637 (Telstra Global).
+      \item \textbf{Características}:
+      \begin{itemize}
+        \item Operadores globais com conectividade direta entre si.
+        \item Não dependem de upstreams para alcançar qualquer destino na Internet.
+        \item Realizam troca de tráfego (peering) gratuita com outros Tier 1 ISPs.
+        \item Papel essencial na operação da Internet, assegurando conectividade global.
+      \end{itemize}
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \newpage
+    \item \textbf{Tier 2 ISP}:
+    \vspace{0.2cm}
+    \begin{itemize}
+      \item \textbf{Exemplos na Topologia}: AS 1273 (Vodafone), AS 20717 (DE-CIX Marseille) e AS 5511 (Orange).
+      \item \textbf{Características}:
+      \begin{itemize}
+        \item Operadores regionais ou nacionais que dependem de upstreams (geralmente ISPs Tier 1) para alcançar destinos fora da sua rede.
+        \item Pagam pelo trânsito de dados para Tier 1 ISPs, mas podem também realizar peering com outros AS para reduzir custos e melhorar a eficiência.
+      \end{itemize}
+    \end{itemize}
+    \vspace{0.2cm}
+    \item \textbf{Relação entre Tier 1 e Tier 2 ISPs}:
+    \vspace{0.2cm}
+    \begin{itemize}
+      \item Os Tier 2 ISPs dependem dos Tier 1 ISPs para conectividade global.
+      \item \textbf{Exemplo na topologia:}:
+      \begin{itemize}
+        \item AS 1273 (Vodafone) utiliza AS 701 (Verizon Business) ou AS 4637 (Telstra Global) como upstream.
+        \item AS 20717 (DE-CIX Marseille) estabelece peering com Tier 1 ISPs para melhorar a troca de rotas locais e regionais.
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+  \vspace{0.2cm}
+
+
+  \item \textbf{Identify in the topology, the peering’s between the AS’s.} 
+  \vspace{0.2cm}
+
+  Com base na topologia:
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item Entre AS 1273 (R1, R2, R3, R5, R6) e AS 20717 (R6):
+    \begin{itemize}
+      \item Peering estabelecido através de ligações diretas.
+    \end{itemize}
+    \item Entre AS 20717 (R6) e AS 4637 (R15):
+    \begin{itemize}
+      \item Conexão direta na interface GigabitEthernet.
+    \end{itemize}
+    \item Entre AS 20717 e AS 5511 (R10, R11, R12):
+    \begin{itemize}
+      \item Peering através do IX (IXP1).
+    \end{itemize}
+    \item Entre AS 5511 e AS 23344:
+    \begin{itemize}
+      \item Conexão através do IXP ou ligação direta.
+    \end{itemize}
+    \item O AS 1 (BadGuy) parece ligado ao AS 4637, possivelmente para injetar tráfego malicioso.
+  \end{itemize}
+  \vspace{0.2cm}
+  \item \textbf{Identify the neutral public peering interconnections in this lab topology.} 
+  \vspace{0.2cm}
+
+  \begin{itemize}
+    \item IXP1 (Internet Exchange Point) é o ponto de interligação público identificado na topologia.
+    \item Permite a troca de tráfego entre os seguintes AS:
+    \begin{itemize}
+      \item AS 5511 (R10, R11, R12).
+      \item AS 20717 (através de R6).
+      \item Outros AS como AS 23344 podem também estar ligados.
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}
 \pagebreak
+
+\section{Tarefa 2 - BGP IMPLEMENTATION WITHOUT ANY POLICY OR ROUTING RESTRICTIONS}
+\vspace{0.2cm}
 
 \chapter{Conclusões}
 \vspace{0.2cm}

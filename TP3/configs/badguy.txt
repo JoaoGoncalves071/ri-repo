@@ -1,0 +1,13 @@
+1- INTERFACE CONFIGURATION: 
+
+conf t
+interface Loopback0
+ip address 10.66.66.66 255.255.255.255
+ip ospf network point-to-point 
+exit
+interface GigabitEthernet4/0
+ip address 210.176.129.6 255.255.255.252
+ip ospf network point-to-point 
+no shutdown
+end
+wr
