@@ -1,0 +1,5 @@
+1- INTERFACE CONFIGURATION 
+
+conf t
+interface Loopback0
+ip address 10.5.5.5 255.255.255.255
