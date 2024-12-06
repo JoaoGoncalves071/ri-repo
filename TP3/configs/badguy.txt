@@ -20,3 +20,5 @@ bgp router-id 10.66.66.66
 bgp log-neighbor-changes 
 neighbor 210.176.129.5 remote-as 4637 
 neighbor 210.176.129.5 soft-reconfiguration inbound
+end
+wr

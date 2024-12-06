@@ -747,6 +747,158 @@ Por fim, vamos utilizar o comando \textbf{ping} a todas as interfaces loopback d
 \section{Tarefa 2 - BGP IMPLEMENTATION WITHOUT ANY POLICY OR ROUTING RESTRICTIONS}
 \vspace{0.2cm}
 
+
+
+
+\subsection{REVIEW QUESTIONS}
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{You applied the configuration next-hop-self on the iBGP peering explain why} 
+  \vspace{0.2cm}
+
+  A configuração \textbf{next-hop-self} é utilizada em sessões iBGP para garantir que os next-hops das rotas aprendidas entre vizinhos iBGP sejam sempre alcançáveis dentro do mesmo AS (Sistema Autónomo). Quando um router iBGP anuncia uma rota a um vizinho iBGP, ele substitui o próximo salto original pelo seu próprio endereço IP, geralmente associado à sua interface Loopback.
+
+  Sem esta configuração, o próximo salto de uma rota seria o endereço IP do router que originalmente anunciou a rota (por exemplo, um router externo via eBGP), o que pode causar problemas de encaminhamento se este endereço não for alcançável dentro do AS. Com o \textbf{next-hop-self}, o router iBGP redefine o próximo salto para o seu próprio endereço IP, simplificando o encaminhamento interno e garantindo que os vizinhos iBGP consigam sempre encaminhar corretamente o tráfego para o próximo salto.
+  \vspace{0.2cm}
+
+  \item \textbf{How are the route prefixes propagated inside the AS when you have the route reflectors configured?} 
+  \vspace{0.2cm}
+
+  Com a configuração de route reflectors (RR), a propagação de prefixos dentro de um AS torna-se mais eficiente, eliminando a necessidade de uma malha total (full mesh) de sessões iBGP. Os routers iBGP são divididos em dois grupos: route reflectors (RRs) e route reflector clients (RRCs).
+
+  Os clientes (RRCs) anunciam os seus prefixos aos route reflectors, que têm a responsabilidade de refletir essas rotas para os restantes clientes e também para outros route reflectors, caso existam. Isto assegura que todos os routers iBGP dentro do AS recebam as rotas, mesmo que não estejam diretamente ligados entre si.
+  
+  Desta forma, o uso de RRs reduz significativamente o número de sessões iBGP necessárias, melhorando a escalabilidade da rede e simplificando a configuração.
+  \vspace{0.2cm}
+
+  \item \textbf{How is the BGP next hop reachability solved inside an AS?} 
+  \vspace{0.2cm}
+
+  A alcançabilidade do next-hop em BGP dentro de um AS é resolvida através das rotas presentes na tabela de encaminhamento do IGP (como OSPF ou IS-IS). O IGP é responsável por anunciar as interfaces utilizadas como next-hop, geralmente os endereços IP das interfaces Loopback dos routers, para garantir que todos os routers dentro do AS possam alcançar esses endereços.
+
+  Adicionalmente, em sessões iBGP, a configuração do comando next-hop-self pode ser utilizada para simplificar o encaminhamento. Com este comando, o router que anuncia uma rota a um vizinho iBGP substitui o next-hop original pelo seu próprio endereço IP (normalmente o da sua Loopback). Isto assegura que o próximo salto é sempre acessível dentro do AS, mesmo que o próximo salto original (por exemplo, de um router externo) não seja diretamente alcançável.
+
+  Desta forma, a combinação de IGP e next-hop-self garante conectividade e simplifica a propagação de rotas dentro do AS.
+  \vspace{0.2cm}
+
+  \item \textbf{What is the behaviour from BGP when the prefix next-hop is not reachable} 
+  \vspace{0.2cm}
+
+  Quando o next-hop de um prefixo BGP não é alcançável, a rota é considerada inválida e não é instalada na tabela de encaminhamento BGP (Loc-RIB). Para que uma rota seja válida, o BGP exige que o next-hop esteja presente na tabela de roteamento subjacente, seja ela fornecida por um protocolo IGP (como OSPF ou IS-IS) ou por uma rota estática.
+
+  Se o next-hop não for resolvido, o BGP não pode encaminhar o tráfego para esse destino, pois depende da conectividade IP subjacente para alcançar os next-hops anunciados. Como consequência, o prefixo é descartado e não é propagado nem utilizado no encaminhamento. Este comportamento garante que apenas rotas funcionalmente alcançáveis sejam consideradas para o tráfego na rede.
+
+  \vspace{0.2cm}
+
+  \item \textbf{Why is a good practice the loopback IP address utilization in the iBGP sessions?} 
+  \vspace{0.2cm}
+
+  A utilização de endereços IP Loopback em sessões iBGP é considerada uma boa prática devido às seguintes principais razões:
+
+  \begin{itemize}
+    \item \textbf{Alta Disponibilidade}: As interfaces Loopback são virtuais e não dependem de hardware físico específico, o que significa que permanecem ativas desde que o router esteja funcional. Isto evita que uma falha numa interface física afete a sessão BGP.
+    \item \textbf{Conectividade Redundante}: Como os endereços de Loopback são anunciados no IGP (como OSPF ou IS-IS), podem ser alcançados através de múltiplos caminhos. Isto garante maior resiliência e permite que a conectividade entre os routers seja mantida mesmo em caso de falha de um enlace físico.
+    \item \textbf{Estabilidade}: Os endereços de Loopback são estáticos e independentes de interfaces físicas, simplificando a configuração e reduzindo a probabilidade de alterações inesperadas devido a alterações de topologia.
+    \item \textbf{Escalabilidade}: Permite estabelecer sessões iBGP entre routers em diferentes localizações sem depender de interfaces físicas diretas, o que facilita a expansão da rede.
+    \item \textbf{Simplificação do Encaminhamento}: A utilização de endereços Loopback evita a necessidade de lidar com alterações dinâmicas em endereços IP associados a interfaces físicas, simplificando a configuração de políticas e tabelas de encaminhamento.
+    \item \textbf{Compatibilidade com Redundância e Balanceamento de Carga}: Com múltiplos caminhos redundantes para as Loopbacks, a rede pode implementar balanceamento de carga, distribuindo o tráfego de forma mais eficiente.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  Em resumo, o uso de endereços Loopback oferece maior robustez, redundância e simplicidade na configuração e operação de redes BGP.
+  \vspace{0.2cm}
+
+  \item \textbf{Observe in the Wireshark and add to the report a trace from a BGP session establishment and described 
+  the packets and respective relation with the following stats.} 
+  \vspace{0.2cm}
+
+  No protocolo BGP, a máquina de estados segue a seguinte sequência durante o estabelecimento de uma sessão:
+
+  \begin{enumerate}
+    \item \textbf{Idle}: 
+    \begin{itemize}
+      \item É o estado inicial. O router aguarda a configuração da sessão BGP.
+      \item Neste estado, o BGP realiza verificações básicas, como validação do vizinho e recursos disponíveis.
+      \item Se estiver tudo em ordem, tenta avançar para o próximo estado.
+    \end{itemize}
+    \item \textbf{Connect}: 
+    \begin{itemize}
+      \item O router tenta estabelecer uma conexão TCP com o vizinho BGP na porta 179.
+      \item Se a conexão for bem-sucedida, avança para o estado OpenSent. Caso contrário, transita para o estado Active.
+    \end{itemize}
+    \item \textbf{Active}: 
+    \begin{itemize}
+      \item O router continua à espera de uma conexão TCP do vizinho BGP.
+      \item Se a conexão for estabelecida, o estado muda para OpenSent. Caso contrário, pode retornar ao estado Connect ou permanecer no estado Active, dependendo do temporizador.
+    \end{itemize}
+    \item \textbf{OpenSent}:
+    \begin{itemize}
+      \item O router envia uma mensagem OPEN ao vizinho para iniciar a sessão BGP.
+      \item Aguarda a mensagem OPEN de resposta do vizinho.
+      \item Se a mensagem for válida, transita para o estado OpenConfirm.
+    \end{itemize}
+    \item \textbf{OpenConfirm}: 
+    \begin{itemize}
+      \item O router recebeu a mensagem OPEN do vizinho e aguarda uma mensagem de confirmação KEEPALIVE.
+      \item Se a mensagem KEEPALIVE for recebida corretamente, o estado muda para Established.
+      \item Caso haja um erro (por exemplo, parâmetros incompatíveis), o estado pode voltar para Idle.
+    \end{itemize}
+    \item \textbf{Established}:
+    \begin{itemize}
+      \item A sessão BGP está ativa e os dois routers iniciam a troca de mensagens UPDATE para partilhar informações de rota.
+      \item Enquanto a sessão estiver no estado Established, o BGP mantém a conexão viva através de mensagens KEEPALIVE.
+    \end{itemize}
+  \end{enumerate}
+
+  \vspace{0.2cm}
+  Durante o estabelecimento de uma sessão BGP, os pacotes trocados podem ser identificados pelas seguintes etapas:
+
+  \begin{enumerate}
+    \item \textbf{TCP 3-Way Handshake}:
+    \begin{itemize}
+      \item Antes de o BGP iniciar, é necessário estabelecer uma conexão TCP entre os vizinhos BGP na porta 179.
+      \item Esta conexão é feita através da troca dos seguintes pacotes:
+      \begin{itemize}
+        \item \textbf{SYN}: O router inicia a solicitação de conexão TCP.
+        \item \textbf{SYN-ACK}: O vizinho confirma a solicitação de conexão.
+        \item \textbf{ACK}: O router finaliza o handshake, estabelecendo a conexão TCP.
+      \end{itemize}
+    \end{itemize}
+    \item \textbf{BGP OPEN Message}:
+    \begin{itemize}
+      \item Após o TCP handshake, os routers trocam mensagens OPEN para iniciar a sessão BGP.
+      \item EEstas mensagens contêm parâmetros essenciais, como a versão do BGP, o número do sistema autónomo (AS), o identificador BGP e as opções de capacidades, como suporte para extensões.
+    \end{itemize}
+    \item \textbf{BGP KEEPALIVE Messages}:
+    \begin{itemize}
+      \item Após o envio da mensagem OPEN, os routers trocam mensagens KEEPALIVE para confirmar que a sessão foi estabelecida corretamente.
+      \item EEstas mensagens são enviadas periodicamente para manter a sessão ativa e confirmar a conectividade entre os vizinhos.
+    \end{itemize}
+    \item \textbf{BGP UPDATE Messages}:
+    \begin{itemize}
+      \item Com a sessão estabelecida, os routers começam a enviar mensagens UPDATE.
+      \item Estas mensagens são utilizadas para anunciar ou retirar prefixos de rotas, partilhando informações de encaminhamento.
+    \end{itemize}
+  \end{enumerate}
+  \vspace{0.2cm}
+
+  Tal como se pode observar na figura \ref{fig:wireshark}, o estabelecimento de uma sessão BGP envolve a troca de mensagens OPEN, KEEPALIVE e UPDATE, conforme descrito acima.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.80\textwidth]{imagens/Tarefa2/8.wireshark.png}
+    \caption{Estabelecimento de uma sessão BGP no Wireshark}
+    \label{fig:wireshark}
+  \end{figure}
+
+\end{enumerate}
+\pagebreak
+
+\section{Tarefa 3 - SCALABILITY AND ROUTING SIMPLIFICATION}
+\vspace{0.2cm}
+
 \chapter{Conclusões}
 \vspace{0.2cm}
 
