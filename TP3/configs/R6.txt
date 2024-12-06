@@ -34,8 +34,45 @@ end
 
 conf t
 router ospf 1
+router-id 10.6.6.6
 network 10.6.6.6 0.0.0.0 area 0 
 network 47.73.239.66 0.0.0.0 area 0 
 network 10.4.6.0 0.0.0.3 area 0 
 end
+wr
+
+2- TIPS FOR THE BGP CONFIGURATION
+
+conf t
+router bgp 1273 
+bgp router-id 10.6.6.6 
+bgp log-neighbor-changes 
+neighbor 210.176.128.115 remote-as 4637 
+neighbor 210.176.128.115 soft-reconfiguration inbound 
+neighbor 47.73.240.18 remote-as 5511 
+neighbor 47.73.240.18 soft-reconfiguration inbound
+neighbor 47.73.240.22 remote-as 20717 
+neighbor 47.73.240.22 soft-reconfiguration inbound
+exit
+ip route 47.73.239.0 255.255.255.0 Null0 
+ip route 47.73.240.0 255.255.252.0 Null0
+ip route 62.25.64.0 255.255.192.0 Null0
+router bgp 1273
+network 47.73.239.66 mask 255.255.255.255
+network 47.73.239.0 mask 255.255.255.0  
+network 47.73.240.0 mask 255.255.252.0
+network 62.25.64.0 mask 255.255.192.0 
+exit
+router bgp 1273 
+no synchronization 
+bgp router-id 10.6.6.6 
+neighbor iBGP peer-group 
+neighbor iBGP remote-as 1273 
+neighbor iBGP update-source Loopback0 
+neighbor iBGP next-hop-self 
+neighbor iBGP soft-reconfiguration inbound 
+neighbor 10.3.3.3 peer-group iBGP 
+neighbor 10.4.4.4 peer-group iBGP
+exit
+exit
 wr

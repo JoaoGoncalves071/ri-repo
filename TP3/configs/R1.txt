@@ -29,9 +29,58 @@ end
 
 conf t
 router ospf 1
+router-id 10.1.1.1
 network 10.1.1.1 0.0.0.0 area 0 
 network 47.73.239.11 0.0.0.0 area 0 
 network 10.1.2.0 0.0.0.3 area 0 
 network 10.1.3.0 0.0.0.3 area 0  
 end
 wr
+
+2- TIPS FOR THE BGP CONFIGURATION
+
+conf t
+router bgp 1273 
+bgp router-id 10.1.1.1 
+bgp log-neighbor-changes 
+neighbor 47.73.240.2 remote-as 17390 
+neighbor 47.73.240.2 soft-reconfiguration inbound 
+exit
+ip route 47.73.239.0 255.255.255.0 Null0 
+ip route 47.73.240.0 255.255.252.0 Null0
+ip route 62.25.64.0 255.255.192.0 Null0
+router bgp 1273
+network 47.73.239.11 mask 255.255.255.255
+network 47.73.239.0 mask 255.255.255.0  
+network 47.73.240.0 mask 255.255.252.0
+network 62.25.64.0 mask 255.255.192.0 
+exit
+router bgp 1273 
+no synchronization 
+bgp router-id 10.1.1.1 
+neighbor iBGP peer-group 
+neighbor iBGP remote-as 1273 
+neighbor iBGP update-source Loopback0 
+neighbor iBGP next-hop-self 
+neighbor iBGP soft-reconfiguration inbound 
+neighbor 10.3.3.3 peer-group iBGP 
+neighbor 10.4.4.4 peer-group iBGP
+exit
+exit
+wr
+
+Testar:
+
+tclsh
+
+foreach addr {
+    47.73.239.22
+    47.73.239.55
+    45.87.162.112
+    63.96.0.1
+    210.176.128.115
+} {
+    ping $addr source 47.73.239.11 repeat 5
+}
+
+tclquit

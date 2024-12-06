@@ -33,3 +33,32 @@ ip ospf network point-to-point
 no shutdown
 end
 wr
+
+2- TIPS FOR THE BGP CONFIGURATION
+
+conf t
+router bgp 17390 
+bgp router-id 10.8.8.8 
+bgp log-neighbor-changes 
+neighbor 47.73.240.1 remote-as 1273 
+neighbor 47.73.240.1 soft-reconfiguration inbound 
+neighbor 129.41.46.6 remote-as 64513 
+neighbor 129.41.46.6 soft-reconfiguration inbound
+exit
+ip route 129.41.46.0 255.255.255.0 Null0 
+router bgp 17390
+network 129.41.46.88 mask 255.255.255.255
+network 129.41.46.0 mask 255.255.255.0  
+exit
+router bgp 17390 
+no synchronization 
+bgp router-id 10.8.8.8 
+neighbor iBGP peer-group 
+neighbor iBGP remote-as 17390 
+neighbor iBGP update-source Loopback0 
+neighbor iBGP next-hop-self 
+neighbor iBGP soft-reconfiguration inbound 
+neighbor 10.7.7.7 peer-group iBGP 
+exit
+exit
+wr

@@ -21,3 +21,22 @@ ip ospf network point-to-point
 no shutdown
 end
 wr
+
+2- TIPS FOR THE BGP CONFIGURATION
+
+conf t
+router bgp 64513 
+bgp router-id 10.9.9.9 
+bgp log-neighbor-changes 
+neighbor 129.41.46.9 remote-as 17390 
+neighbor 129.41.46.9 soft-reconfiguration inbound 
+neighbor 129.41.46.5 remote-as 17390 
+neighbor 129.41.46.5 soft-reconfiguration inbound
+exit
+ip route 129.41.47.0 255.255.255.0 Null0 
+router bgp 64513
+network 129.41.47.99 mask 255.255.255.255
+network 129.41.47.0 mask 255.255.255.0  
+exit
+exit 
+wr
