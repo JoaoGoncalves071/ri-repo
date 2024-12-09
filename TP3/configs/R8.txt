@@ -32,6 +32,17 @@ ip address 129.41.46.2 255.255.255.252
 ip ospf network point-to-point 
 no shutdown
 end
+
+conf t
+router ospf 1
+router-id 10.8.8.8
+network 10.8.8.8 0.0.0.0 area 0 
+network 129.41.46.88 0.0.0.0 area 0
+network 129.41.46.4 0.0.0.3 area 0
+network 10.7.8.0 0.0.0.3 area 0
+network 47.73.240.0 0.0.0.3 area 0
+network 129.41.46.0 0.0.0.3 area 0
+end
 wr
 
 2- TIPS FOR THE BGP CONFIGURATION

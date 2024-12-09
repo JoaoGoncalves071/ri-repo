@@ -34,6 +34,7 @@ network 10.1.1.1 0.0.0.0 area 0
 network 47.73.239.11 0.0.0.0 area 0 
 network 10.1.2.0 0.0.0.3 area 0 
 network 10.1.3.0 0.0.0.3 area 0  
+network 47.73.240.0 0.0.0.3 area 0
 end
 wr
 
@@ -70,6 +71,7 @@ exit
 wr
 
 Testar:
+R2, R5, R12, S3, R15
 
 tclsh
 
@@ -83,4 +85,5 @@ foreach addr {
     ping $addr source 47.73.239.11 repeat 5
 }
 
-tclquit
+
+
