@@ -24,6 +24,9 @@
 
 \usepackage[english, portuguese]{babel}
 
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+
 \usepackage[colorlinks = true, linkcolor = blue, urlcolor  = blue, citecolor =
             blue, anchorcolor = blue]{hyperref}
 
@@ -378,7 +381,7 @@ sob a forma de um glossário de modo a facilitar a compreensão dos tópicos:
 
 \chapter{Desenvolvimento}
 
-\section{Tarefa 1 - CONFIGURE ALL THE IGP CONFIGS INTERNAL TO THE AS’S}
+\section{Tarefa 1 -- CONFIGURE ALL THE IGP CONFIGS INTERNAL TO THE AS’S}
 \vspace{0.2cm}
 
 Nesta tarefa, será realizada a configuração dos protocolos internos de encaminhamento (IGP) dentro dos Sistemas Autónomos (AS) de acordo com o esquema de endereçamento fornecido e as regras de design definidas. O objetivo principal é configurar as interfaces de rede nos routers, aplicar o protocolo OSPF (Open Shortest Path First) para garantir uma comunicação eficiente entre os dispositivos dentro de cada AS e verificar a conectividade tanto dentro dos AS como entre diferentes AS’s. Para tal, serão configurados os endereços IP de cada interface, conforme a tabela de endereçamento fornecida.
@@ -742,10 +745,88 @@ Por fim, vamos utilizar o comando \textbf{ping} a todas as interfaces loopback d
     \end{itemize}
   \end{itemize}
 \end{enumerate}
-\pagebreak
 
-\section{Tarefa 2 - BGP IMPLEMENTATION WITHOUT ANY POLICY OR ROUTING RESTRICTIONS}
+
+
+
+\pagebreak
+\section{Tarefa 2 -- BGP IMPLEMENTATION WITHOUT ANY POLICY OR ROUTING RESTRICTIONS}
 \vspace{0.2cm}
+
+Neste capítulo, explora-se a implementação do BGP em sua configuração básica, sem políticas ou restrições de roteamento. O objetivo é estabelecer sessões eBGP entre ASs vizinhos e sessões iBGP dentro de cada AS, garantindo a propagação de rotas públicas.
+
+A configuração inclui a utilização de reflectores de rotas (route reflectors) para evitar a complexidade de uma malha completa em topologias internas, e a definição de rotas estáticas para permitir o anúncio de prefixos públicos. Também são realizadas verificações como o estado das sessões BGP e a análise das rotas recebidas e anunciadas.
+
+Esta etapa prepara o ambiente para configurações avançadas ao proporcionar uma compreensão inicial do funcionamento do BGP em cenários reais.
+
+\vspace{0.4cm}
+
+\subsection{Establish eBGP sessions between the AS's}
+\vspace{0.2cm}
+
+O objetivo é configurar sessões eBGP entre os routers de diferentes AS (Autonomous Systems), conforme a topologia apresentada. Para cada par de routers conectados entre AS's distintos, deve ser configurada uma relação de vizinhança BGP. \par
+
+
+\vspace{0.6cm}
+\textbf{Configurações Necessárias} \par
+\vspace{0.2cm}
+Cada router nos AS indicados deve:
+\begin{enumerate}
+  \item Configurar o processo BGP para o AS correspondente
+  \item Definir um vizinho remoto (\textbf{neighbor}) com o IP do router no AS remoto e especificar o número do AS remoto
+  \item Anunciar as redes pertencentes ao AS local com o comando \textbf{network}
+  \item Garantir que as interfaces conectadas estejam devidamente configuradas.
+\end{enumerate} \par
+
+
+\pagebreak
+\textbf{Sessões eBGP Identificadas na Topologia} \par
+\vspace{0.2cm}
+De acordo com a rede, são necessárias as seguintes conexões eBGP: \vspace{0.2cm}
+
+
+\section{Tarefa 3 -- SCALABILITY AND ROUTING SIMPLIFICATION}
+\vspace{0.2cm}
+
+Este capítulo foca-se na escalabilidade e na otimização do roteamento em redes baseadas em BGP. O objetivo principal é reduzir a quantidade de prefixos propagados na tabela global de roteamento, assegurando um uso eficiente dos recursos da rede. 
+
+As tarefas incluem a configuração de agregação de prefixos para anunciar apenas rotas resumidas, aplicação de filtros para limitar anúncios com máscaras superiores a /24 e remoção de AS privados nos caminhos anunciados. Além disso, implementa-se o controlo de prefixos aceites nas sessões eBGP para evitar sobrecarga desnecessária na tabela de roteamento. 
+
+Estas ações melhoram a eficiência do roteamento, reduzindo a complexidade operacional e melhorando o desempenho da infraestrutura global.
+
+\vspace{0.4cm}
+\subsection{Configurations}
+\vspace{0.2cm}
+
+\subsection{Review Questions}
+\vspace{0.2cm}
+
+
+
+\pagebreak
+\section{Tarefa 4 -- INFLUENCE THE INTERNET ROUTING}
+\vspace{0.2cm}
+
+Neste capítulo, aborda-se a manipulação de políticas de roteamento para influenciar os caminhos do tráfego na Internet. Utilizando os atributos do BGP, como local preference e AS\_PATH, as tarefas envolvem a criação de políticas que assegurem a preferência de determinadas rotas tanto para o tráfego de entrada quanto para o de saída entre os ASs. Para tal, aplicam-se listas de prefixos, route-maps e, em casos avançados, expressões regulares para definir caminhos preferenciais. 
+
+Este capítulo demonstra como operadores de rede podem moldar o comportamento do roteamento, não apenas para atender a objetivos de performance e custo, mas também para responder a necessidades específicas de clientes ou provedores.
+
+\subsection{Configurations}
+\vspace{0.2cm}
+
+\subsection{Review questions}
+\vspace{0.2cm}
+
+
+\section{Tarefa 5 -- Security Practices}
+\vspace{0.2cm}
+
+A segurança do BGP é explorada neste último capítulo, com foco em mitigar riscos e garantir a integridade do roteamento. O capítulo inicia com a configuração de autenticação nas sessões eBGP, uma prática essencial para proteger as sessões contra ataques de manipulação. 
+
+Segue-se a implementação de filtros para bloqueio de prefixos inválidos (Bogons), protegendo a rede contra anúncios maliciosos ou incorretos. Finalmente, é configurada a técnica Remote Triggered Black Hole (RTBH) para mitigar ataques de negação de serviço (DoS), usando rotas específicas para redirecionar tráfego malicioso para um null interface. Complementarmente, aplica-se o Unicast Reverse Path Forwarding (uRPF) nas interfaces de peering, garantindo que pacotes com origem suspeita sejam descartados. 
+
+Este capítulo sublinha a importância de práticas avançadas de segurança para preservar a estabilidade e a resiliência das redes BGP.
+
 
 \chapter{Conclusões}
 \vspace{0.2cm}
