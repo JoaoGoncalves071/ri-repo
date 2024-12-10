@@ -43,48 +43,70 @@ wr
 2- TIPS FOR THE BGP CONFIGURATION
 
 conf t
-router bgp 4637 
-bgp router-id 10.15.15.15 
-bgp log-neighbor-changes 
-neighbor 210.176.129.6 remote-as 1 
+router bgp 4637
+bgp router-id 10.15.15.15
+bgp log-neighbor-changes
+neighbor 210.176.129.6 remote-as 1
 neighbor 210.176.129.6 soft-reconfiguration inbound
-neighbor 210.176.129.2 remote-as 5511 
+neighbor 210.176.129.2 remote-as 5511
 neighbor 210.176.129.2 soft-reconfiguration inbound
-neighbor 47.73.240.13 remote-as 1273 
+neighbor 47.73.240.13 remote-as 1273
 neighbor 47.73.240.13 soft-reconfiguration inbound
-neighbor 63.112.0.9 remote-as 701 
+neighbor 63.112.0.9 remote-as 701
 neighbor 63.112.0.9 soft-reconfiguration inbound
 exit
-ip route 210.176.128.0 255.255.255.0 Null0 
-ip route 210.176.129.0 255.255.255.0 Null0 
-ip route 210.176.130.0 255.255.255.0 Null0 
-ip route 210.176.130.0 255.255.254.0 Null0 
-ip route 210.176.132.0 255.255.255.0 Null0 
-ip route 210.176.135.0 255.255.255.0 Null0 
-ip route 210.176.136.0 255.255.255.0 Null0 
-ip route 210.176.137.0 255.255.255.0 Null0 
-ip route 210.176.138.0 255.255.255.0 Null0 
-ip route 210.176.139.0 255.255.255.0 Null0 
-ip route 210.176.136.0 255.255.252.0 Null0 
-ip route 210.176.140.0 255.255.255.0 Null0 
-ip route 210.176.141.0 255.255.255.0 Null0 
-ip route 210.176.142.0 255.255.255.0 Null0  
+ip route 210.176.128.0 255.255.255.0 Null0
+ip route 210.176.129.0 255.255.255.0 Null0
+ip route 210.176.130.0 255.255.255.0 Null0
+ip route 210.176.130.0 255.255.254.0 Null0
+ip route 210.176.132.0 255.255.255.0 Null0
+ip route 210.176.135.0 255.255.255.0 Null0
+ip route 210.176.136.0 255.255.255.0 Null0
+ip route 210.176.137.0 255.255.255.0 Null0
+ip route 210.176.138.0 255.255.255.0 Null0
+ip route 210.176.139.0 255.255.255.0 Null0
+ip route 210.176.136.0 255.255.252.0 Null0
+ip route 210.176.140.0 255.255.255.0 Null0
+ip route 210.176.141.0 255.255.255.0 Null0
+ip route 210.176.142.0 255.255.255.0 Null0
 router bgp 4637
 network 210.176.128.115 mask 255.255.255.255
-network 210.176.128.0 mask 255.255.255.0  
-network 210.176.129.0 mask 255.255.255.0  
-network 210.176.130.0 mask 255.255.255.0  
-network 210.176.130.0 mask 255.255.254.0  
-network 210.176.132.0 mask 255.255.255.0  
-network 210.176.135.0 mask 255.255.255.0  
-network 210.176.136.0 mask 255.255.255.0  
-network 210.176.137.0 mask 255.255.255.0  
-network 210.176.138.0 mask 255.255.255.0  
-network 210.176.139.0 mask 255.255.255.0  
-network 210.176.136.0 mask 255.255.252.0  
-network 210.176.140.0 mask 255.255.255.0  
-network 210.176.141.0 mask 255.255.255.0  
-network 210.176.142.0 mask 255.255.255.0 
+network 210.176.128.0 mask 255.255.255.0
+network 210.176.129.0 mask 255.255.255.0
+network 210.176.130.0 mask 255.255.255.0
+network 210.176.130.0 mask 255.255.254.0
+network 210.176.132.0 mask 255.255.255.0
+network 210.176.135.0 mask 255.255.255.0
+network 210.176.136.0 mask 255.255.255.0
+network 210.176.137.0 mask 255.255.255.0
+network 210.176.138.0 mask 255.255.255.0
+network 210.176.139.0 mask 255.255.255.0
+network 210.176.136.0 mask 255.255.252.0
+network 210.176.140.0 mask 255.255.255.0
+network 210.176.141.0 mask 255.255.255.0
+network 210.176.142.0 mask 255.255.255.0
 exit
-exit 
+exit
+wr
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+router bgp 4637
+aggregate-address 210.176.128.0 255.255.255.0 summary-only 
+aggregate-address 210.176.129.0 255.255.255.0 summary-only 
+aggregate-address 210.176.130.0 255.255.255.0 summary-only 
+aggregate-address 210.176.130.0 255.255.254.0 summary-only 
+aggregate-address 210.176.132.0 255.255.255.0 summary-only 
+aggregate-address 210.176.135.0 255.255.255.0 summary-only 
+aggregate-address 210.176.136.0 255.255.255.0 summary-only 
+aggregate-address 210.176.137.0 255.255.255.0 summary-only 
+aggregate-address 210.176.138.0 255.255.255.0 summary-only 
+aggregate-address 210.176.139.0 255.255.255.0 summary-only 
+aggregate-address 210.176.136.0 255.255.252.0 summary-only 
+aggregate-address 210.176.140.0 255.255.255.0 summary-only 
+aggregate-address 210.176.141.0 255.255.255.0 summary-only 
+aggregate-address 210.176.142.0 255.255.255.0 summary-only 
+exit
+exit
 wr

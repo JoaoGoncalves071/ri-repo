@@ -30,3 +30,17 @@ neighbor 47.73.240.21 remote-as 1273
 neighbor 47.73.240.21 soft-reconfiguration inbound
 end
 wr
+
+
+4- INFLUENCE THE INTERNET ROUTING 
+
+conf t
+route-map PREPEND_OTHER_ROUTES permit 10
+match ip address prefix-list PREF_LIST_ADV_SUMM
+set as-path prepend 20717 20717
+exit
+router bgp 20717
+neighbor 47.73.240.21 route-map PREPEND_OTHER_ROUTES out
+neighbor 45.88.20.1 route-map PREPEND_OTHER_ROUTES out
+end
+wr

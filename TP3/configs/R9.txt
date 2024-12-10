@@ -74,3 +74,13 @@ foreach addr {
 }
 
 tclquit
+
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+router bgp 64513
+aggregate-address 129.41.47.0 255.255.255.0 summary-only
+exit
+exit
+wr

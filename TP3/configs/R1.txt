@@ -70,20 +70,31 @@ exit
 exit
 wr
 
-Testar:
-R2, R5, R12, S3, R15
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
 
-tclsh
+conf t
+ip prefix-list PREF_LIST_ADV_SUMM seq 5 permit 47.73.239.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 10 permit 47.73.240.0/22 le 24
+ip prefix-list PREF_LIST_ADV_SUMM seq 15 permit 62.25.64.0/18 le 24
+router bgp 1273 
+neighbor 47.73.240.2 prefix-list PREF_LIST_ADV_SUMM out
+exit
+exit
+clear ip bgp 47.73.240.2 soft out 
+conf t
+router bgp 1273 
+neighbor 47.73.240.2 remove-private-as
+end
+wr
 
-foreach addr {
-    47.73.239.22
-    47.73.239.55
-    45.87.162.112
-    63.96.0.1
-    210.176.128.115
-} {
-    ping $addr source 47.73.239.11 repeat 5
-}
+4- INFLUENCE THE INTERNET ROUTING 
 
-
-
+conf t
+route-map SET_LOCAL_PREF_20717 permit 10
+match ip address prefix-list PREF_LIST_ADV_SUMM
+set local-preference 200
+exit
+router bgp 1273
+neighbor 47.73.240.22 route-map SET_LOCAL_PREF_20717 in
+end
+wr

@@ -75,3 +75,24 @@ neighbor 10.8.8.8 peer-group iBGP
 exit
 exit
 wr
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+ip prefix-list PREF_LIST_ADV_SUMM seq 5 permit 129.41.46.0/24
+router bgp 17390 
+neighbor 47.73.240.5 prefix-list PREF_LIST_ADV_SUMM out
+neighbor 63.112.0.5 prefix-list PREF_LIST_ADV_SUMM out
+neighbor 129.41.46.10 prefix-list PREF_LIST_ADV_SUMM out
+exit
+exit
+clear ip bgp 47.73.240.5 soft out 
+clear ip bgp 63.112.0.5 soft out 
+clear ip bgp 129.41.46.10 soft out 
+conf t
+router bgp 17390 
+neighbor 129.41.46.10 remove-private-as
+neighbor 63.112.0.5 remove-private-as
+neighbor 129.41.46.10 remove-private-as
+end
+wr

@@ -58,3 +58,14 @@ network 64.0.204.0 mask 255.255.255.0
 exit
 exit 
 wr
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+router bgp 701
+aggregate-address 63.96.0.0 255.240.0.0 summary-only
+aggregate-address 63.112.0.0 255.240.0.0 summary-only
+aggregate-address 64.0.204.0 255.255.255.0 summary-only
+exit
+exit
+wr

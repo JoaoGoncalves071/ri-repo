@@ -71,3 +71,24 @@ neighbor 10.6.6.6 peer-group iBGP
 exit
 exit 
 wr
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+ip prefix-list PREF_LIST_ADV_SUMM seq 5 permit 47.73.239.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 10 permit 47.73.240.0/22 le 24
+ip prefix-list PREF_LIST_ADV_SUMM seq 15 permit 62.25.64.0/18 le 24
+exit
+wr
+
+4- INFLUENCE THE INTERNET ROUTING 
+
+conf t
+route-map SET_LOCAL_PREF_20717 permit 10
+match ip address prefix-list PREF_LIST_ADV_SUMM
+set local-preference 200
+exit
+router bgp 1273
+neighbor 47.73.240.22 route-map SET_LOCAL_PREF_20717 in
+end
+wr

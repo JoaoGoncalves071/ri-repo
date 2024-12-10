@@ -81,3 +81,35 @@ neighbor 10.11.11.11 peer-group iBGP
 exit
 exit
 wr
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+ip prefix-list PREF_LIST_ADV_SUMM seq 5 permit 47.87.162.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 10 permit 47.88.20.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 15 permit 47.88.22.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 20 permit 47.89.36.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 25 permit 47.89.38.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 30 permit 47.92.2.0/24
+router bgp 5511 
+neighbor 47.73.240.17 prefix-list PREF_LIST_ADV_SUMM out
+exit
+exit
+clear ip bgp 47.73.240.17 soft out 
+conf t
+router bgp 5511 
+neighbor 47.73.240.17 remove-private-as
+end
+wr
+
+4- INFLUENCE THE INTERNET ROUTING 
+
+conf t
+route-map SET_LOCAL_PREF_20717 permit 10
+match ip address prefix-list PREF_LIST_ADV_SUMM
+set local-preference 200
+exit
+router bgp 5511
+neighbor 45.88.20.2 route-map SET_LOCAL_PREF_20717 in
+end
+wr
