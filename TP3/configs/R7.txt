@@ -32,4 +32,67 @@ ip address 63.112.0.6 255.255.255.252
 ip ospf network point-to-point 
 no shutdown
 end
+
+conf t
+router ospf 1
+router-id 10.7.7.7
+network 10.7.7.7 0.0.0.0 area 0 
+network 129.41.46.77 0.0.0.0 area 0
+network 129.41.46.8 0.0.0.3 area 0
+network 10.7.8.0 0.0.0.3 area 0
+network 47.73.240.4 0.0.0.3 area 0
+network 63.112.0.4 0.0.0.3 area 0
+end
+wr
+
+2- TIPS FOR THE BGP CONFIGURATION
+
+conf t
+router bgp 17390 
+bgp router-id 10.7.7.7 
+bgp log-neighbor-changes 
+neighbor 47.73.240.5 remote-as 1273 
+neighbor 47.73.240.5 soft-reconfiguration inbound 
+neighbor 63.112.0.5 remote-as 701 
+neighbor 63.112.0.5 soft-reconfiguration inbound
+neighbor 129.41.46.10 remote-as 64513 
+neighbor 129.41.46.10 soft-reconfiguration inbound
+exit
+ip route 129.41.46.0 255.255.255.0 Null0 
+router bgp 17390
+network 129.41.46.77 mask 255.255.255.255
+network 129.41.46.0 mask 255.255.255.0  
+exit
+router bgp 17390 
+no synchronization 
+bgp router-id 10.7.7.7 
+neighbor iBGP peer-group 
+neighbor iBGP remote-as 17390 
+neighbor iBGP update-source Loopback0 
+neighbor iBGP next-hop-self 
+neighbor iBGP soft-reconfiguration inbound 
+neighbor 10.8.8.8 peer-group iBGP 
+exit
+exit
+wr
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+ip prefix-list PREF_LIST_ADV_SUMM seq 5 permit 129.41.46.0/24
+router bgp 17390 
+neighbor 47.73.240.5 prefix-list PREF_LIST_ADV_SUMM out
+neighbor 63.112.0.5 prefix-list PREF_LIST_ADV_SUMM out
+neighbor 129.41.46.10 prefix-list PREF_LIST_ADV_SUMM out
+exit
+exit
+clear ip bgp 47.73.240.5 soft out 
+clear ip bgp 63.112.0.5 soft out 
+clear ip bgp 129.41.46.10 soft out 
+conf t
+router bgp 17390 
+neighbor 129.41.46.10 remove-private-as
+neighbor 63.112.0.5 remove-private-as
+neighbor 129.41.46.10 remove-private-as
+end
 wr

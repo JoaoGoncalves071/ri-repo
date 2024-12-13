@@ -34,9 +34,82 @@ end
 
 conf t
 router ospf 1
+router-id 10.12.12.12
 network 10.12.12.12 0.0.0.0 area 0 
 network 45.87.162.112 0.0.0.0 area 0 
+network 45.87.162.0 0.0.0.3 area 0
 network 10.11.12.0 0.0.0.3 area 0 
 network 10.10.12.0 0.0.0.3 area 0
+network 47.73.240.16 0.0.0.3 area 0
+end
+wr
+
+2- TIPS FOR THE BGP CONFIGURATION
+
+conf t
+router bgp 5511 
+bgp router-id 10.12.12.12 
+bgp log-neighbor-changes 
+neighbor 47.73.240.17 remote-as 1273 
+neighbor 47.73.240.17 soft-reconfiguration inbound 
+exit
+ip route 45.87.162.0 255.255.255.0 Null0 
+ip route 45.88.20.0 255.255.255.0 Null0 
+ip route 45.88.22.0 255.255.255.0 Null0 
+ip route 45.89.36.0 255.255.255.0 Null0 
+ip route 45.89.38.0 255.255.255.0 Null0 
+ip route 45.92.2.0 255.255.255.0 Null0 
+router bgp 5511
+network 45.87.162.112 mask 255.255.255.255
+network 45.87.162.0 mask 255.255.255.0  
+network 45.88.20.0 mask 255.255.255.0 
+network 45.88.22.0 mask 255.255.255.0 
+network 45.89.36.0 mask 255.255.255.0 
+network 45.89.38.0 mask 255.255.255.0 
+network 45.92.2.0 mask 255.255.255.0 
+exit
+router bgp 5511 
+no synchronization 
+bgp router-id 10.12.12.12 
+neighbor iBGP peer-group 
+neighbor iBGP remote-as 5511 
+neighbor iBGP update-source Loopback0 
+neighbor iBGP next-hop-self 
+neighbor iBGP soft-reconfiguration inbound 
+neighbor 10.10.10.10 peer-group iBGP 
+neighbor 10.11.11.11 peer-group iBGP 
+exit
+exit
+wr
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+ip prefix-list PREF_LIST_ADV_SUMM seq 5 permit 47.87.162.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 10 permit 47.88.20.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 15 permit 47.88.22.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 20 permit 47.89.36.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 25 permit 47.89.38.0/24
+ip prefix-list PREF_LIST_ADV_SUMM seq 30 permit 47.92.2.0/24
+router bgp 5511 
+neighbor 47.73.240.17 prefix-list PREF_LIST_ADV_SUMM out
+exit
+exit
+clear ip bgp 47.73.240.17 soft out 
+conf t
+router bgp 5511 
+neighbor 47.73.240.17 remove-private-as
+end
+wr
+
+4- INFLUENCE THE INTERNET ROUTING 
+
+conf t
+route-map SET_LOCAL_PREF_20717 permit 10
+match ip address prefix-list PREF_LIST_ADV_SUMM
+set local-preference 200
+exit
+router bgp 5511
+neighbor 45.88.20.2 route-map SET_LOCAL_PREF_20717 in
 end
 wr

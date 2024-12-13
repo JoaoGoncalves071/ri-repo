@@ -21,3 +21,66 @@ ip ospf network point-to-point
 no shutdown
 end
 wr
+
+2- TIPS FOR THE BGP CONFIGURATION
+
+conf t
+router bgp 64513 
+bgp router-id 10.9.9.9 
+bgp log-neighbor-changes 
+neighbor 129.41.46.9 remote-as 17390 
+neighbor 129.41.46.9 soft-reconfiguration inbound 
+neighbor 129.41.46.5 remote-as 17390 
+neighbor 129.41.46.5 soft-reconfiguration inbound
+exit
+ip route 129.41.47.0 255.255.255.0 Null0 
+router bgp 64513
+network 129.41.47.99 mask 255.255.255.255
+network 129.41.47.0 mask 255.255.255.0  
+exit
+exit 
+wr
+
+
+Testar:
+
+tclsh
+
+foreach addr {
+    47.73.239.11 
+    47.73.239.22 
+    47.73.239.33  
+    47.73.239.44  
+    47.73.239.55 
+    47.73.239.66  
+    129.41.46.77  
+    129.41.46.88  
+    129.41.47.99  
+    45.87.162.110 
+    45.87.162.111 
+    45.87.162.112 
+    157.23.228.113 
+    63.96.0.114    
+    210.176.128.115 
+    129.41.46.1    
+    47.73.239.1    
+    63.96.0.1      
+    210.176.128.1  
+    45.87.162.1    
+    157.23.228.1   
+
+} {
+    ping $addr source 129.41.47.99 repeat 5
+}
+
+tclquit
+
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+router bgp 64513
+aggregate-address 129.41.47.0 255.255.255.0 summary-only
+exit
+exit
+wr

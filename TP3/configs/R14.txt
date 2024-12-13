@@ -33,3 +33,39 @@ ip ospf network point-to-point
 no shutdown
 end
 wr
+
+2- TIPS FOR THE BGP CONFIGURATION
+
+conf t
+router bgp 701 
+bgp router-id 10.14.14.14 
+bgp log-neighbor-changes 
+neighbor 63.112.0.10 remote-as 4637 
+neighbor 63.112.0.10 soft-reconfiguration inbound
+neighbor 63.112.0.2 remote-as 1273 
+neighbor 63.112.0.2 soft-reconfiguration inbound
+neighbor 63.112.0.6 remote-as 17390 
+neighbor 63.112.0.6 soft-reconfiguration inbound
+exit
+ip route 63.96.0.0 255.240.0.0 Null0 
+ip route 63.112.0.0 255.240.0.0 Null0 
+ip route 64.0.204.0 255.255.255.0 Null0
+router bgp 701
+network 63.96.0.114 mask 255.255.255.255
+network 63.96.0.0 mask 255.240.0.0  
+network 63.112.0.0 mask 255.240.0.0
+network 64.0.204.0 mask 255.255.255.0 
+exit
+exit 
+wr
+
+3- SCALABILITY AND ROUTING SIMPLIFICATION 
+
+conf t
+router bgp 701
+aggregate-address 63.96.0.0 255.240.0.0 summary-only
+aggregate-address 63.112.0.0 255.240.0.0 summary-only
+aggregate-address 64.0.204.0 255.255.255.0 summary-only
+exit
+exit
+wr
