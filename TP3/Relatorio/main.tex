@@ -26,6 +26,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
+\usepackage{colortbl}
 
 \usepackage[colorlinks = true, linkcolor = blue, urlcolor  = blue, citecolor =
             blue, anchorcolor = blue]{hyperref}
@@ -547,7 +548,7 @@ Para os Routers, tal como se pode observar na figura \ref{fig:config1}, as confi
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.70\textwidth]{imagens/Tarefa1/1.configR1.png}
+  \includegraphics[width=0.80\textwidth]{imagens/Tarefa1/1.configR1.png}
   \caption{Configuração do Router 1}
   \label{fig:config1}
 \end{figure}
@@ -761,28 +762,426 @@ Esta etapa prepara o ambiente para configurações avançadas ao proporcionar um
 
 \vspace{0.4cm}
 
-\subsection{Establish eBGP sessions between the AS's}
+\subsection{Estabelecendo sessões eBGP}
 \vspace{0.2cm}
 
 O objetivo é configurar sessões eBGP entre os routers de diferentes AS (Autonomous Systems), conforme a topologia apresentada. Para cada par de routers conectados entre AS's distintos, deve ser configurada uma relação de vizinhança BGP. \par
 
-
 \vspace{0.6cm}
-\textbf{Configurações Necessárias} \par
+\textbf{Passos para configuração} \par
 \vspace{0.2cm}
 Cada router nos AS indicados deve:
 \begin{enumerate}
-  \item Configurar o processo BGP para o AS correspondente
-  \item Definir um vizinho remoto (\textbf{neighbor}) com o IP do router no AS remoto e especificar o número do AS remoto
-  \item Anunciar as redes pertencentes ao AS local com o comando \textbf{network}
-  \item Garantir que as interfaces conectadas estejam devidamente configuradas.
+  \item \textbf{Acesso ao router:} Iniciar a configuração no modo privilegiado e global.
+  \item \textbf{Configuração básica do BGP:} Especificar o número do AS local, o router ID, e os vizinhos eBGP.
+  \item \textbf{Configurar o vizinho eBGP} com as seguintes instruções:
+  \begin{itemize}
+    \item Adicionar o endereço IP do vizinho e o AS remoto.
+    \item Habilitar a reconfiguração suave para permitir alterações sem reiniciar a sessão.
+  \end{itemize}
 \end{enumerate} \par
+
+\pagebreak
+\textbf{Exemplo de configuração para R1 (AS 1273):} \par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{imagens/Tarefa2/1.png}
+  \caption{Configuração eBGP em R1}
+  \label{fig:eBGP_R1}
+\end{figure}
+\vspace{0.2cm}
+
+\textbf{Considerações importantes:}
+\begin{itemize}
+  \item \textbf{soft-reconfiguration inbound}: Permite visualizar os prefixos enviados pelos vizinhos e aplicar políticas sem interrupções.
+  \item \textbf{bgp log-neighbor-changes}: Regista alterações no estado da sessão BGP.
+\end{itemize}
+
+\pagebreak
+A tabela abaixo apresenta os vizinhos existentes, para cada dispositivo da rede.
+\vspace{0.2cm}
+
+\begin{table}[!ht]
+  \centering
+  \caption{BGP - Vizinhos}
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+      \textbf{ Router} & \textbf{ Vizinho(s)} & \textbf{ Endereço do Vizinho} & \textbf{ AS} \\ \hline
+      R1 & R8 & 47.73.240.2 (g4/0) & 17390 \\ \hline
+      R2 & - & - & - \\ \hline
+      R3 & R7 & 47.73.240.6 (g4/0) & 17390 \\ \hline
+      R4 & - & - & - \\ \hline
+      R5 & R14 & 63.112.0.1 (g1/0) & 701 \\ \hline
+      R6 & R12 & 47.73.240.18 (g5/0) & 5511 \\
+      ~ & R15 & 47.73.240.14 (g1/0) & 4637 \\
+      ~ & R16 & 47.73.240.22 (g2/0) & 20717 \\ \hline
+      R7 & R3 & 47.73.240.5 (g4/0) & 1273 \\
+      ~ & R9 & 129.41.46.10  (f0/0) & 64513 \\
+      ~ & R14 & 63.112.0.5 (g5/0) & 701 \\ \hline
+      R8 & R1 & 47.73.240.1 (g4/0) & 1273 \\
+      ~ & R9 & 129.41.46.6 (f1/0) & 64513 \\ \hline
+      R9 & R7 & 129.41.46.9 (f0/0) & 17390 \\
+      ~ & R8 & 129.41.46.5 (f0/0) & 17390 \\ \hline
+      R10 & R15 & 210.176.129.1 (g2/0) & 4637 \\
+      ~ & R16 & 45.88.20.2 (g4/0) & 20717 \\ \hline
+      R11 & R13 & 45.88.20.6 (f0/0) & 23344 \\ \hline
+      R12 & R6 & 47.73.240.17 (f0/0) & 1273 \\ \hline
+      R13 & R11 & 45.88.20.5 (f0/0) & 5511 \\ \hline
+      R14 & R5 & 63.112.0.2 (g1/0) & 1273 \\
+      ~ & R7 & 63.112.0.6 (g5/0) & 17390 \\
+      ~ & R15 & 63.112.0.10 (g3/0) & 4637 \\ \hline
+      R15 & R6 & 47.73.240.13 (g1/0) & 1273 \\
+      ~ & R10 & 210.176.129.2 (g2/0) & 5511 \\
+      ~ & R14 & 63.112.0.9 (g3/0) & 701 \\
+      ~ & BadGuy & 210.176.129.6 (g4/0) & 1 \\ \hline
+      R16 & R6 & 47.73.240.21 (g2/0) & 1273 \\
+      ~ & R10 & 45.88.20.1 (g4/0) & 5511 \\ \hline
+  \end{tabular}
+\end{table}
+
+\pagebreak
+\subsubsection{Anúncio de Prefixos Públicos} \par
+\vspace{0.2cm}
+Para que o BGP anuncie prefixos, eles precisam estar na tabela de roteamento.
+\par \vspace{0.4cm}
+
+\hspace{0.8cm} \textbf{1. Adicionar rotas estáticas para os prefixos que serão anunciados } \par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa2/2.png}
+  \caption{Anúncio de Rotas para o Vizinho}
+  \label{fig:anuncioRotas}
+\end{figure} \vspace{0.2cm}
+
+\hspace{0.8cm} \textbf{2. Anunciar as sub-redes} \par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa2/3.png}
+  \caption{Anunciar os Prefixos via BGP}
+  \label{fig:anunciarPrefixos}
+\end{figure}
+\vspace{0.4cm}
+
+\textbf{Considerações importantes:}
+\begin{itemize}
+  \item O prefixo anunciado deve corresponder exatamente à rota presente na tabela de roteamento.
+  \item Rotas apontando para \textbf{Null0} garantem que o BGP anuncie os prefixos sem a necessidade de uma rota física.
+\end{itemize}
 
 
 \pagebreak
-\textbf{Sessões eBGP Identificadas na Topologia} \par
+\subsection{Configuração de Sessões iBGP no AS1273}
+Para melhorar a escalabilidade e simplificar a configuração, é utilizado o conceito de \textbf{grupos de vizinhos iBGP (peer-groups)} e os routers R3 e R4 são configurados como \textit{route reflectors}. Desta forma evita-se a necessidade de uma topologia full mesh no AS1273, onde cada router teria que estabelecer uma sessão com todos os outros. \par \vspace{0.4cm}
+
+\subsubsection{Configuração de Grupos de Vizinhos iBGP}
+Um peer-group é usado para agrupar configurações comuns entre vizinhos iBGP. No exemplo abaixo, o grupo iBGP é configurado para reduzir redundâncias: \par
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa2/4.png}
+  \caption{Configuração de Grupos de Vizinhos iBGP}
+  \label{fig:configGrupos}
+\end{figure}
+
+\begin{itemize}
+  \item \textbf{peer-group:} Define um modelo comum para múltiplos vizinhos.
+  \item \textbf{remote-as:} Especifica o número do AS interno (1273).
+  \item \textbf{update-source Loopback0:} Utiliza o endereço da interface Loopback0 para as sessões iBGP.
+  \item \textbf{next-hop-self:} Assegura que o próximo salto para anúncios internos seja o próprio router.
+  \item \textbf{soft-reconfiguration inbound:} Permite a aplicação de políticas sem reiniciar a sessão.
+  \item As últimas duas linhas servem para atribuir os routers vizinhos ao grupo iBGP.
+\end{itemize}
+
+\pagebreak
+\subsubsection{Configuração de Route Reflectors}
 \vspace{0.2cm}
-De acordo com a rede, são necessárias as seguintes conexões eBGP: \vspace{0.2cm}
+
+\textbf{1. Criação de Grupos de Vizinhos Específicos para Route Reflectors} \par
+Nos routers R3 e R4, os vizinhos do AS1273 são configurados como route reflector clients. Um grupo específico chamado \textbf{iBGP\_RR} é criado para esses vizinho:. \par
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa2/5.a.png}
+  \caption{Configuração de Route Reflectors}
+  \label{fig:configRR}
+\end{figure}
+\begin{itemize}
+  \item \textbf{route-reflector-client:} Define os vizinhos como clientes do route reflector.
+  \item \textbf{Configurações comuns:} As demais configurações são similares ao grupo iBGP.
+\end{itemize}
+\vspace{0.4cm}
+
+\textbf{2. Atribuição dos Vizinhos ao Grupo de Route Reflectors} \par
+Cada router cliente do route reflector é associado ao grupo correspondente:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa2/5.b.png}
+  \caption{Atribuição dos Vizinhos ao Grupo de Route Reflectors}
+  \label{fig:configRRVizinhos}
+\end{figure}
+\vspace{0.4cm}
+
+\textbf{Considerações importantes:}
+\begin{itemize}
+  \item A utilização de peer-groups reduz a redundância e o risco de erros em configurações extensas.
+  \item Configurar os routers como route reflectors melhora a escalabilidade, eliminando a necessidade de uma topologia full mesh.
+  \item A interface Loopback0 é utilizada como fonte das sessões iBGP para garantir estabilidade, mesmo em casos de falha nas interfaces físicas.
+\end{itemize}
+
+
+\pagebreak
+\subsection{Verificações e Testes}
+\vspace{0.2cm}
+Após a configuração, são feitas verificações para garantir a funcionalidade correta.
+\vspace{0.4cm}
+
+\textbf{1. Verificação do Estado das Sessões BGP} \par
+O comando \textbf{show ip bgp summary} é utilizado para verificar o estado das sessões BGP. \par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa2/6.bgp_R1.png}
+  \caption{Verificação do Estado das Sessões BGP}
+  \label{fig:tarefa2_teste1}
+\end{figure}
+
+O resultado mostra que o BGP no R1 está configurado corretamente com três vizinhos: dois iBGP (10.3.3.3 e 10.4.4.4) no AS 1273 e um eBGP (47.73.240.2) no AS 17390. Todas as sessões estão no estado Up e têm tempos de conexão estáveis (mais de 14 minutos). Não há filas de entrada ou saída, indicando que a comunicação entre os peers está funcional. Os prefixos recebidos (52 de iBGP e 9 de eBGP) confirmam que a troca de rotas ocorre conforme esperado.
+
+
+\pagebreak
+\textbf{2. Verificar prefixos recebidos e enviados de ou para um determinado vizinho} \par
+O comando \textbf{show ip bgp neighbors <IP\_vizinho> received-routes} é utilizado para verificar os prefixos recebidos de um vizinho. Por outro lado, o comando \textbf{show ip bgp neighbors <IP\_vizinho> advertised-routes} é utilizado para verificar os prefixos enviados para um vizinho específico. \par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{imagens/Tarefa2/6.bgp_R3.png}
+  \caption{Verificação de Prefixos Recebidos e Enviados}
+  \label{fig:tarefa2_teste2}
+\end{figure}
+
+No teste com o vizinho 10.6.6.6, o R3 confirma a recepção de rotas, como 45.87.162.0/24, 45.88.20.0/24 e 47.73.239.0/24, com métricas uniformes. As mesmas rotas são anunciadas para o vizinho, garantindo propagação correta. O AS path está consistente, refletindo a propagação através do AS 5511. O teste comprova que R3 está trocando rotas corretamente com o vizinho especificado, tanto recebendo quanto anunciando prefixos.
+
+
+\pagebreak
+\textbf{3. Verificar prefixos na tabela Loc-RIB BGP} \par
+Após a configuração dos vizinhos e propagação dos prefixos, é essencial verificar os prefixos instalados na tabela Loc-RIB (tabela de roteamento local gerada pelo BGP). Isso assegura que os prefixos estão sendo corretamente recebidos, processados e propagados pelos routers conforme esperado. Para tal é usado o comando \textbf{show ip bgp}. \par
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{imagens/Tarefa2/6.bgp_R9.png}
+  \caption{Verificação de Prefixos na Tabela Loc-RIB BGP}
+  \label{fig:tarefa2_teste3}
+\end{figure}
+
+A tabela BGP no R9 contém múltiplos prefixos válidos, como 45.87.162.0/24, 45.88.20.0/24 e 45.89.36.0/24, com "Next Hop" alternando entre 129.41.46.5 e 129.41.46.9. As rotas preferenciais estão marcadas com > e exibem um caminho AS consistente (17390 → 1273 → 5511), demonstrando convergência de rotas. A tabela mostra que R9 está instalando corretamente as rotas recebidas na Loc-RIB, garantindo conectividade interna e externa.
+
+
+\pagebreak
+\textbf{4. Teste Final com TCLSH para Verificação de Conectividade} \par 
+\vspace{0.2cm}
+
+Após a configuração das sessões BGP e o anúncio de prefixos, é necessário validar a conectividade entre os routers e os servidores. Para isso, utilizamos a TCLSH (Tool Command Language Shell), que permite executar múltiplos comandos de forma eficiente. \par \vspace{0.8cm}
+
+\textbf{Objetivo do teste}
+\begin{itemize}
+  \item Garantir que todos os endereços públicos (Loopback1) dos routers e servidores estejam acessíveis.
+  \item Validar a propagação dos prefixos BGP na tabela de roteamento global.
+\end{itemize}
+
+O script utilizado verifica a conectividade com todos os endereços públicos listados. Este utiliza o comando \textbf{ping} a partir da interface Loopback1 (\textbf{source lo1}). \par \vspace{0.8cm}
+
+\textbf{Execução do script} \par 
+Para executar o script, acede-se ao ambiente TCL do router R9, escrevendo \textbf{tclsh} no terminal. Em seguida, copia-se o script TCL e executa-se. Analisam-se em seguida os resultados obtidos (a saída de cada ping indicará se o destino é acessível). \par \vspace{0.8cm}
+
+\textbf{Interpretação dos Resultados}
+\begin{itemize}
+  \item \textbf{Resposta Sucesso (!):} Indica que o destino é alcançável.
+  \item \textbf{Resposta Falhada (\textbackslash. ou \%):} Indica problemas de conectividade que podem ser causados por:
+  \begin{itemize}
+    \item Prefixos ausentes na tabela de roteamento.
+    \item Problemas de configuração no BGP (ex.: vizinhos ou anúncios).
+  \end{itemize}
+\end{itemize} \par \vspace{0.8cm}
+
+De seguida, são apresentadas as imagens com os resultados obtidos após a execução do script TCLSH. \par
+
+\pagebreak
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=0.94\linewidth]{imagens/Tarefa2/7.tcl_R9_1.png}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{imagens/Tarefa2/7.tcl_R9_2.png}
+  \end{subfigure}
+  \caption{Teste de Conectividade com TCLSH}
+  \label{fig:tarefa2_teste_tclsh}
+\end{figure}
+\vspace{0.2cm}
+
+\textbf{Resultados dos Testes}
+Os testes realizados com o script TCLSH confirmaram o sucesso da configuração do BGP. Todos os endereços públicos listados no script foram acessíveis a partir da interface Loopback1 do router R9. Isso demonstra que:
+\begin{enumerate}
+  \item \textbf{Propagação Correta dos Prefixos:} \par
+  Os prefixos anunciados pelos routers foram devidamente distribuídos e processados pela tabela de roteamento BGP.
+  Os caminhos configurados entre os diferentes ASs funcionaram conforme o planejado, respeitando as sessões eBGP e iBGP estabelecidas.
+  \item \textbf{Conectividade Total:} \par
+  Todos os routers e servidores puderam ser alcançados utilizando os endereços Loopback1, garantindo que a infraestrutura BGP está funcional.
+  Os caminhos de roteamento foram devidamente otimizados, seguindo as configurações de próximo salto (next-hop) e route reflectors.
+\end{enumerate}
+
+
+
+
+\pagebreak
+\subsection{REVIEW QUESTIONS}
+\vspace{0.2cm}
+
+\begin{enumerate}
+  \item \textbf{You applied the configuration next-hop-self on the iBGP peering explain why} 
+  \vspace{0.2cm}
+
+  A configuração \textbf{next-hop-self} é utilizada em sessões iBGP para garantir que os next-hops das rotas aprendidas entre vizinhos iBGP sejam sempre alcançáveis dentro do mesmo AS (Sistema Autónomo). Quando um router iBGP anuncia uma rota a um vizinho iBGP, ele substitui o próximo salto original pelo seu próprio endereço IP, geralmente associado à sua interface Loopback.
+
+  Sem esta configuração, o próximo salto de uma rota seria o endereço IP do router que originalmente anunciou a rota (por exemplo, um router externo via eBGP), o que pode causar problemas de encaminhamento se este endereço não for alcançável dentro do AS. Com o \textbf{next-hop-self}, o router iBGP redefine o próximo salto para o seu próprio endereço IP, simplificando o encaminhamento interno e garantindo que os vizinhos iBGP consigam sempre encaminhar corretamente o tráfego para o próximo salto.
+  \vspace{0.2cm}
+
+  \item \textbf{How are the route prefixes propagated inside the AS when you have the route reflectors configured?} 
+  \vspace{0.2cm}
+
+  Com a configuração de route reflectors (RR), a propagação de prefixos dentro de um AS torna-se mais eficiente, eliminando a necessidade de uma malha total (full mesh) de sessões iBGP. Os routers iBGP são divididos em dois grupos: route reflectors (RRs) e route reflector clients (RRCs).
+
+  Os clientes (RRCs) anunciam os seus prefixos aos route reflectors, que têm a responsabilidade de refletir essas rotas para os restantes clientes e também para outros route reflectors, caso existam. Isto assegura que todos os routers iBGP dentro do AS recebam as rotas, mesmo que não estejam diretamente ligados entre si.
+  
+  Desta forma, o uso de RRs reduz significativamente o número de sessões iBGP necessárias, melhorando a escalabilidade da rede e simplificando a configuração.
+  \vspace{0.2cm}
+
+  \item \textbf{How is the BGP next hop reachability solved inside an AS?} 
+  \vspace{0.2cm}
+
+  A alcançabilidade do next-hop em BGP dentro de um AS é resolvida através das rotas presentes na tabela de encaminhamento do IGP (como OSPF ou IS-IS). O IGP é responsável por anunciar as interfaces utilizadas como next-hop, geralmente os endereços IP das interfaces Loopback dos routers, para garantir que todos os routers dentro do AS possam alcançar esses endereços.
+
+  Adicionalmente, em sessões iBGP, a configuração do comando next-hop-self pode ser utilizada para simplificar o encaminhamento. Com este comando, o router que anuncia uma rota a um vizinho iBGP substitui o next-hop original pelo seu próprio endereço IP (normalmente o da sua Loopback). Isto assegura que o próximo salto é sempre acessível dentro do AS, mesmo que o próximo salto original (por exemplo, de um router externo) não seja diretamente alcançável.
+
+  Desta forma, a combinação de IGP e next-hop-self garante conectividade e simplifica a propagação de rotas dentro do AS.
+  \vspace{0.2cm}
+
+  \item \textbf{What is the behaviour from BGP when the prefix next-hop is not reachable} 
+  \vspace{0.2cm}
+
+  Quando o next-hop de um prefixo BGP não é alcançável, a rota é considerada inválida e não é instalada na tabela de encaminhamento BGP (Loc-RIB). Para que uma rota seja válida, o BGP exige que o next-hop esteja presente na tabela de roteamento subjacente, seja ela fornecida por um protocolo IGP (como OSPF ou IS-IS) ou por uma rota estática.
+
+  Se o next-hop não for resolvido, o BGP não pode encaminhar o tráfego para esse destino, pois depende da conectividade IP subjacente para alcançar os next-hops anunciados. Como consequência, o prefixo é descartado e não é propagado nem utilizado no encaminhamento. Este comportamento garante que apenas rotas funcionalmente alcançáveis sejam consideradas para o tráfego na rede.
+
+  \vspace{0.2cm}
+
+  \item \textbf{Why is a good practice the loopback IP address utilization in the iBGP sessions?} 
+  \vspace{0.2cm}
+
+  A utilização de endereços IP Loopback em sessões iBGP é considerada uma boa prática devido às seguintes principais razões:
+
+  \begin{itemize}
+    \item \textbf{Alta Disponibilidade}: As interfaces Loopback são virtuais e não dependem de hardware físico específico, o que significa que permanecem ativas desde que o router esteja funcional. Isto evita que uma falha numa interface física afete a sessão BGP.
+    \item \textbf{Conectividade Redundante}: Como os endereços de Loopback são anunciados no IGP (como OSPF ou IS-IS), podem ser alcançados através de múltiplos caminhos. Isto garante maior resiliência e permite que a conectividade entre os routers seja mantida mesmo em caso de falha de um enlace físico.
+    \item \textbf{Estabilidade}: Os endereços de Loopback são estáticos e independentes de interfaces físicas, simplificando a configuração e reduzindo a probabilidade de alterações inesperadas devido a alterações de topologia.
+    \item \textbf{Escalabilidade}: Permite estabelecer sessões iBGP entre routers em diferentes localizações sem depender de interfaces físicas diretas, o que facilita a expansão da rede.
+    \item \textbf{Simplificação do Encaminhamento}: A utilização de endereços Loopback evita a necessidade de lidar com alterações dinâmicas em endereços IP associados a interfaces físicas, simplificando a configuração de políticas e tabelas de encaminhamento.
+    \item \textbf{Compatibilidade com Redundância e Balanceamento de Carga}: Com múltiplos caminhos redundantes para as Loopbacks, a rede pode implementar balanceamento de carga, distribuindo o tráfego de forma mais eficiente.
+  \end{itemize}
+  \vspace{0.2cm}
+
+  Em resumo, o uso de endereços Loopback oferece maior robustez, redundância e simplicidade na configuração e operação de redes BGP.
+  \vspace{0.2cm}
+
+  \item \textbf{Observe in the Wireshark and add to the report a trace from a BGP session establishment and described 
+  the packets and respective relation with the following stats.} 
+  \vspace{0.2cm}
+
+  No protocolo BGP, a máquina de estados segue a seguinte sequência durante o estabelecimento de uma sessão:
+
+  \begin{enumerate}
+    \item \textbf{Idle}: 
+    \begin{itemize}
+      \item É o estado inicial. O router aguarda a configuração da sessão BGP.
+      \item Neste estado, o BGP realiza verificações básicas, como validação do vizinho e recursos disponíveis.
+      \item Se estiver tudo em ordem, tenta avançar para o próximo estado.
+    \end{itemize}
+    \item \textbf{Connect}: 
+    \begin{itemize}
+      \item O router tenta estabelecer uma conexão TCP com o vizinho BGP na porta 179.
+      \item Se a conexão for bem-sucedida, avança para o estado OpenSent. Caso contrário, transita para o estado Active.
+    \end{itemize}
+    \item \textbf{Active}: 
+    \begin{itemize}
+      \item O router continua à espera de uma conexão TCP do vizinho BGP.
+      \item Se a conexão for estabelecida, o estado muda para OpenSent. Caso contrário, pode retornar ao estado Connect ou permanecer no estado Active, dependendo do temporizador.
+    \end{itemize}
+    \item \textbf{OpenSent}:
+    \begin{itemize}
+      \item O router envia uma mensagem OPEN ao vizinho para iniciar a sessão BGP.
+      \item Aguarda a mensagem OPEN de resposta do vizinho.
+      \item Se a mensagem for válida, transita para o estado OpenConfirm.
+    \end{itemize}
+    \item \textbf{OpenConfirm}: 
+    \begin{itemize}
+      \item O router recebeu a mensagem OPEN do vizinho e aguarda uma mensagem de confirmação KEEPALIVE.
+      \item Se a mensagem KEEPALIVE for recebida corretamente, o estado muda para Established.
+      \item Caso haja um erro (por exemplo, parâmetros incompatíveis), o estado pode voltar para Idle.
+    \end{itemize}
+    \item \textbf{Established}:
+    \begin{itemize}
+      \item A sessão BGP está ativa e os dois routers iniciam a troca de mensagens UPDATE para partilhar informações de rota.
+      \item Enquanto a sessão estiver no estado Established, o BGP mantém a conexão viva através de mensagens KEEPALIVE.
+    \end{itemize}
+  \end{enumerate}
+
+  \vspace{0.2cm}
+  Durante o estabelecimento de uma sessão BGP, os pacotes trocados podem ser identificados pelas seguintes etapas:
+
+  \begin{enumerate}
+    \item \textbf{TCP 3-Way Handshake}:
+    \begin{itemize}
+      \item Antes de o BGP iniciar, é necessário estabelecer uma conexão TCP entre os vizinhos BGP na porta 179.
+      \item Esta conexão é feita através da troca dos seguintes pacotes:
+      \begin{itemize}
+        \item \textbf{SYN}: O router inicia a solicitação de conexão TCP.
+        \item \textbf{SYN-ACK}: O vizinho confirma a solicitação de conexão.
+        \item \textbf{ACK}: O router finaliza o handshake, estabelecendo a conexão TCP.
+      \end{itemize}
+    \end{itemize}
+    \item \textbf{BGP OPEN Message}:
+    \begin{itemize}
+      \item Após o TCP handshake, os routers trocam mensagens OPEN para iniciar a sessão BGP.
+      \item EEstas mensagens contêm parâmetros essenciais, como a versão do BGP, o número do sistema autónomo (AS), o identificador BGP e as opções de capacidades, como suporte para extensões.
+    \end{itemize}
+    \item \textbf{BGP KEEPALIVE Messages}:
+    \begin{itemize}
+      \item Após o envio da mensagem OPEN, os routers trocam mensagens KEEPALIVE para confirmar que a sessão foi estabelecida corretamente.
+      \item EEstas mensagens são enviadas periodicamente para manter a sessão ativa e confirmar a conectividade entre os vizinhos.
+    \end{itemize}
+    \item \textbf{BGP UPDATE Messages}:
+    \begin{itemize}
+      \item Com a sessão estabelecida, os routers começam a enviar mensagens UPDATE.
+      \item Estas mensagens são utilizadas para anunciar ou retirar prefixos de rotas, partilhando informações de encaminhamento.
+    \end{itemize}
+  \end{enumerate}
+  \vspace{0.2cm}
+
+  Tal como se pode observar na figura \ref{fig:wireshark}, o estabelecimento de uma sessão BGP envolve a troca de mensagens OPEN, KEEPALIVE e UPDATE, conforme descrito acima.
+  \vspace{0.2cm}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.80\textwidth]{imagens/Tarefa2/8.wiresharkR16_R10.png}
+    \caption{Estabelecimento de uma sessão BGP no Wireshark}
+    \label{fig:wireshark}
+  \end{figure}
+
+\end{enumerate}
+\pagebreak
+
+
+
 
 
 \section{Tarefa 3 -- SCALABILITY AND ROUTING SIMPLIFICATION}
@@ -818,6 +1217,7 @@ Este capítulo demonstra como operadores de rede podem moldar o comportamento do
 \vspace{0.2cm}
 
 
+\pagebreak
 \section{Tarefa 5 -- Security Practices}
 \vspace{0.2cm}
 
