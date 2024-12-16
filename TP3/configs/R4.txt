@@ -35,6 +35,7 @@ network 47.73.239.44 0.0.0.0 area 0
 network 10.3.4.0 0.0.0.3 area 0 
 network 10.2.4.0 0.0.0.3 area 0  
 network 10.4.6.0 0.0.0.3 area 0 
+redistribute connected
 end
 wr
 
